@@ -1,0 +1,32 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-295bb326.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/ts/dashboardmaps.js": {
+    "file": "assets/dashboardmaps-ba29f451.js",
+    "src": "resources/js/ts/dashboardmaps.js",
+    "isEntry": true
+  },
+  "resources/js/pages/geo.js": {
+    "file": "assets/geo-80d54461.js",
+    "src": "resources/js/pages/geo.js",
+    "isEntry": true
+  },
+  "resources/js/pages/device.js": {
+    "file": "assets/device-14fb1125.js",
+    "src": "resources/js/pages/device.js",
+    "isEntry": true
+  },
+  "resources/js/sio/socket.io.min.js": {
+    "file": "assets/socket.io.min-f22e098d.js",
+    "src": "resources/js/sio/socket.io.min.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-417a4970.js",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
