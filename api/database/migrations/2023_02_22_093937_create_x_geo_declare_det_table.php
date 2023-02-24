@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('x_geo_declare_det', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->bigInteger('x_geo_declare_id');
+            $table->uuid('x_geo_declare_id');
             $table->float('fflat');
             $table->float('fflon');
             $table->integer("fnindex");

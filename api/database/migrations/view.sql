@@ -18,3 +18,12 @@ FROM x_devices dv LEFT JOIN LATERAL
 (
     select id as logs_id,ftdevice_id, created_at, ffbattery,fnsattelite,fnsignal from debuging_routes where fttype = '0F' and ftdevice_id = dv.ftdevice_id order by created_at desc limit 1
 ) dr ON 1=1;
+
+-- 
+
+CREATE OR REPLACE VIEW public.v_geo_declare_adv
+ AS
+select
+	xgdd.id,xgdd.fnchkpoint,xgdd.fnindex, xgdd.x_geo_declare_id,xgdd.fflat,xgdd.fflon
+from x_geo_declare_det xgdd join x_geo_declare xgd 
+	on (xgdd.x_geo_declare_id = xgd.id )

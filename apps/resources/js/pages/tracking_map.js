@@ -7,26 +7,13 @@ var device_id,_dtfrom,_dtto,
 map = L.map('trackingmap', {
     minZoom: 5,
     fullscreenControl: true,
+    attributionControl: false,
 }).setView([
     0.33995192349439596, 120.3733680354565
 ], 5), markers = {}, myFGMarker = new L.FeatureGroup(),_lines = [], polylines;
 
 var _tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
 _tileLayer.addTo(map);
-
-var _isLatLng = [
-    { lat: -6.201655766896261, lng: 106.6654244273562 },
-    { lat: -6.168515731071985, lng: 106.82049262267968 },
-    { lat: -6.171235758440484, lng: 106.82248281407831},
-    { lat: -6.171514825537222, lng: 106.82467732891283},
-    { lat: -6.171489455807232, lng: 106.82661666760377},
-    { lat: -6.171489455807232, lng: 106.8279691011646},
-    { lat: -6.17171778333345, lng: 106.82921946426798},
-    { lat: -6.174609923481205, lng: 106.8300615455417},
-    { lat: -6.177933328183428, lng: 106.83016361599911},
-    { lat: -6.178948104087213, lng: 106.83166915524605},
-];
-    
 
 function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp = null) {
     var mkr;
@@ -50,11 +37,6 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 
     mkr.addTo(map)
     return mkr;
-    // marker.on('click', function(e) {
-    //     console.log(e);
-    // });
-    // myFGMarker.addLayer(marker);
-    // myFGMarker.addTo(map);
 }
 
 
@@ -101,6 +83,7 @@ $('#formMapTrack').submit(function (e) {
     _lines = null;
     _lines = [];
     $.get(url + "/tracking/detail/js/map?did="+ device_id +"&from="+ _dtfrom +"&to=" + _dtto, function (res) {
+        console.log(res)
         // created_at
         // ffaccuracy_cep
         // ffbattery
@@ -130,7 +113,16 @@ $('#formMapTrack').submit(function (e) {
             myFGMarker.addTo(map);
             _lines.push({ lat: v.fflat, lng: v.fflon })
         });
-        map.fitBounds(myFGMarker.getBounds());
-        createPolyLine(_lines);
+        console.log(res.relay.data,res.relay.data.length)
+        if ( res.relay.data.length != 0) {
+            map.fitBounds(myFGMarker.getBounds());
+            createPolyLine(_lines);
+        }else{
+            console.log('asd')
+        }
     });
+});
+
+$('.datepicker').datetimepicker({
+    format: 'YYYY-MM-DD HH:mm:ss'
 });

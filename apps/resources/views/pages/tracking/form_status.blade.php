@@ -37,7 +37,14 @@
                     <div id="tabsContent" class="tab-content">
                         <div id="status" class="tab-pane fade active show">
                             <div class="row">
-                                a
+                                <div class="col-md-6">
+                                <div class="lt-body bg-primary-100 text-center p-20">
+
+                                </div>
+                                </div>
+                                <div class="col-md-4 lt-body bg-primary-100 text-center p-20">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>

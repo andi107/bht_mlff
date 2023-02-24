@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('fncategory');
             $table->uuid('uuid_customer_id')->nullable();
             // $table->string('ftcustomer_name',100);
-
+            $table->uuid('uuid_geo_id')->default('00000000-0000-0000-0000-000000000000');
             $table->float('fflat')->default(0);
             $table->float('fflon')->default(0);
             $table->float('ffdirect')->default(0);
@@ -37,7 +37,7 @@ return new class extends Migration
                 'ftdevice_id',
                 'ftdevice_name',
                 'ftasset_id',
-                // 'ftasset_type',
+                'uuid_geo_id',
                 'fncategory',
                 'uuid_customer_id',
                 'fflat',

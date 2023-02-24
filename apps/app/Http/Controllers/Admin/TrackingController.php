@@ -22,9 +22,15 @@ class TrackingController extends Controller
         $from = str_replace('T',' ', $request->input('from'));
         $to = str_replace('T',' ', $request->input('to'));
         $res = Hlp::apiGet('/tracking/d/map/relay?did='. $did .'&from='. $from .'&to='. $to);
-        return response()->json([
-            'relay' => $res
-        ], 200);
+        if ($res) {
+            return response()->json([
+                'relay' => $res
+            ], 200);
+        }else{
+            return response()->json([
+                'relay' => null
+            ], 200);
+        }
     }
     
     public function list() {

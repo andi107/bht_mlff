@@ -8,9 +8,12 @@ use Carbon\Carbon;
 class TrackingController extends Controller {
 
     public function list() {
-        $data = DB::table('x_devices')
-        ->orderBy('created_at','desc')
+        $data = DB::table('v_device_relay')
+        ->orWhereNotNull('logs_id')
         ->get();
+        // $data = DB::table('x_device')
+        // ->orderBy('created_at','desc')
+        // ->get();
         return response()->json([
             'data' => $data
         ], 200);
@@ -26,7 +29,7 @@ class TrackingController extends Controller {
         ->selectRaw('ffbattery,fnsattelite,fnsignal')
         ->where('ftdevice_id','=', $device_id)
         ->first();
-
+        
         return response()->json([
             'deviceRelay' => $deviceRelay,
             'deviceIgnition' => $deviceIgnition,

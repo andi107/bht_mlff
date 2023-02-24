@@ -24,6 +24,7 @@ Route::controller(TrackingController::class)->group(function () {
     Route::group([
         'prefix' => 'tracking',
     ], function() {
+        Route::get('list/js', 'device_list_js')->name('tracking_list_js');
         Route::get('detail/js/map', 'detail_js_map')->name('tracking_map_js');
         Route::get('list', 'list')->name('tracking_list');
         Route::get('detail/{deviceid}/status', 'detail_status')->name('tracking_status');
