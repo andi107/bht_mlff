@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('ftgeo_name')->unique();
             $table->string('ftaddress');
+            $table->integer('fttype');
 
             $table->integer('fnstatus');
             $table->timestamp('created_at');

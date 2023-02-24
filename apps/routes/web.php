@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 
-use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\GeoController;
 
@@ -20,11 +20,15 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('dashboard', 'index')->name('dashboard');
 });
 
-Route::controller(CustomerController::class)->group(function () {
+Route::controller(TrackingController::class)->group(function () {
     Route::group([
-        'prefix' => 'customer',
+        'prefix' => 'tracking',
     ], function() {
-        Route::get('list', 'list')->name('customer_list');
+        Route::get('detail/js/map', 'detail_js_map')->name('tracking_map_js');
+        Route::get('list', 'list')->name('tracking_list');
+        Route::get('detail/{deviceid}/status', 'detail_status')->name('tracking_status');
+        Route::get('detail/{deviceid}/map', 'detail_map')->name('tracking_map');
+        Route::get('detail/{deviceid}/geofence', 'detail_geo')->name('tracking_geo');
     });
 });
 
@@ -45,6 +49,8 @@ Route::controller(GeoController::class)->group(function () {
     Route::group([
         'prefix' => 'geo',
     ], function() {
+        Route::post('js/add','create_update')->name('geo_create_update_js');
+
         Route::get('add', 'formindex')->name('geo_create_index');
     });
 });

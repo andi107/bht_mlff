@@ -5,9 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-class DeviceController extends Controller {
+class GeoController extends Controller {
     
-    public function index() {
+    public function list() {
 
         $data = DB::table('x_geo_declare')
         ->orderBy('created_at','desc')
@@ -19,15 +19,25 @@ class DeviceController extends Controller {
     }
 
     public function create(Request $request) {
-
+        // 'geo_name' => $re->input('txtName'),
+        //     'geo_address' => $re->input('txtAddress'),
+        //     'geo_type' => $re->input('_geotype'),
+        //     'polygon_point' => $re->input('polygon_point'),
+        //     'status' => 1
         $this->validate($request, [
+            'id' => 'required',
             'geo_name' => 'required|max:100',
-            'address' => 'required|max:255',
+            'geo_address' => 'required|max:255',
+            'geo_type' => 'required|numeric',
             'status' => 'required|numeric'
         ]);
         $geo_name = $request->input('geo_name');
         $geo_address = $request->input('address');
+        $geo_type = $request->input('geo_type');
         $status = $request->input('status');
+        if ($geo_type == 1) {
+            $polygon_point = $request->input('polygon_point');
+        }
         DB::beginTransaction();
         // try {
             

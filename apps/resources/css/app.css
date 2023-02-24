@@ -1,5 +1,12 @@
 /* @import './global/bootstrap.min.css'; */
 /* import '../Leaflet.draw-0.4.14/dist/leaflet.draw'; */
 /* @import '../js/Leaflet.draw-0.4.14/dist/leaflet.draw-src.css'; */
-#dashboardmap { height: 600px; }
-#objmap { height: 500px;}
+html, body {
+    height: 100%;
+}
+#dashboardmap {
+    min-height: 720px;
+}
+#objmap,#trackingmap { 
+    height: 500px;
+}

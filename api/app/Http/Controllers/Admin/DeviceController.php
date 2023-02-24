@@ -1,190 +1,197 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-class DeviceController extends Controller {
-    
-    public function index() {
+use Auth;
 
+use Illuminate\Contracts\Auth\Guard;
+class DeviceController extends Controller {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
+    public function list() {
+        // dd(Auth::id());
         $data = DB::table('x_devices')
         ->orderBy('created_at','desc')
         ->get();
-
         return response()->json([
-            'data' => $data,
+            'data' => $data
+        ], 200);
+    }
+
+    public function detail($deviceid) {
+        $data = DB::table('x_devices')
+        ->where('ftdevice_id','=', $deviceid)
+        ->first();
+        return response()->json([
+            'data' => $data
         ], 200);
     }
 
     public function create(Request $request) {
-
+        
         $this->validate($request, [
+            'device_type' => 'required|min:1|numeric',
             'device_id' => 'required|max:100',
-            'name' => 'required|max:100',
-            'type' => 'required|numeric|min:1',
+            'device_name' => 'required|max:100',
+            'asset_id' => 'required|max:50',
+            'asset_name' => 'required|max:100',
+            // 'asset_type' => 'required|max:100',
+            // 'customer_name' => 'required|max:100',
             'description' => 'max:255',
-            'vehicle_id' => 'required|max:50',
-            'vehicle_name' => 'required|max:100',
             'status' => 'required|numeric'
         ]);
-        $device_id = $request->input('device_id');
-        $name = $request->input('name');
-        $type = $request->input('type');
+
+        $device_type = $request->input('device_type');
+        $device_id = str_replace(' ','-', $request->input('device_id'));
+        $device_name = $request->input('device_name');
+        $asset_id = $request->input('asset_id');
+        $asset_name = $request->input('asset_name');
+        // $asset_type = $request->input('asset_type');
+        // $customer_name = $request->input('customer_name');
         $description = $request->input('description');
-        $vehicle_id = $request->input('vehicle_id');
-        $vehicle_name = $request->input('vehicle_name');
         $status = $request->input('status');
         DB::beginTransaction();
-        try {
-            $dtnow = Carbon::now();
+        // try {
 
-            $chkData = DB::table('x_devices')
-            ->where('ftdevice_id','=', $device_id)
+            $exData = DB::table('x_devices')
+            ->where('ftdevice_id','=',$device_id)
             ->first();
-            $chkVehicle_id = DB::table('x_devices')
-            ->where('ftvehicle_id','=',$vehicle_id)
+            $exAssetData = DB::table('x_devices')
+            ->where('ftasset_id','=',$asset_id)
             ->first();
-            if ($chkData) {
+            // $exCustomer = DB::table('x_customer')
+            // ->where('ftcustomer_name','=', $customer_name)
+            // ->first();
+
+            if ($exData) {
                 return response()->json([
-                    'msg' => $device_id. ' already exists.',
-                ], 442);
-            }else if($chkVehicle_id) {
+                    'error' => 'The Device '.$device_id.' already exists.'
+                ], 404);
+            } else if ($exAssetData) {
                 return response()->json([
-                    'msg' => $vehicle_id. ' already exists.',
-                ], 442);
-            }
-            
+                    'error' => 'The Asset ' . $asset_id.' already exists.'
+                ], 404);
+            } 
+            // else if (!$exCustomer) {
+            //     return response()->json([
+            //         'msg' => 'Customer name not found.'
+            //     ], 404);
+            // }
+
+            $dtnow = Carbon::now();
             DB::table('x_devices')
             ->insert([
                 'ftdevice_id' => $device_id,
-                'ftname' => $name,
-                'fttype' => $type,
-                'ftdescription' => $description,
+                'ftdevice_name' => $device_name,
+                'ftasset_id' => $asset_id,
+                'ftasset_name' => $asset_name,
+                // 'ftasset_type' => $asset_type,
+                'ftasset_description' => $description,
+                'fncategory' => $device_type,
+                // 'ftcustomer_name' => $customer_name,
+                'fnstatus' => $status,
                 'created_at' => $dtnow,
-                'updated_at' => $dtnow,
-                'ftvehicle_id' => $vehicle_id,
-                'ftvehicle_name' => $vehicle_name,
-                'fnstatus' => $status
+                'updated_at' => $dtnow
             ]);
-
-            $data = DB::table('x_devices')
-            ->where('ftdevice_id','=', $device_id)
-            ->first();
-
             DB::commit();
-            return response()->json([
-                'data' => $data,
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'error' => 'Internal Server Error.',
-            ], 500)
-                ->header('X-Content-Type-Options', 'nosniff')
-                ->header('X-Frame-Options', 'DENY')
-                ->header('X-XSS-Protection', '1; mode=block')
-                ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
-        }
+            
+            return response()->json([], 200);
+        // } catch (\Throwable $th) {
+        //     DB::rollback();
+        //     return response()->json([
+        //         'error' => 'Internal Server Error.',
+        //     ], 500)
+        //         ->header('X-Content-Type-Options', 'nosniff')
+        //         ->header('X-Frame-Options', 'DENY')
+        //         ->header('X-XSS-Protection', '1; mode=block')
+        //         ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
+        // }
     }
 
     public function update(Request $request) {
-
         $this->validate($request, [
+            'device_type' => 'required|min:1|numeric',
             'device_id' => 'required|max:100',
-            'name' => 'required|max:100',
+            'device_name' => 'required|max:100',
+            'asset_id' => 'required|max:50',
+            'asset_name' => 'required|max:100',
+            // 'asset_type' => 'required|max:100',
+            // 'customer_name' => 'required|max:100',
             'description' => 'max:255',
-            'vehicle_id' => 'required|max:50',
-            'vehicle_name' => 'required|max:100',
             'status' => 'required|numeric'
         ]);
+
+        $device_type = $request->input('device_type');
         $device_id = $request->input('device_id');
-        $name = $request->input('name');
+        $device_name = $request->input('device_name');
+        $asset_id = $request->input('asset_id');
+        $asset_name = $request->input('asset_name');
+        // $asset_type = $request->input('asset_type');
+        // $customer_name = $request->input('customer_name');
         $description = $request->input('description');
-        $vehicle_id = $request->input('vehicle_id');
-        $vehicle_name = $request->input('vehicle_name');
         $status = $request->input('status');
         DB::beginTransaction();
-        try {
+        // try {
+
+            $exData = DB::table('x_devices')
+            ->where('ftdevice_id','=',$device_id)
+            ->first();
+            $exAssetData = DB::table('x_devices')
+            ->where('ftdevice_id','<>',$device_id)
+            ->where('ftasset_id','=',$asset_id)
+            ->first();
+            // $exCustomer = DB::table('x_customer')
+            // ->where('ftcustomer_name','=', $customer_name)
+            // ->first();
+
+            if (!$exData) {
+                return response()->json([
+                    'error' => $device_id.' not found.'
+                ], 404);
+            } else if ($exAssetData) {
+                return response()->json([
+                    'error' => $asset_id.' already added.'
+                ], 404);
+            }
+            // else if (!$exCustomer) {
+            //     return response()->json([
+            //         'msg' => 'Customer name not found.'
+            //     ], 404);
+            // }
+
             $dtnow = Carbon::now();
-
-            $chkData = DB::table('x_devices')
-            ->where('ftdevice_id','=', $device_id)
-            ->first();
-            $chkName = DB::table('x_devices')
-            ->where('ftdevice_id','<>', $device_id)
-            ->where('ftvehicle_id','=', $vehicle_id)
-            ->first();
-            if (!$chkData) {
-                return response()->json([
-                    'msg' => $device_id. ' not found.',
-                ], 442);
-            }else if ($chkName) {
-                return response()->json([
-                    'msg' => $name. ' already exists.',
-                ], 442);
-            }
-            
             DB::table('x_devices')
-            ->where('ftdevice_id','=', $device_id)
+            ->where('ftdevice_id','=',$device_id)
             ->update([
-                'ftname' => $name,
-                'ftdescription' => $description,
-                'updated_at' => $dtnow,
-                'ftvehicle_id' => $vehicle_id,
-                'ftvehicle_name' => $vehicle_name,
-                'fnstatus' => $status
+                'ftdevice_name' => $device_name,
+                'ftasset_id' => $asset_id,
+                'ftasset_name' => $asset_name,
+                // 'ftasset_type' => $asset_type,
+                'ftasset_description' => $description,
+                'fncategory' => $device_type,
+                // 'ftcustomer_name' => $customer_name,
+                'fnstatus' => $status,
+                'updated_at' => $dtnow
             ]);
-
-            $data = DB::table('x_devices')
-            ->where('ftdevice_id','=', $device_id)
-            ->first();
-
             DB::commit();
-            return response()->json([
-                'data' => $data,
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'error' => 'Internal Server Error.',
-            ], 500)
-                ->header('X-Content-Type-Options', 'nosniff')
-                ->header('X-Frame-Options', 'DENY')
-                ->header('X-XSS-Protection', '1; mode=block')
-                ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
-        }
-    }
-
-    public function list() {
-        $data = DB::table('x_devices')
-        ->get();
-        $geoData = DB::table('x_geo_declare')
-        ->get();
-        foreach ($geoData as $avalue) {
-            foreach ($avalue as $a_key => $a_value) {
-                if ($a_key == 'id') {
-                    $avalue->polygon = DB::table('v_geo_declare_adv')
-                    ->selectRaw('fnchkpoint,fnindex,fflat,fflon,ftstate')
-                    ->where('x_geo_declare_id','=',$a_value)
-                    ->where('fnchkpoint','=', '0')
-                    ->orderBy('fnchkpoint','asc')
-                    ->orderBy('fnindex','asc')
-                    ->get();
-                    $avalue->polygon_lts = DB::table('v_geo_declare_adv')
-                    ->selectRaw('fnchkpoint,fnindex,fflat,fflon,ftstate')
-                    ->where('x_geo_declare_id','=',$a_value)
-                    ->where('fnchkpoint','=', '0')
-                    ->orderBy('fnchkpoint','asc')
-                    ->orderBy('fnindex','asc')
-                    ->first();
-                }
-            }
-        }
-
-        return response()->json([
-            'geodata' => $geoData,
-            'data' => $data,
-        ], 200);
+            
+            return response()->json([], 200);
+        // } catch (\Throwable $th) {
+        //     DB::rollback();
+        //     return response()->json([
+        //         'error' => 'Internal Server Error.',
+        //     ], 500)
+        //         ->header('X-Content-Type-Options', 'nosniff')
+        //         ->header('X-Frame-Options', 'DENY')
+        //         ->header('X-XSS-Protection', '1; mode=block')
+        //         ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
+        // }
     }
 
 }

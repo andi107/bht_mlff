@@ -12,13 +12,7 @@
     @endpush
 
     <div class="page-header page-header-bordered">
-        <h1 class="page-title">Device Listed</h1>
-        <div class="page-header-actions">
-            <a href="{{ route('device_create_index') }}" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
-                <span class="text hidden-sm-down">Add New</span>
-                <i class="icon md-chevron-right" aria-hidden="true"></i>
-            </a>
-        </div>
+        <h1 class="page-title">Vehicle Tracking</h1>
     </div>
     <div class="page-content">
         <!-- Panel Basic -->
@@ -35,6 +29,8 @@
                             <th>Device Name</th>
                             <th>Vehicle ID</th>
                             <th>Vehicle Name</th>
+                            <th>Last Location</th>
+                            <th>Last Update</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,6 +40,8 @@
                             <th>Device Name</th>
                             <th>Vehicle ID</th>
                             <th>Vehicle Name</th>
+                            <th>Last Location</th>
+                            <th>Last Update</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -67,7 +65,7 @@
               {
                 // <button class="btn btn-info waves-effect waves-classic" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover" data-toggle="popover" data-original-title="Hover to trigger" tabindex="0" title="" type="button">Hover to trigger</button>
                 targets: -1, 
-                "defaultContent": '<button class="btnedit btn btn-pure btn-primary icon md-edit waves-effect waves-classic"></button><button class="btndel btn btn-pure btn-danger icon icon md-delete waves-effect waves-classic"></button>'
+                "defaultContent": '<button class="btnview btn btn-pure btn-primary">View</button>'
               },
             ], fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 // if (aData[0] == "Done") {
@@ -76,23 +74,17 @@
             },
 
         });
-        $('#tbldevices tbody').on( 'click', 'button.btnedit', function () {
+        $('#tbldevices tbody').on( 'click', 'button.btnview', function () {
             var data = tbldevices.row($(this).parents('tr')).data(), sURL;
             console.log(data)
-            sURL = `{{ route('device_detail', ':id') }}`;
+            sURL = `{{ route('tracking_status', ':id') }}`;
             window.location.href = sURL.replace(":id", data[0]);
-        });
-        $('#tbldevices tbody').on( 'click', 'button.btndel', function () {
-            var data = tbldevices.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
-            sURL = `{{ route('device_detail', ':id') }}`;
-            // window.location.href = sURL.replace(":id", data[0]);
         });
         
         $.get("{{ route('device_list_js') }}", function(res) {
             $.each(res.data, function(k, v) {
                 tbldevices.row.add([
-                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name
+                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,'n/a','dd Month yyyy - hh:i'
                 ]).draw(true);
             });
         });

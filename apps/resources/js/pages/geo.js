@@ -1,12 +1,4 @@
-var customerData = [
-    {id:0,text:'enhancement'},
-    {id:1,text:'bug'},
-    {id:2,text:'duplicate'},
-    {id:3,text:'invalid'},
-    {id:4,text:'wontfix'}
-];
-
-$("#selCustomer").select2({ data: customerData });
+const url = location.protocol + '//' + window.location.host;
 
 var layerTmp = null, geoTmp = [], osmUrl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     osm = L.tileLayer(osmUrl, { minZoom: 5 }),
@@ -14,8 +6,8 @@ var layerTmp = null, geoTmp = [], osmUrl = 'https://{s}.tile.openstreetmap.fr/ho
         center: new L.LatLng(0.339951, 120.373368),
         zoom: 5, attributionControl: false,
         fullscreenControl: true,
-    }),
-    drawnItems = L.featureGroup().addTo(map);
+    }),drawnItems = L.featureGroup().addTo(map), _resPolygon = {};
+
 L.control.layers({
     'osm': osm.addTo(map),
     "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
@@ -31,7 +23,7 @@ L.control.layers({
 // self.Circle = null;
 // console.log(self)
 // Add Draw
-
+self.resPolygon = {};
 self.drawControlFull = new L.Control.Draw({
     edit: {
         featureGroup: drawnItems,
@@ -47,10 +39,11 @@ self.drawControlFull = new L.Control.Draw({
         polyline: false,
         rectangle: false,
         marker: false,
-        circle: {
-            allowIntersection: false,
-            showArea: true
-        },
+        circle: false,
+        // circle: {
+        //     allowIntersection: false,
+        //     showArea: true
+        // },
         circlemarker: false
     }
 });
@@ -87,14 +80,15 @@ map.on(L.Draw.Event.CREATED, function (event) {
         }
         self.Polygon = layer;
         self.Polygon.setStyle({
-            color: '#FFB84C',
-            fillColor: '#FFB84C',
+            color: '#D61355',
+            fillColor: '#D61355',
             fillOpacity : 0.1
         });
         // console.log('latlng',layer.options.color);
         
     }else {
-        alert('Please make 1 Geofencing!')
+        // alert('Please make 1 Geofencing!')
+        swal('Please make 1 Geofencing!', '', 'Warning');
         return null;
     }
     
@@ -115,7 +109,8 @@ map.on(L.Draw.Event.EDITED, function (event) {
             console.log('polygon')
             geoTmp = layer._latlngs[0];
             if (geoTmp.length < 4) {
-                alert('Minimum 4 points required!');
+                // alert('Minimum 4 points required!');
+                toastr.error("Minimum 4 points required!", 'Warning');
                 // self.Polygon = layerTmp;
                 self.Polygon.remove();
                 self.Polygon = null;
@@ -128,7 +123,7 @@ map.on(L.Draw.Event.EDITED, function (event) {
             // self.polygon = layer;
             // layerTmp = layer;
         }else {
-            alert('Please make 1 Geofencing!')
+            toastr.error("Please make 1 Geofencing!", 'Error');
         }
     });
 });
@@ -171,3 +166,54 @@ map.on(L.Draw.Event.DELETED, function (event) {
 // if (layer instanceof L.Polyline) {
 //     console.log('im an instance of L polyline');
 // }
+
+$('#formGeo').submit(
+    function (e) {
+        console.log($("input[name=_id]").val())
+        e.preventDefault();
+        var fd = new FormData();
+        fd.append('_token', $("input[name=_token]").val());
+        fd.append('id', $("input[name=_id]").val());
+        fd.append('txtName', $("input[name=txtName]").val());
+        fd.append('txtAddress', $("textarea[name=txtAddress]").val());
+
+        if ( typeof(self.Polygon) !== "undefined" && self.Polygon !== null ) {
+            // console.log('OK',self.Polygon, self.Polygon._latlngs)
+
+            for (const [k, v] of Object.entries(_resPolygon)) {
+                delete _resPolygon[k];
+            }
+            
+            $.each(self.Polygon._latlngs, function(i, val) {
+                $.each(val, function(ii, vv) {
+                    // console.log('ii',ii,vv.lat)
+                    _resPolygon[ii] = {lat: vv.lat, lng: vv.lng};
+                });
+            })
+            console.log(JSON.stringify(_resPolygon))
+
+            fd.append('geo_type', 1);
+            fd.append('polygon_point', JSON.stringify(_resPolygon));
+        }else{
+            toastr.error("Please make 1 Geofencing!", 'Warning');
+            return null;
+        }
+        
+        $.ajax({
+            type: 'POST'
+            , url: url + '/geo/js/add'
+            , data: fd
+            , dataType: 'json'
+            , contentType: false
+            , cache: false
+            , processData: false
+            , beforeSend: function () {
+                $('#formGeo').css("opacity", ".5");
+            }
+            , success: function (res) {
+                $('#formGeo').css("opacity", "");
+                console.log(res)
+            }
+        });
+    }
+);

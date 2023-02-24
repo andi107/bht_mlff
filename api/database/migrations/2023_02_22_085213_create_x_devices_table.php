@@ -13,42 +13,42 @@ return new class extends Migration
     {
         Schema::create('x_devices', function (Blueprint $table) {
             $table->string('ftdevice_id')->primary();
-            $table->string('ftname',100);
-            $table->string('fttype',100)->nullable();
-            $table->string('ftvehicle_id')->unique();
-            $table->string('ftvehicle_name');
-            $table->string('ftdescription',255)->nullable();
+            $table->string('ftdevice_name',100);
+
+            $table->string('ftasset_id',50);
+            $table->string('ftasset_name',100);
+            // $table->string('ftasset_type',100);
+            $table->string('ftasset_description',255)->nullable();
+
+            $table->integer('fncategory');
+            $table->uuid('uuid_customer_id')->nullable();
+            // $table->string('ftcustomer_name',100);
+
             $table->float('fflat')->default(0);
             $table->float('fflon')->default(0);
-            $table->integer('fngeo_status')->default(0);
-            $table->integer('fngeo_current_id')->default(0);
-            $table->integer('fngeo_chkpoint')->default(0);
-            
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
-
             $table->float('ffdirect')->default(0);
             $table->float('ffalt')->default(0);
             $table->boolean('fbignition')->default(0);
             $table->float("ffbattery")->default(0);
             $table->integer('fnstatus');
-
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
             $table->index([
                 'ftdevice_id',
-                'ftname',
-                'fttype',
-                'fngeo_status',
-                'fngeo_current_id',
-                'fngeo_chkpoint',
-                'created_at',
-                'updated_at',
-                'ftvehicle_id',
-                'ftvehicle_name',
+                'ftdevice_name',
+                'ftasset_id',
+                // 'ftasset_type',
+                'fncategory',
+                'uuid_customer_id',
+                'fflat',
+                'fflon',
                 'ffdirect',
                 'ffalt',
                 'fbignition',
                 'ffbattery',
-                'fnstatus'
+                'fnstatus',
+                'created_at',
+                'updated_at',
             ]);
         });
     }

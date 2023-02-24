@@ -9,6 +9,7 @@ $('#formDevice').submit(
 
 var saveDevice = function () {
     var backurl = $("input[name=_backurl]").val(),did = $("input[name=txtdevice_id]").val();
+    did = did.replace(" ","-");
     var fd = new FormData();
     fd.append('_id', $("input[name=_id]").val());
     fd.append('_token', $("input[name=_token]").val());

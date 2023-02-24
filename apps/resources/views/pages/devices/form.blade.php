@@ -32,55 +32,41 @@
                                         <label class="floating-label">Tracking Category</label>
                                     </div> --}}
                                     <select class="form-control" id="trackcategory" data-plugin="selectpicker" data-style="btn-info" name="seltrackcategory" required="">
-                                        <option value="0">Choose a Category</option>
-                                        <option value="1">Outdoor Tracking</option>
-                                        <option value="2">Vehicle Tracking</option>
-                                        <option value="3">Indoor Tracking</option>
+                                        <option value="0">Device Type</option>
+                                        <option value="1">GSM</option>
+                                        <option value="2">SIGFOX</option>
                                     </select>
                                 </div>
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
                                     <input type="text" class="form-control" name="txtdevice_id" required="" value="{{ isset($d) ? $d->ftdevice_id : '' }}">
-                                    <label class="floating-label">Device / TAG ID
+                                    <label class="floating-label">Device ID
                                         <span class="required">*</span>
                                     </label>
                                 </div>
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
                                     <input type="text" class="form-control" name="txtdevicename" required="" value="{{ isset($d) ? $d->ftdevice_name : '' }}">
-                                    <label class="floating-label">Device / TAG NAME
+                                    <label class="floating-label">Device Name
                                         <span class="required">*</span>
                                     </label>
                                 </div>
-                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtassetid" required="" value="{{ isset($d) ? $d->ftasset_id : '' }}">
-                                    <label class="floating-label">Asset ID
-                                        <span class="required">*</span>
-                                    </label>
-                                </div>
-
                             </div>
 
                             <div class="col-xl-6 form-horizontal">
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
+                                    <input type="text" class="form-control" name="txtassetid" required="" value="{{ isset($d) ? $d->ftasset_id : '' }}">
+                                    <label class="floating-label">Vehicle ID
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="form-group form-material floating" data-plugin="formMaterial">
                                     <input type="text" class="form-control" name="txtassetname" required="" value="{{ isset($d) ? $d->ftasset_name : '' }}">
-                                    <label class="floating-label">Asset Name
-                                        <span class="required">*</span>
-                                    </label>
-                                </div>
-                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtassettype" required="" value="{{ isset($d) ? $d->ftasset_type : '' }}">
-                                    <label class="floating-label">Asset Type
-                                        <span class="required">*</span>
-                                    </label>
-                                </div>
-                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtcustomername" required="" value="{{ isset($d) ? $d->ftcustomer_name : '' }}">
-                                    <label class="floating-label">Customer Name
+                                    <label class="floating-label">Vehicle Name
                                         <span class="required">*</span>
                                     </label>
                                 </div>
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
                                     <textarea class="form-control" name="txtassetdescription" rows="3">{{ isset($d) ? $d->ftasset_description : '' }}</textarea>
-                                    <label class="floating-label">Asset Description</label>
+                                    <label class="floating-label">Description</label>
                                 </div>
                             </div>
 

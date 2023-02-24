@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('ftdevice_id');
             $table->float('fflat');
             $table->float('fflon');
-            $table->bigInteger('fngeo_id')->default(0);
+            $table->uuid('fngeo_id')->nullable();
             $table->integer('fngeo_chkpoint')->default(0);
             $table->timestamp('created_at');
 
@@ -27,6 +27,9 @@ return new class extends Migration
             $table->float('ffbattery')->nullable();
             $table->integer('fnsattelite')->nullable();
             $table->float('ffaltitude')->nullable();
+            $table->boolean('fbpower')->nullable();
+            $table->integer('fnsignal')->nullable();
+
             $table->index([
                 'id',
                 'fflat',

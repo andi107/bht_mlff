@@ -8,11 +8,27 @@ $router->group([
     'prefix' => 'api',
 ], function() use($router) {
     $router->group([
-        'prefix' => 'devices',
+        'prefix' => 'device'
     ], function() use($router) {
-        $router->get('/', 'Admin\DeviceController@index');
-        $router->post('create', 'Admin\DeviceController@create');
-        $router->post('update', 'Admin\DeviceController@update');
-        $router->get('list', 'Admin\DeviceController@list');
+        $router->get('/', 'Admin\DeviceController@list');
+        $router->post('/', 'Admin\DeviceController@create');
+        $router->put('/', 'Admin\DeviceController@update');
+        $router->get('d/{deviceid}', 'Admin\DeviceController@detail');
+    });
+
+    $router->group([
+        'prefix' => 'tracking'
+    ], function() use($router) {
+        $router->get('/', 'Admin\TrackingController@list');
+        $router->get('d/{device_id}', 'Admin\TrackingController@detail');
+        $router->get('d/map/relay', 'Admin\TrackingController@tracking_map');
+    });
+
+    $router->group([
+        'prefix' => 'geo'
+    ], function() use($router) {
+        $router->get('/', 'Admin\GeoController@list');
+        $router->post('/', 'Admin\GeoController@create');
     });
 });
+

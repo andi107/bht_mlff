@@ -55,7 +55,7 @@ class DeviceController extends Controller
 
     function create($re) {
         $body = [
-            'tracking_category' => (int)$re->input('seltrackcategory'),
+            'device_type' => (int)$re->input('seltrackcategory'),
             'device_id' => $re->input('txtdevice_id'),
             'device_name' => $re->input('txtdevicename'),
             'asset_id' => $re->input('txtassetid'),
@@ -87,7 +87,7 @@ class DeviceController extends Controller
     function update($re) {
         $did = $re->input('txtdevice_id');
         $body = [
-            'tracking_category' => (int)$re->input('seltrackcategory'),
+            'device_type' => (int)$re->input('seltrackcategory'),
             'device_id' => $did,
             'device_name' => $re->input('txtdevicename'),
             'asset_id' => $re->input('txtassetid'),
