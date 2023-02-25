@@ -47,7 +47,7 @@ class TrackingController extends Controller {
         $to = $request->input('to');
 
         $routes = DB::table('debuging_routes')
-        ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery")
+        ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
         ->where('ftdevice_id','=',$did)
         ->where('fttype','=', 'R1')
         ->whereBetween('created_at', [$from, $to])

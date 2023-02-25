@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 class GeoController extends Controller {
     
     public function list() {
@@ -31,34 +32,60 @@ class GeoController extends Controller {
             'geo_type' => 'required|numeric',
             'status' => 'required|numeric'
         ]);
+        $id = $request->input('id');
         $geo_name = $request->input('geo_name');
-        $geo_address = $request->input('address');
+        $geo_address = $request->input('geo_address');
         $geo_type = $request->input('geo_type');
         $status = $request->input('status');
-        if ($geo_type == 1) {
-            $polygon_point = $request->input('polygon_point');
-        }
+        
         DB::beginTransaction();
-        // try {
-            
+        try {
+            $dtnow = Carbon::now();
+
             DB::table('x_geo_declare')
             ->insert([
-
+                'id' => $id,
+                'ftgeo_name' => $geo_name,
+                'ftaddress' => $geo_address,
+                'fntype' => $geo_type,
+                'fnstatus' => $status,
+                'created_at' => $dtnow,
+                'updated_at' => $dtnow
             ]);
 
-            DB::table('x_geo_declare_det')
-            ->insert([
-
-            ]);
-        // } catch (\Throwable $th) {
-        //     return response()->json([
-        //         'error' => 'Internal Server Error.',
-        //     ], 500)
-        //         ->header('X-Content-Type-Options', 'nosniff')
-        //         ->header('X-Frame-Options', 'DENY')
-        //         ->header('X-XSS-Protection', '1; mode=block')
-        //         ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
-        // }
+            switch ($geo_type) {
+                case '1':
+                    $polygon_point = json_decode($request->input('polygon_point'));
+                    foreach ($polygon_point as $key => $value) {
+                        DB::table('x_geo_declare_det')
+                        ->insert([
+                            'id' => Str::uuid(),
+                            'x_geo_declare_id' => $id,
+                            'fflat' => $value->lat,
+                            'fflon' => $value->lng,
+                            'fnindex' => $key,
+                            'fnchkpoint' => 0
+                        ]);
+                    }
+                    break;
+                default:
+                    DB::rollback();
+                    return response()->json([], 500);
+                    break;
+            }
+            DB::commit();
+            return response()->json([], 200);
+            
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'error' => 'Internal Server Error.',
+            ], 500)
+                ->header('X-Content-Type-Options', 'nosniff')
+                ->header('X-Frame-Options', 'DENY')
+                ->header('X-XSS-Protection', '1; mode=block')
+                ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
+        }
     }
 
 }

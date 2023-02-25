@@ -7,7 +7,7 @@ var layerTmp = null, geoTmp = [], osmUrl = 'https://{s}.tile.openstreetmap.fr/ho
         zoom: 5, attributionControl: false,
         fullscreenControl: true,
     }),drawnItems = L.featureGroup().addTo(map), _resPolygon = {};
-
+L.Control.geocoder().addTo(map);
 L.control.layers({
     'osm': osm.addTo(map),
     "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {

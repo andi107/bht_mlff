@@ -1,6 +1,48 @@
 const url = location.protocol + '//' + window.location.host;
 const iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 const shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
+
+
+var tbllogsdet = $('#tbllogsdet').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'copy',
+            // messageTop: function () {
+            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+            // }
+        },
+        {
+            extend: 'pdf',
+            // messageTop: function () {
+            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+            // }
+        },
+        {
+            extend: 'print',
+            // messageTop: function () {
+            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+            // }
+        },
+        {
+            extend: 'excel',
+            // messageTop: function () {
+            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+            // }
+        },
+    ],
+    scrollX: true,
+    order: [[0, 'asc']],
+    "columnDefs": [
+        {
+            target: 0,
+            visible: false,
+            searchable: false,
+        },
+    ],
+});
+$("#tbllogsdet").width("100%");
+
 // /tracking/detail/js/map?did=860371050882459&from=2023-02-10%2016:50:04&to=2023-02-22%2005:52:21
 // https://github.com/ewoken/Leaflet.MovingMarker
 var device_id,_dtfrom,_dtto,
@@ -15,6 +57,7 @@ map = L.map('trackingmap', {
 var _tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
 _tileLayer.addTo(map);
 
+
 function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp = null) {
     var mkr;
     if (customIcon) {
@@ -25,6 +68,11 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
     }else{
         mkr = L.marker(latLng);
     }
+    // const customOptions = {
+    //     'maxWidth': '342px', // set max-width
+    //     'width': '342px',
+    //     'className': 'customPopup' // name custom popup
+    // }
     if (customPopUp) {
         var popup = L.popup().setContent(customPopUp);
         mkr.bindPopup(popup).openPopup();
@@ -82,6 +130,7 @@ $('#formMapTrack').submit(function (e) {
     }
     _lines = null;
     _lines = [];
+    tbllogsdet.clear().draw();
     $.get(url + "/tracking/detail/js/map?did="+ device_id +"&from="+ _dtfrom +"&to=" + _dtto, function (res) {
         console.log(res)
         // created_at
@@ -107,18 +156,24 @@ $('#formMapTrack').submit(function (e) {
                     shadowAnchor: [17, 37],  // the same for the shadow
                     popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
                 })},
-                'Hello world!<br />This is a nice tooltip.',
-                `HELOWORLD IM MARKER`);
+                v.created_at,
+                contentInfoWindow(v));
             myFGMarker.addLayer(markers[v.id]);
             myFGMarker.addTo(map);
-            _lines.push({ lat: v.fflat, lng: v.fflon })
+            _lines.push({ lat: v.fflat, lng: v.fflon });
+            var _altitude = 'n/a ';
+            if (v.alt) {
+                _altitude = parseFloat(parseFloat(v.alt) / 3.2808).toFixed(2);
+            }
+            tbllogsdet.row.add([
+                v.id,v.created_at, v.fflat , v.fflon, v.ffaccuracy_cep, v.ffdirection,v.ffspeed,v.ffaltitude
+            ]).draw(true);
         });
-        console.log(res.relay.data,res.relay.data.length)
         if ( res.relay.data.length != 0) {
             map.fitBounds(myFGMarker.getBounds());
             createPolyLine(_lines);
         }else{
-            console.log('asd')
+            console.log('No Data')
         }
     });
 });
@@ -126,3 +181,28 @@ $('#formMapTrack').submit(function (e) {
 $('.datepicker').datetimepicker({
     format: 'YYYY-MM-DD HH:mm:ss'
 });
+
+function between(x, min, max) {
+    return x >= min && x <= max;
+}
+var contentInfoWindow = function(v) {
+    var strsignal = 'n/a';
+    if (between(parseInt(v.fnsignal), 0, 10)) {
+        strsignal = 'Poor'
+    }else if(between(parseInt(v.fnsignal), 11, 20)) {
+        strsignal = 'Good';
+    }else if(between(parseInt(v.fnsignal), 21, 31)) {
+        strsignal = 'Excelent';
+    }
+    console.log(v,strsignal)
+    return '<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>' +
+                '<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">' +
+                'DATE TIME</div><div class="col-7 pl-4">'+ v.created_at +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'ALT (Meters)</div><div class="col-7 pl-4">'+ parseFloat(parseFloat(v.ffaltitude) / 3.2808).toFixed(2) +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SPEED</div><div class="col-7 pl-4">'+ v.ffspeed +'Km/h</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'ACCURACY (CEP)</div><div class="col-7 pl-4">'+ v.ffaccuracy_cep +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SIGNAL</div><div class="col-7 pl-4">'+ v.fnsignal +' ('+ strsignal +')</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'DIRECTION</div><div class="col-7 pl-4">'+ v.ffdirection +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'COORDINATE</div><div class="col-7 pl-4">'+ v.fflat.toString() + ', ' + v.fflon.toString() +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SATTELITE</div><div class="col-7 pl-4">'+ v.fnsattelite +'</div></div>';
+}

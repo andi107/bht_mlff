@@ -1,4 +1,6 @@
 <x-default>
+    <input type="hidden" name="_lat" value="{{ $deviceData->deviceRelay->fflat }}">
+    <input type="hidden" name="_lon" value="{{ $deviceData->deviceRelay->fflon }}">
     @include('pages.tracking.thead')
     <div class="page-header page-header-bordered">
         <h1 class="page-title">{{ $cfg['title'] }}</h1>
@@ -28,7 +30,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#geofence" data-toggle="tab" class="nav-link small text-uppercase">
+                            <a href="{{ route('tracking_geo',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
                                 Geofence
                             </a>
                         </li>
@@ -37,13 +39,95 @@
                     <div id="tabsContent" class="tab-content">
                         <div id="status" class="tab-pane fade active show">
                             <div class="row">
-                                <div class="col-md-6">
-                                <div class="lt-body bg-primary-100 text-center p-20">
-
-                                </div>
-                                </div>
-                                <div class="col-md-4 lt-body bg-primary-100 text-center p-20">
-                                    
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <i class="icon ion-ios-car icon-4x md-assignment green-400" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h3>
+                                                            <span id="obutitle">{{$deviceData->deviceRelay->ftasset_id}}</span>
+                                                        </h3>
+                                                        <label class="text-capitalize font-size-12">{{$deviceData->deviceRelay->ftasset_name}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row py-4">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <h3>
+                                                                    Device Information
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <ul style="list-style-type: none;">
+                                                                    <li><label class="text-capitalize font-size-12">Device ID</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Device Type</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Device Name</label></i>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <ul style="list-style-type: none;">
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceRelay->ftdevice_id}}</label></li>
+                                                                    @if ($deviceData->deviceRelay->fncategory === 1)
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">GSM</label></i>
+                                                                    @elseif ($deviceData->deviceRelay->fncategory === 2)
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">SIGFOX</label></i>
+                                                                    @endif
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceRelay->ftdevice_name}}</label></i>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h3>
+                                                            Last Activity
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="badge badge-default text-uppercase text-left">Date Time</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span class="badge badge-default text-uppercase text-left">GNSS Point</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span class="badge badge-default text-uppercase text-left">Location</span>
+                                                    </div>
+                                                </div>
+                                                <div class="border-top my-3"></div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span id="datetime" class="badge badge-default text-wrap text-left">{{$deviceData->deviceRelay->created_at}}</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span id="entrypoint" class="badge badge-default text-wrap text-left">{{ $deviceData->deviceRelay->fflat . ', '. $deviceData->deviceRelay->fflon}}</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span id="exitpoint" class="badge badge-default text-wrap text-left">n/a</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row py-4">
+                                                    <div class="col">
+                                                        <div id="statusmap"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -53,4 +137,7 @@
         </div>
     </div>
     @include('pages.tracking.tfoot')
+    @vite([
+    'resources/js/pages/tracking_status.js',
+    ])
 </x-default>

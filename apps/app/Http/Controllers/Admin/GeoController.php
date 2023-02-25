@@ -45,7 +45,7 @@ class GeoController extends Controller
             'polygon_point' => $re->input('polygon_point'),
             'status' => 1
         ];
-        return $body;
+        
         $r = Hlp::apiPost('/geo', $body);
         $res = $r->object();
         if (isset($res->error)) {

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->float('fflat');
             $table->float('fflon');
             $table->uuid('fngeo_id')->nullable();
+            $table->boolean('fngeo_declare')->nullable();
             $table->integer('fngeo_chkpoint')->default(0);
             $table->timestamp('created_at');
 

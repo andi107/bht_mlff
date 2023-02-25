@@ -27,3 +27,14 @@ select
 	xgdd.id,xgdd.fnchkpoint,xgdd.fnindex, xgdd.x_geo_declare_id,xgdd.fflat,xgdd.fflon
 from x_geo_declare_det xgdd join x_geo_declare xgd 
 	on (xgdd.x_geo_declare_id = xgd.id )
+
+--
+CREATE OR REPLACE VIEW public.v_geo_history
+ AS
+select 
+	dr.id,dr.created_at,dr.ftdevice_id,dr.fngeo_id,dr.fngeo_declare,
+	xgd.ftgeo_name,xgd.ftaddress,xgd.fntype,xgd.fnstatus 
+From debuging_routes dr left join x_geo_declare xgd
+	on (dr.fngeo_id = xgd.id )
+where dr.fngeo_id is not NULL and dr.fttype = 'R1'
+order by dr.created_at asc;

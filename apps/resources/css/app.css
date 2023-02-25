@@ -7,6 +7,9 @@ html, body {
 #dashboardmap {
     min-height: 720px;
 }
-#objmap,#trackingmap { 
+#objmap,#trackingmap, #statusmap { 
     height: 500px;
+}
+.leaflet-popup-content {
+    width: 342px;
 }

@@ -64,7 +64,7 @@ class TrackingController extends Controller
 
     public function detail_geo($device_id) {
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
-        return view('pages.tracking.form',[
+        return view('pages.tracking.form_geo',[
             'cfg' => [
                 'title' => $resDvStatus->deviceRelay->ftdevice_id
             ],

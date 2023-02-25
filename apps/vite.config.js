@@ -10,9 +10,9 @@ export default defineConfig({
                 'resources/js/ts/dashboardmaps.js',
                 'resources/js/sio/socket.io.min.js',
                 'resources/js/pages/device.js',
-                // 'resources/js/ts/maps.js',
                 'resources/js/pages/geo.js',
-                'resources/js/pages/tracking_map.js'
+                'resources/js/pages/tracking_map.js',
+                'resources/js/pages/tracking_status.js',
             ],
             refresh: true,
         }),
