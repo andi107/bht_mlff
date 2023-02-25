@@ -1,22 +1,32 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-295bb326.css",
+    "file": "assets/app-9fe10254.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/pages/device.js": {
+    "file": "assets/device-99e89080.js",
+    "src": "resources/js/pages/device.js",
+    "isEntry": true
+  },
   "resources/js/ts/dashboardmaps.js": {
-    "file": "assets/dashboardmaps-ba29f451.js",
+    "file": "assets/dashboardmaps-b509a41c.js",
     "src": "resources/js/ts/dashboardmaps.js",
     "isEntry": true
   },
+  "resources/js/pages/tracking_status.js": {
+    "file": "assets/tracking_status-bf3c4e62.js",
+    "src": "resources/js/pages/tracking_status.js",
+    "isEntry": true
+  },
   "resources/js/pages/geo.js": {
-    "file": "assets/geo-80d54461.js",
+    "file": "assets/geo-cd4439a1.js",
     "src": "resources/js/pages/geo.js",
     "isEntry": true
   },
-  "resources/js/pages/device.js": {
-    "file": "assets/device-14fb1125.js",
-    "src": "resources/js/pages/device.js",
+  "resources/js/pages/tracking_map.js": {
+    "file": "assets/tracking_map-b8e2fd43.js",
+    "src": "resources/js/pages/tracking_map.js",
     "isEntry": true
   },
   "resources/js/sio/socket.io.min.js": {
