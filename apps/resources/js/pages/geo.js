@@ -2,13 +2,13 @@ const url = location.protocol + '//' + window.location.host;
 // 
 const geoid = $("input[name=_id]").val();
 
-var layerTmp = null, geoTmp = [], osmUrl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+var layerTmp = null, geoTmp = [], osmUrl = window.mapLayer,
     osm = L.tileLayer(osmUrl, { minZoom: 5 }),
     map = new L.Map('objmap', {
         center: new L.LatLng(0.339951, 120.373368),
         zoom: 5, attributionControl: false,
         fullscreenControl: true,
-    }),drawnItems = L.featureGroup().addTo(map), _resPolygon = {};
+    }),drawnItems = L.featureGroup().addTo(map), _resPolygon = {}, isEdit = 0, sio = window.sio;
 L.Control.geocoder().addTo(map);
 L.control.layers({
     'osm': osm.addTo(map),
@@ -23,7 +23,7 @@ L.control.layers({
 }).addTo(map);
 // self.Polygon = null;
 // self.Circle = null;
-// console.log(self)
+
 // Add Draw
 self.resPolygon = {};
 self.drawControlFull = new L.Control.Draw({
@@ -69,11 +69,8 @@ map.on(L.Draw.Event.CREATED, function (event) {
         return null;
     }
     var layer = event.layer;
-    console.log(layer)
     if (layer._latlng && layer._mRadius) {
-        console.log('circle')
         window.circle = layer;
-        drawnItems.addLayer(layer);
     }else if (layer._latlngs && layer._bounds){
         geoTmp = layer._latlngs[0];
         if (geoTmp.length < 4) {
@@ -86,8 +83,6 @@ map.on(L.Draw.Event.CREATED, function (event) {
             fillColor: '#D61355',
             fillOpacity : 0.1
         });
-        // console.log('latlng',layer.options.color);
-        
     }else {
         // alert('Please make 1 Geofencing!')
         swal('Please make 1 Geofencing!', '', 'Warning');
@@ -98,17 +93,13 @@ map.on(L.Draw.Event.CREATED, function (event) {
     self.drawControlEdit.addTo(map);
     drawnItems.addLayer(layer);
     layerTmp = layer;
-    console.log('Final',self.Polygon,self.Circle)
 });
 
 map.on(L.Draw.Event.EDITED, function (event) {
     var layers = event.layers;
     layers.eachLayer(function (layer) {
-        console.log('edited', layer)
         if (layer._latlng && layer._mRadius) {
-            console.log('circle')
         }else if (layer._latlngs && layer._bounds){
-            console.log('polygon')
             geoTmp = layer._latlngs[0];
             if (geoTmp.length < 4) {
                 // alert('Minimum 4 points required!');
@@ -121,9 +112,6 @@ map.on(L.Draw.Event.EDITED, function (event) {
                 drawnItems.clearLayers();
                 return null;
             }
-            console.log('PolyF',self.Polygon)
-            // self.polygon = layer;
-            // layerTmp = layer;
         }else {
             toastr.error("Please make 1 Geofencing!", 'Error');
         }
@@ -133,7 +121,6 @@ map.on(L.Draw.Event.EDITED, function (event) {
 map.on(L.Draw.Event.DELETED, function (event) {
     var layers = event.layers;
     layers.eachLayer(function (layer) {
-        console.log('deleted', layer)
         self.Circle = null;
         self.Polygon = null;
         geoTmp = [];
@@ -169,26 +156,27 @@ map.on(L.Draw.Event.DELETED, function (event) {
 //     console.log('im an instance of L polyline');
 // }
 
+
 $('#formGeo').submit(
     function (e) {
         e.preventDefault();
-        var backurl = $("input[name=_backurl]").val(),did = $("input[name=txtdevice_id]").val();
+        var backurl = $("input[name=_backurl]").val();
         var fd = new FormData();
         fd.append('_token', $("input[name=_token]").val());
         fd.append('id', $("input[name=_id]").val());
         fd.append('txtName', $("input[name=txtName]").val());
         fd.append('txtAddress', $("textarea[name=txtAddress]").val());
+        fd.append('_isEdit', isEdit);
+        console.log(isEdit);
 
         if ( typeof(self.Polygon) !== "undefined" && self.Polygon !== null ) {
-            // console.log('OK',self.Polygon, self.Polygon._latlngs)
-
+            
             for (const [k, v] of Object.entries(_resPolygon)) {
                 delete _resPolygon[k];
             }
             
             $.each(self.Polygon._latlngs, function(i, val) {
                 $.each(val, function(ii, vv) {
-                    // console.log('ii',ii,vv.lat)
                     _resPolygon[ii] = {lat: vv.lat, lng: vv.lng};
                 });
             })
@@ -215,8 +203,8 @@ $('#formGeo').submit(
             , success: function (res) {
                 $('#formGeo').css("opacity", "");
                 var r = res.msg;
-                console.log(r)
                 if (r.code === 200) {
+                    sio.emit('trx_obu_data', 'polygon_reload');
                     swal({
                         title: "Success",
                         text: "Continue editing?",
@@ -237,7 +225,8 @@ $('#formGeo').submit(
                         });
     
                 } else {
-                    toastr.error(res.msg.obj, 'Error');
+                    console.log(res)
+                    toastr.error(res.msg, 'Error');
                 }
             }
         });
@@ -245,8 +234,17 @@ $('#formGeo').submit(
 );
 
 $.get(url + `/geo/js/detail/${geoid}/point`, function(res) {
-    // console.log('geoid',geoid,res.dataPoint)
+    var _tmpPoint = [];
     $.each(res.dataPoint, function(k,v) {
-        console.log(geoid,k,v)
+        isEdit = 1;
+        _tmpPoint.push([v.fflat, v.fflon])
     });
+    if (res.dataPoint.length !== 0) {
+        var polygonData = L.polygon(_tmpPoint);
+        self.Polygon = polygonData;
+        drawnItems.addLayer(polygonData);
+        map.fitBounds(drawnItems.getBounds());
+        self.drawControlFull.remove();
+        self.drawControlEdit.addTo(map);
+    }
 });

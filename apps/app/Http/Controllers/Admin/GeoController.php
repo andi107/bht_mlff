@@ -24,7 +24,7 @@ class GeoController extends Controller
             'txtName' => 'required',
             'txtAddress' => 'required',
             'polygon_point' => 'required',
-            'geo_type' => 'required'
+            'geo_type' => 'required',
             // 'status' => 'required|numeric'
         ]);
         if ($validator->fails()) {
@@ -33,6 +33,7 @@ class GeoController extends Controller
                 'msg' => $validator->messages()->first(),
             ]);
         }
+
         $res = $this->create($request);
 
         return response()->json([
@@ -55,15 +56,20 @@ class GeoController extends Controller
             'polygon_point' => $re->input('polygon_point'),
             'status' => 1
         ];
-        
-        $r = Hlp::apiPost('/geo', $body);
+        $flag = $re->input('_isEdit');
+        // $r = Hlp::apiPost('/geo', $body);
+        if ($flag) {
+            $r = Hlp::apiPut('/geo', $body);
+        }else{
+            $r = Hlp::apiPost('/geo', $body);
+        }
         $res = $r->object();
         if (isset($res->error)) {
             if ($res->error == "Unauthorized") { // Check Auth
                 return 'Sesi login telah habis, mohon untuk login kembali.';
             } else {
                 return [
-                    'id' => 'new',
+                    'id' => $flag,
                     'obj' => $res->error,
                     'code' => 404
                 ];

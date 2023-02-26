@@ -17,6 +17,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(DashboardController::class)->group(function () {
+    Route::get('dashboard/js', 'divice_map')->name('dashboard_js');
     Route::get('dashboard', 'index')->name('dashboard');
 });
 

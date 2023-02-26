@@ -26,6 +26,6 @@
 @vite([
     'resources/css/app.css',
     'resources/js/app.js',
-    'resources/js/sio/socket.io.min.js',
+    // 'resources/js/sio/socket.io.min.js',
 ])
 <link href="{{ asset('assets/skins/blue.min.css')}}" rel="stylesheet" type="text/css">

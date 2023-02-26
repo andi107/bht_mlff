@@ -8,6 +8,11 @@ $router->group([
     'prefix' => 'api',
 ], function() use($router) {
     $router->group([
+        'prefix' => 'dashboard'
+    ], function() use($router) {
+        $router->get('/', 'Admin\DashboardController@index');
+    });
+    $router->group([
         'prefix' => 'device'
     ], function() use($router) {
         $router->get('/', 'Admin\DeviceController@list');
@@ -30,6 +35,7 @@ $router->group([
     ], function() use($router) {
         $router->get('/', 'Admin\GeoController@list');
         $router->post('/', 'Admin\GeoController@create');
+        $router->put('/', 'Admin\GeoController@update');
         $router->get('d/{geoid}', 'Admin\GeoController@detail');
         $router->get('d/{geoid}/point', 'Admin\GeoController@detail_point');
     });

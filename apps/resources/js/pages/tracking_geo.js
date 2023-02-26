@@ -17,7 +17,6 @@ var tblgeolist = $('#tblgeolist').DataTable({
 // ftgeo_name
 
 $.get(url + `/tracking/detail/js/geo/${device_id}`, function(res) {
-    console.log(res.geoData.data)
     $.each(res.geoData.data, function(k, v) {
         tblgeolist.row.add([
             v.created_at, v.ftgeo_name ,v.ftaddress,v.fngeo_declare ? 'Entry':'Out'

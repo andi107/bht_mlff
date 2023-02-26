@@ -54,7 +54,7 @@ map = L.map('trackingmap', {
     0.33995192349439596, 120.3733680354565
 ], 5), markers = {}, myFGMarker = new L.FeatureGroup(),_lines = [], polylines;
 
-var _tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+var _tileLayer = L.tileLayer(window.mapLayer);
 _tileLayer.addTo(map);
 
 
@@ -101,17 +101,6 @@ function createPolyLine(markersPoint) {
     polylines.addTo(map);
 }
 
-var animateIcon = function(_polyLn) {
-    intValAnimIcon = setInterval(fanimateIcon, 20);
-    var lineOffset = 0;
-    var iconSpeed = 0.2;
-    function fanimateIcon() {
-        lineOffset = (lineOffset + iconSpeed) % 200;
-        var lineIcon = _polyLn.get('icons');
-        lineIcon[0].offset = lineOffset / 2 + '%';
-        _polyLn.set('icons', lineIcon);
-    }
-}
 
 $('#formMapTrack').submit(function (e) {
     e.preventDefault();
@@ -132,7 +121,7 @@ $('#formMapTrack').submit(function (e) {
     _lines = [];
     tbllogsdet.clear().draw();
     $.get(url + "/tracking/detail/js/map?did="+ device_id +"&from="+ _dtfrom +"&to=" + _dtto, function (res) {
-        console.log(res)
+        
         // created_at
         // ffaccuracy_cep
         // ffbattery
@@ -194,7 +183,6 @@ var contentInfoWindow = function(v) {
     }else if(between(parseInt(v.fnsignal), 21, 31)) {
         strsignal = 'Excelent';
     }
-    console.log(v,strsignal)
     return '<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>' +
                 '<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">' +
                 'DATE TIME</div><div class="col-7 pl-4">'+ v.created_at +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+

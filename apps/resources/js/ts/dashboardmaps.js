@@ -1,52 +1,20 @@
+const url = location.protocol + '//' + window.location.host;
+const iconUrl = url + '/assets/images/leaflet/marker-icon.png';
+const shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
+// var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
+
 var map = L.map('dashboardmap', {
     minZoom: 5,
     attributionControl: false,
 }).setView([
     0.33995192349439596, 120.3733680354565
-], 5), markers = {};
+], 5), myFGMarker = new L.FeatureGroup();
 
-var _tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+var _tileLayer = L.tileLayer(window.mapLayer, {
     attribution: '',
 });
 _tileLayer.addTo(map);
-
-var _isLatLng = [
-    { lat: -6.201655766896261, lng: 106.6654244273562 },
-    { lat: -6.168515731071985, lng: 106.82049262267968 }
-]
-
-markers['001'] = _newMarker(
-    _isLatLng[1],
-    {icon : L.icon({
-        iconUrl: window.location.origin + '/assets/images/leaflet/marker-icon.png',
-        shadowUrl: window.location.origin + '/assets/images/leaflet/marker-shadow.png',
-    
-        // iconSize:     [10, 95], // size of the icon
-        // shadowSize:   [50, 64], // size of the shadow
-        iconAnchor:   [17, 37], // point of the icon which will correspond to marker's location
-        shadowAnchor: [17, 37],  // the same for the shadow
-        popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
-    })},
-    'Hello world!<br />This is a nice tooltip.',
-    `HELOWORLD IM MARKER`);
-
-markers['002'] = _newMarker(
-    _isLatLng[0],
-    {icon : L.icon({
-        iconUrl: window.location.origin + '/assets/images/leaflet/marker-icon.png',
-        shadowUrl: window.location.origin + '/assets/images/leaflet/marker-shadow.png',
-    
-        // iconSize:     [10, 95], // size of the icon
-        // shadowSize:   [50, 64], // size of the shadow
-        iconAnchor:   [17, 37], // point of the icon which will correspond to marker's location
-        shadowAnchor: [17, 37],  // the same for the shadow
-        popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
-    })},
-    'Hello world!<br />This is a nice tooltip.',
-    `HELOWORLD IM MARKER`);
-
 function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp = null) {
-    // var myFGMarker = new L.FeatureGroup();
     var mkr;
     if (customIcon) {
         mkr = L.marker(
@@ -58,7 +26,11 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
     }
     if (customPopUp) {
         var popup = L.popup().setContent(customPopUp);
-        mkr.bindPopup(popup).openPopup();
+        mkr.bindPopup(popup, {
+            'maxWidth': '342px', // set max-width
+            'width': '342px',
+            'className': 'customPopup' // name custom popup
+        }).openPopup();
     }
     if (customToolTip) {
         var tooltip = L.tooltip()
@@ -68,17 +40,41 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 
     mkr.addTo(map)
     return mkr;
-    // marker.on('click', function(e) {
-    //     console.log(e);
-    // });
-    // myFGMarker.addLayer(marker);
-    // myFGMarker.addTo(map);
 }
 
-var myFGMarker = new L.FeatureGroup();
-// var marker = L.marker(_isLatLng);
-myFGMarker.addLayer(markers['001']);
-myFGMarker.addLayer(markers['002']);
-myFGMarker.addTo(map);
+var contentInfoWindow = function(v) {
+    return '<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>' +
+                '<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">' +
+                'DATE TIME</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'ALT (Meters)</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SPEED</div><div class="col-7 pl-4">Km/h</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'ACCURACY (CEP)</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SIGNAL</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'DIRECTION</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'COORDINATE</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'SATTELITE</div><div class="col-7 pl-4"></div></div>';
+}
 
-map.fitBounds(myFGMarker.getBounds());
+$.get(url + "/dashboard/js", function (res) {
+    $.each(res.data.data, function (k, v) {
+        var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
+            icon : L.icon({
+                iconUrl: iconUrl,
+                shadowUrl: shadowUrl,
+                // iconSize:     [10, 95], // size of the icon
+                // shadowSize:   [50, 64], // size of the shadow
+                iconAnchor:   [17, 37], // point of the icon which will correspond to marker's location
+                shadowAnchor: [17, 37],  // the same for the shadow
+                popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
+            })},
+            v.created_at,
+            contentInfoWindow(v));
+            myFGMarker.addLayer(marker);
+            myFGMarker.addTo(map);
+    });
+    if ( res.data.data.length != 0) {
+        map.fitBounds(myFGMarker.getBounds());
+    }else{
+        console.log('No Data')
+    }
+});

@@ -11,7 +11,7 @@ var map = L.map('statusmap', {
     0.33995192349439596, 120.3733680354565
 ], 5), markers = {}, myFGMarker = new L.FeatureGroup(),_lines = [], polylines;
 
-var _tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png');
+var _tileLayer = L.tileLayer(window.mapLayer);
 _tileLayer.addTo(map);
 
 function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp = null) {

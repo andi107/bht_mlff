@@ -35,7 +35,6 @@ var saveDevice = function () {
         , success: function (res) {
             $('#formDevice').css("opacity", "");
             var r = res.msg;
-            console.log(r)
             if (r.code === 200) {
                 // toastr.success(res.msg.obj, 'Success');
                 swal({
