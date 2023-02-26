@@ -1,5 +1,4 @@
 import './bootstrap';
-import './sio/socket.io.min.js';
 import $ from 'jquery';
 window.jQuery = $;
 import 'popper.js';

@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/ts/dashboardmaps.js',
-                'resources/js/sio/socket.io.min.js',
+                // 'resources/js/sio/socket.io.min.js',
                 
                 'resources/js/pages/device.js',
                 'resources/js/pages/geo.js',
@@ -19,9 +19,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    resolve: {
-        alias: {
-            'sio': 'resources/js/sio/socket.io.min.js',
-        },
-    },
+    // resolve: {
+    //     alias: {
+    //         'sio': 'resources/js/sio/socket.io.min.js',
+    //     },
+    // },
 });
