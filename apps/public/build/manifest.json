@@ -9,19 +9,24 @@
     "src": "resources/js/pages/device.js",
     "isEntry": true
   },
-  "resources/js/ts/dashboardmaps.js": {
-    "file": "assets/dashboardmaps-b509a41c.js",
-    "src": "resources/js/ts/dashboardmaps.js",
+  "resources/js/pages/tracking_geo.js": {
+    "file": "assets/tracking_geo-5ef30db1.js",
+    "src": "resources/js/pages/tracking_geo.js",
     "isEntry": true
   },
   "resources/js/pages/tracking_status.js": {
-    "file": "assets/tracking_status-bf3c4e62.js",
+    "file": "assets/tracking_status-754d254c.js",
     "src": "resources/js/pages/tracking_status.js",
     "isEntry": true
   },
   "resources/js/pages/geo.js": {
     "file": "assets/geo-cd4439a1.js",
     "src": "resources/js/pages/geo.js",
+    "isEntry": true
+  },
+  "resources/js/ts/dashboardmaps.js": {
+    "file": "assets/dashboardmaps-b509a41c.js",
+    "src": "resources/js/ts/dashboardmaps.js",
     "isEntry": true
   },
   "resources/js/pages/tracking_map.js": {

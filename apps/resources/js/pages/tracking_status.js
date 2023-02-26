@@ -1,6 +1,7 @@
 const url = location.protocol + '//' + window.location.host;
 const iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 const shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
+var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
 
 var map = L.map('statusmap', {
     minZoom: 5,
@@ -38,7 +39,8 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 }
 
 var marker = _newMarker(
-    { lat: -6.1966477248620455, lng: 106.67314981137596 }, {
+    // { lat: -6.1966477248620455, lng: 106.67314981137596 }, {
+        {lat: _curLat, lng: _curLon}, {
         icon : L.icon({
             iconUrl: iconUrl,
             shadowUrl: shadowUrl,

@@ -32,6 +32,13 @@ class TrackingController extends Controller
             ], 200);
         }
     }
+
+    public function detail_js_geo($device_id) {
+        $resGeoHistory = Hlp::apiGet('/tracking/d/'. $device_id . '/geo');
+        return response()->json([
+            'geoData' => $resGeoHistory
+        ], 200);
+    }
     
     public function list() {
         return view('pages.tracking.list');
@@ -68,7 +75,7 @@ class TrackingController extends Controller
             'cfg' => [
                 'title' => $resDvStatus->deviceRelay->ftdevice_id
             ],
-            'deviceData' => $resDvStatus
+            'deviceData' => $resDvStatus,
         ]);
     }
 

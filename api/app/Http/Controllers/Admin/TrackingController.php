@@ -58,4 +58,14 @@ class TrackingController extends Controller {
             'data' => $routes,
         ], 200);
     }
+
+    public function tracking_geo($device_id) {
+        $data = DB::table('v_geo_history')
+        ->where('ftdevice_id','=', $device_id)
+        ->orderBy('created_at','asc')
+        ->get();
+        return response()->json([
+            'data' => $data,
+        ], 200);
+    }
 }

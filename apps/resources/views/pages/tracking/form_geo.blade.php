@@ -1,7 +1,11 @@
 <x-default>
+    <input type="hidden" name="_id" value="{{ $deviceData->deviceRelay->ftdevice_id }}">
     <input type="hidden" name="_lat" value="{{ $deviceData->deviceRelay->fflat }}">
     <input type="hidden" name="_lon" value="{{ $deviceData->deviceRelay->fflon }}">
     @include('pages.tracking.thead')
+    @push('isstyles')
+    <link rel="stylesheet" href="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.css')}}">
+    @endpush
     <div class="page-header page-header-bordered">
         <h1 class="page-title">{{ $cfg['title'] }}</h1>
         <div class="page-header-actions">
@@ -40,7 +44,17 @@
                         <div class="tab-pane fade active show">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    Not Yet
+                                    <table class="table table-hover dataTable table-striped w-full" id="tblgeolist">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Geofence Name</th>
+                                                <th>Geofence Address</th>
+                                                <th>Declaration</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +64,13 @@
         </div>
     </div>
     @include('pages.tracking.tfoot')
-    {{-- @vite([
-    'resources/js/pages/tracking_status.js',
-    ]) --}}
+    @push('isscript')
+    <script src="{{ asset('global/vendor/datatables.net/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('global/vendor/bootbox/bootbox.js')}}"></script>
+    <script src="{{ asset('global/js/Plugin/datatables.js')}}"></script>
+    @endpush
+    @vite([
+        'resources/js/pages/tracking_geo.js',
+    ])
 </x-default>

@@ -21,6 +21,7 @@ $router->group([
     ], function() use($router) {
         $router->get('/', 'Admin\TrackingController@list');
         $router->get('d/{device_id}', 'Admin\TrackingController@detail');
+        $router->get('d/{device_id}/geo', 'Admin\TrackingController@tracking_geo');
         $router->get('d/map/relay', 'Admin\TrackingController@tracking_map');
     });
 
