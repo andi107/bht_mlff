@@ -19,11 +19,6 @@
     "src": "resources/js/pages/tracking_status.js",
     "isEntry": true
   },
-  "resources/js/pages/geo.js": {
-    "file": "assets/geo-cd4439a1.js",
-    "src": "resources/js/pages/geo.js",
-    "isEntry": true
-  },
   "resources/js/ts/dashboardmaps.js": {
     "file": "assets/dashboardmaps-b509a41c.js",
     "src": "resources/js/ts/dashboardmaps.js",
@@ -32,6 +27,11 @@
   "resources/js/pages/tracking_map.js": {
     "file": "assets/tracking_map-b8e2fd43.js",
     "src": "resources/js/pages/tracking_map.js",
+    "isEntry": true
+  },
+  "resources/js/pages/geo.js": {
+    "file": "assets/geo-92344be2.js",
+    "src": "resources/js/pages/geo.js",
     "isEntry": true
   },
   "resources/js/sio/socket.io.min.js": {
