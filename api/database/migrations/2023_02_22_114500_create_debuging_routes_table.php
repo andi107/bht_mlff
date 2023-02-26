@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('fngeo_declare')->nullable();
             $table->integer('fngeo_chkpoint')->default(0);
             $table->timestamp('created_at');
+            $table->integer('fncellular')->nullable();
 
             $table->string('fttype',10)->nullable();
             $table->float('ffaccuracy_cep')->nullable();
@@ -43,7 +44,8 @@ return new class extends Migration
                 'ffspeed',
                 'ffbattery',
                 'fnsattelite',
-                'ffaltitude'
+                'ffaltitude',
+                'fncellular'
             ]);
         });
     }

@@ -24,6 +24,7 @@
     <form method="POST" id="formGeo" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <input type="hidden" name="_id" value="{{ $cfg['id'] }}">
+        <input type="hidden" name="_backurl" value="{{ route('geo_list') }}">
         <div class="container-fluid">
             <div class="page-content">
                 <div class="panel">
@@ -44,11 +45,11 @@
 
                                             <div class="col">
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                    <input type="text" class="form-control" name="txtName" required />
+                                                    <input type="text" class="form-control" name="txtName" required value="{{ isset($d) ? $d->ftgeo_name : '' }}" />
                                                     <label class="floating-label">Geo Location Name</label>
                                                 </div>
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                    <textarea class="form-control" name="txtAddress" rows="3" required></textarea>
+                                                    <textarea class="form-control" name="txtAddress" rows="3" required>{{ isset($d) ? $d->ftaddress : '' }}</textarea>
                                                     <label class="floating-label">Address</label>
                                                 </div>
                                             </div>

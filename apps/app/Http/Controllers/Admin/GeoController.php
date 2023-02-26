@@ -9,6 +9,16 @@ use Hlp;
 use Illuminate\Support\Facades\Validator;
 class GeoController extends Controller
 {
+    public function list_js() {
+        $res = Hlp::apiGet('/geo');
+        if (!$res) {
+            return response()->json([], 404);
+        }
+        return response()->json([
+            'data' => $res->data
+        ], 200);
+    }
+
     public function create_update(Request $request) {
         $validator = Validator::make($request->all(), [
             'txtName' => 'required',
@@ -63,6 +73,29 @@ class GeoController extends Controller
             'obj' => $r->object(),
             'code' => $r->getStatusCode()
         ];
+    }
+
+    public function detail_point($geoid) {
+        $res = Hlp::apiGet('/geo/d/'. $geoid .'/point');
+        return response()->json([
+            'dataPoint' => $res->data
+        ], 200);
+    }
+
+    public function list() {
+        return view('pages.geo.list');
+    }
+
+    public function detail($geoid) {
+        $res = Hlp::apiGet('/geo/d/'. $geoid);
+        
+        return view('pages.geo.form', [
+            'cfg' => [
+                'id' => $res->data->id,
+                'title' => $res->data->ftgeo_name
+            ],
+            'd' => $res->data
+        ]);
     }
 
     public function formindex() {

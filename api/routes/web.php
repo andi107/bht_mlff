@@ -30,6 +30,8 @@ $router->group([
     ], function() use($router) {
         $router->get('/', 'Admin\GeoController@list');
         $router->post('/', 'Admin\GeoController@create');
+        $router->get('d/{geoid}', 'Admin\GeoController@detail');
+        $router->get('d/{geoid}/point', 'Admin\GeoController@detail_point');
     });
 });
 

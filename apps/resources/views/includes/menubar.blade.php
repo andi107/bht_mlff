@@ -40,7 +40,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (\Hlp::chkActive(route('geo_create_index')))
+                @if (\Hlp::chkActive(route('geo_create_index')) || \Hlp::chkActive(route('geo_list')))
                     <li class="site-menu-item has-sub active open">
                 @else
                     <li class="site-menu-item has-sub">
@@ -51,8 +51,8 @@
                         <span class="site-menu-arrow"></span>
                     </a>
                     <ul class="site-menu-sub">
-                        <li class="site-menu-item">
-                            <a class="animsition-link" href="#">
+                        <li class="site-menu-item {{ \Hlp::chkActive(route('geo_list')) }}">
+                            <a class="animsition-link" href="{{ route('geo_list') }}">
                                 <span class="site-menu-title">Geo List</span>
                             </a>
                         </li>

@@ -1,4 +1,6 @@
 const url = location.protocol + '//' + window.location.host;
+// 
+const geoid = $("input[name=_id]").val();
 
 var layerTmp = null, geoTmp = [], osmUrl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     osm = L.tileLayer(osmUrl, { minZoom: 5 }),
@@ -169,8 +171,8 @@ map.on(L.Draw.Event.DELETED, function (event) {
 
 $('#formGeo').submit(
     function (e) {
-        console.log($("input[name=_id]").val())
         e.preventDefault();
+        var backurl = $("input[name=_backurl]").val(),did = $("input[name=txtdevice_id]").val();
         var fd = new FormData();
         fd.append('_token', $("input[name=_token]").val());
         fd.append('id', $("input[name=_id]").val());
@@ -212,8 +214,39 @@ $('#formGeo').submit(
             }
             , success: function (res) {
                 $('#formGeo').css("opacity", "");
-                console.log(res)
+                var r = res.msg;
+                console.log(r)
+                if (r.code === 200) {
+                    swal({
+                        title: "Success",
+                        text: "Continue editing?",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "Yes, continue editing!",
+                        cancelButtonText: "No, take me back!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.location.href = url + '/geo/detail/' + geoid;
+                            } else {
+                                window.location.href = backurl;
+                            }
+                        });
+    
+                } else {
+                    toastr.error(res.msg.obj, 'Error');
+                }
             }
         });
     }
 );
+
+$.get(url + `/geo/js/detail/${geoid}/point`, function(res) {
+    // console.log('geoid',geoid,res.dataPoint)
+    $.each(res.dataPoint, function(k,v) {
+        console.log(geoid,k,v)
+    });
+});

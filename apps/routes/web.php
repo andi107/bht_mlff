@@ -52,8 +52,12 @@ Route::controller(GeoController::class)->group(function () {
     Route::group([
         'prefix' => 'geo',
     ], function() {
+        Route::get('js','list_js')->name('geo_list_js');
         Route::post('js/add','create_update')->name('geo_create_update_js');
-
+        Route::get('js/detail/{geoid}/point','detail_point')->name('geo_detail_point_js');
+        
+        Route::get('list','list')->name('geo_list');
         Route::get('add', 'formindex')->name('geo_create_index');
+        Route::get('detail/{geoid}', 'detail')->name('geo_detail');
     });
 });

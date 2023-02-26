@@ -88,4 +88,23 @@ class GeoController extends Controller {
         }
     }
 
+    public function detail($geoid) {
+        $data = DB::table('x_geo_declare')
+        ->where('id','=', $geoid)
+        ->first();
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
+
+    public function detail_point($geoid) {
+        $data = DB::table('x_geo_declare_det')
+        ->selectRaw('id,fflat,fflon,fnindex')
+        ->where('x_geo_declare_id','=', $geoid)
+        ->orderBy('fnindex','asc')
+        ->get();
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
 }
