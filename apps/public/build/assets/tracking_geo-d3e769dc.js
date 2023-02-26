@@ -1,0 +1,1 @@
+const e=location.protocol+"//"+window.location.host,o=$("input[name=_id]").val();var n=$("#tblgeolist").DataTable({lengthChange:!1});$.get(e+`/tracking/detail/js/geo/${o}`,function(a){console.log(a.geoData.data),$.each(a.geoData.data,function(l,t){n.row.add([t.created_at,t.ftgeo_name,t.ftaddress,t.fngeo_declare?"Entry":"Out"]).draw(!0)})});

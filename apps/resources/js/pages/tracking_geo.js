@@ -2,9 +2,6 @@ const url = location.protocol + '//' + window.location.host;
 const device_id = $("input[name=_id]").val();
 var tblgeolist = $('#tblgeolist').DataTable({
     "lengthChange": false
-    , order: [
-        [1, 'desc']
-    ],
 });
 {/* <th>Date</th>
 <th>Geofence Name</th>

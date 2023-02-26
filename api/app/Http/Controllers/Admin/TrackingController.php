@@ -61,8 +61,9 @@ class TrackingController extends Controller {
 
     public function tracking_geo($device_id) {
         $data = DB::table('v_geo_history')
+        ->selectRaw('created_at,ftdevice_id,ftgeo_name,ftaddress,fngeo_declare')
         ->where('ftdevice_id','=', $device_id)
-        ->orderBy('created_at','asc')
+        ->groupBy('created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
         ->get();
         return response()->json([
             'data' => $data,
