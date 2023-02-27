@@ -1,4 +1,4 @@
-const url = window.url;
+const url = window.burl;
 const iconUrl = window.iconUrl;
 const shadowUrl = window.shadowUrl;
 

@@ -1,7 +1,7 @@
-import '../ts/mkrmove';
+import '../ts/mkrmove.js';
 const url = window.burl;
 const iconUrl = '/assets/images/leaflet/marker-reddot.png';
-const shadowUrl = window.shadowUrl;
+// const shadowUrl = window.shadowUrl;
 
 var tbllogsdet = $('#tbllogsdet').DataTable({
     dom: 'Bfrtip',
@@ -52,7 +52,7 @@ map = L.map('trackingmap', {
     attributionControl: false,
 }).setView([
     0.33995192349439596, 120.3733680354565
-], 5), markers = {}, myFGMarker = new L.FeatureGroup(),_lines = [], polylines, _movMkrPoint = [],_speedToMkr = [], myMovingMarker = null;
+], 5), markers = {}, myFGMarker = new L.FeatureGroup(),_lines = [], polylines, animatedMarker;
 
 var _tileLayer = L.tileLayer(window.mapLayer);
 _tileLayer.addTo(map);
@@ -113,26 +113,28 @@ $('#formMapTrack').submit(function (e) {
     _lines.forEach(function(_line) {
         delete _lines[_line];
     });
-    _movMkrPoint.forEach(function(k){
-        delete _movMkrPoint[k];
-    });
-    _speedToMkr.forEach(function(k){
-        delete _speedToMkr[k];
-    });
+    // _movMkrPoint.forEach(function(k){
+    //     delete _movMkrPoint[k];
+    // });
+    // _speedToMkr.forEach(function(k){
+    //     delete _speedToMkr[k];
+    // });
     
     if (polylines) {
         map.removeLayer(polylines);
+        map.removeLayer(animatedMarker);
+        animatedMarker = null;
     }
-    if (myMovingMarker) {
-        // myMovingMarker.stop();
-        map.removeLayer(myMovingMarker);
-        myMovingMarker = null;
-    }
+    // if (myMovingMarker) {
+    //     // myMovingMarker.stop();
+    //     map.removeLayer(myMovingMarker);
+    //     myMovingMarker = null;
+    // }
     _lines = null;
-    _speedToMkr = null;
-    _movMkrPoint = null;
-    _movMkrPoint = [];
-    _speedToMkr = [];
+    // _speedToMkr = null;
+    // _movMkrPoint = null;
+    // _movMkrPoint = [];
+    // _speedToMkr = [];
     _lines = [];
     tbllogsdet.clear().draw();
     $.get(url + "/tracking/detail/js/map?did="+ device_id +"&from="+ _dtfrom +"&to=" + _dtto, function (res) {
@@ -156,15 +158,16 @@ $('#formMapTrack').submit(function (e) {
                     // shadowUrl: shadowUrl,
                     iconSize:     [10, 20], // size of the icon
                     // shadowSize:   [50, 64], // size of the shadow
-                    iconAnchor:   [6, 15], // point of the icon which will correspond to marker's location
+                    iconAnchor:   [5, 15], // point of the icon which will correspond to marker's location
                     // shadowAnchor: [17, 37],  // the same for the shadow
                     popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
-                })}, v.created_at, contentInfoWindow(v));
+                })
+            }, v.created_at, contentInfoWindow(v));
             myFGMarker.addLayer(markers[v.id]);
             myFGMarker.addTo(map);
             _lines.push({ lat: v.fflat, lng: v.fflon });
-            _movMkrPoint.push([v.fflat,v.fflon]);
-            _speedToMkr.push(500);
+            // _movMkrPoint.push([v.fflat,v.fflon]);
+            // _speedToMkr.push(500);
             var _altitude = 'n/a ';
             if (v.alt) {
                 _altitude = parseFloat(parseFloat(v.alt) / 3.2808).toFixed(2);
@@ -176,10 +179,30 @@ $('#formMapTrack').submit(function (e) {
         if ( res.relay.data.length != 0) {
             map.fitBounds(myFGMarker.getBounds());
             createPolyLine(_lines);
-            myMovingMarker = new L.Marker.movingMarker(_movMkrPoint, _speedToMkr).addTo(map);
-            myMovingMarker.start();
-            myMovingMarker.on('end', function() {
-                myMovingMarker.start();
+            // myMovingMarker = new L.Marker.movingMarker(_movMkrPoint, _speedToMkr).addTo(map);
+            // myMovingMarker.start();
+            // myMovingMarker.on('end', function() {
+            //     myMovingMarker.start();
+            // });
+            
+            animatedMarker = L.animatedMarker(polylines.getLatLngs(),{
+                autoStart: true,
+                distance: 200,  // meters
+                interval: 1000, //milisec
+                icon : L.icon({
+                    iconUrl: url + "/assets/images/leaflet/yellow-car40px.png",
+                    iconSize:     [30, 30],
+                    iconAnchor:   [15, 33],
+                    popupAnchor:  [0, -15]
+                }),
+                onEnd: function() {
+                    // animatedMarker.start()
+                }
+            });
+            map.addLayer(animatedMarker);
+            // animatedMarker.start()
+            animatedMarker.on('click', function(e) {
+                animatedMarker.start();
             });
         }else{
             console.log('No Data')
