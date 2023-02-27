@@ -120,7 +120,6 @@
     @include('pages.tracking.tfoot')
     
     @push('isscript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
     <script src="{{ asset('global/js/dtpicker/js/bootstrap-datetimepicker.min.js')}}"></script>
     <script src="{{ asset('global/vendor/datatables.net/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.js')}}"></script>
