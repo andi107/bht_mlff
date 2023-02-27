@@ -11,6 +11,7 @@ $router->group([
         'prefix' => 'dashboard'
     ], function() use($router) {
         $router->get('/', 'Admin\DashboardController@index');
+        $router->get('test', 'Admin\DashboardController@test');
     });
     $router->group([
         'prefix' => 'device'

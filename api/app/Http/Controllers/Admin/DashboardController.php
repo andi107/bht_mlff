@@ -18,4 +18,20 @@ class DashboardController extends Controller {
             'data' => $data,
         ], 200);
     }
+
+    public function test() {
+        $tes = DB::table('v_device_relay')
+        ->orWhereNotNull('logs_id')
+        ->first();
+        
+        $creat_at = Carbon::parse('2023-02-27 02:24:52')
+        // ->createFromTimestampUTC(0)
+        ->utcOffset(480);
+        // $carbon = Carbon::createFromTimestampUTC(0)->utcOffset(0);
+        // $resTes = $this->assertSame(1970, $carbon->year);
+        $selTz = DB::table('v_device_relay')
+        ->selectRaw("current_setting('TIMEZONE')")
+        ->first();
+        dd($creat_at,$selTz);
+    }
 }
