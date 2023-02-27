@@ -1,5 +1,4 @@
-const url = location.protocol + '//' + window.location.host;
-// 
+const url = window.burl;
 const geoid = $("input[name=_id]").val();
 
 var layerTmp = null, geoTmp = [], osmUrl = window.mapLayer,

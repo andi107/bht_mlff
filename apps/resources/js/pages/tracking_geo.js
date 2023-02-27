@@ -1,4 +1,4 @@
-const url = location.protocol + '//' + window.location.host;
+const url = window.burl;
 const device_id = $("input[name=_id]").val();
 var tblgeolist = $('#tblgeolist').DataTable({
     "lengthChange": false

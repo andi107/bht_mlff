@@ -1,4 +1,4 @@
-const url = location.protocol + '//' + window.location.host;
+const url = window.burl;
 
 $('#formDevice').submit(
     function (e) {

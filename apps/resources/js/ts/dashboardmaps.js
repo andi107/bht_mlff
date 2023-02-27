@@ -1,7 +1,6 @@
-const url = location.protocol + '//' + window.location.host;
-const iconUrl = url + '/assets/images/leaflet/marker-icon.png';
-const shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
-// var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
+const url = window.url;
+const iconUrl = window.iconUrl;
+const shadowUrl = window.shadowUrl;
 
 var map = L.map('dashboardmap', {
     minZoom: 5,
