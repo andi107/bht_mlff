@@ -31,7 +31,7 @@ return new class extends Migration
             $table->float('ffaltitude')->nullable();
             $table->boolean('fbpower')->nullable();
             $table->integer('fnsignal')->nullable();
-
+            $table->integer('fnseq')->nullable();
             $table->index([
                 'id',
                 'fflat',
