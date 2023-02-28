@@ -61,11 +61,11 @@ class TrackingController extends Controller {
     }
 
     public function tracking_geo($device_id) {
-        // $data = DB::table('v_geo_history')
-        // ->selectRaw('id,created_at,ftdevice_id,ftgeo_name,ftaddress,fngeo_declare')
-        // ->where('ftdevice_id','=', $device_id)
-        // ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
-        // ->get();
+        $data = DB::table('v_geo_history')
+        ->selectRaw('id,created_at,ftdevice_id,ftgeo_name,ftaddress,fngeo_declare')
+        ->where('ftdevice_id','=', $device_id)
+        ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
+        ->get();
         // foreach ($data as $avalue) {
         //     foreach ($avalue as $a_key => $a_value) {
         //         if ($a_key == 'id') {
@@ -74,44 +74,44 @@ class TrackingController extends Controller {
         //     }
         // }
         
-        // return response()->json([
-        //     'data' => $data,
-        // ], 200);
+        return response()->json([
+            'data' => $data,
+        ], 200);
 
-        $dtFrom = DB::table('v_geo_history')
-        ->selectRaw('created_at')
-        ->where('ftdevice_id','=', $device_id)
-        ->orderBy('created_at','asc')
-        ->first();
-        $dtEnd = DB::table('v_geo_history')
-        ->selectRaw('created_at')
-        ->where('ftdevice_id','=', $device_id)
-        ->orderBy('created_at','desc')
-        ->first();
-        // dd($dtFrom->created_at);
-        // sprintf("There are %u million bicycles in %s.",$number,$str);
-        if ($dtFrom && $dtEnd) {
-            $qr = sprintf("select d.dt as created_at, t.* ".
-            " from generate_series ( ".
-            "    date '%s', date '%s', interval '1' day ".
-            ") d (dt) left join lateral ( ".
-            "    select t.ftdevice_id,t.ftgeo_name,t.ftaddress,t.fngeo_declare from v_geo_history t ".
-            "       where t.created_at >= d.dt and t.created_at < d.dt + interval '1' day ".
-            ") t  on true where t.ftdevice_id = '%s'".
-            " group by d.dt, t.ftdevice_id,t.ftgeo_name,t.ftaddress,t.fngeo_declare ".
-            "order by d.dt desc",$dtFrom->created_at,$dtEnd->created_at,$device_id);
+        // $dtFrom = DB::table('v_geo_history')
+        // ->selectRaw('created_at')
+        // ->where('ftdevice_id','=', $device_id)
+        // ->orderBy('created_at','asc')
+        // ->first();
+        // $dtEnd = DB::table('v_geo_history')
+        // ->selectRaw('created_at')
+        // ->where('ftdevice_id','=', $device_id)
+        // ->orderBy('created_at','desc')
+        // ->first();
+        // // dd($dtFrom->created_at);
+        // // sprintf("There are %u million bicycles in %s.",$number,$str);
+        // if ($dtFrom && $dtEnd) {
+        //     $qr = sprintf("select d.dt as created_at, t.* ".
+        //     " from generate_series ( ".
+        //     "    date '%s', date '%s', interval '1' day ".
+        //     ") d (dt) left join lateral ( ".
+        //     "    select t.ftdevice_id,t.ftgeo_name,t.ftaddress,t.fngeo_declare from v_geo_history t ".
+        //     "       where t.created_at >= d.dt and t.created_at < d.dt + interval '1' day ".
+        //     ") t  on true where t.ftdevice_id = '%s'".
+        //     " group by d.dt, t.ftdevice_id,t.ftgeo_name,t.ftaddress,t.fngeo_declare ".
+        //     "order by d.dt desc",$dtFrom->created_at,$dtEnd->created_at,$device_id);
             
-            $data = DB::select((string)$qr);
-            // foreach ($data as $avalue) {
-            //     dd($avalue);
-            // }
-            return response()->json([
-                'data' => $data,
-            ], 200);
-        }else{
-            return response()->json([
-                'data' => null,
-            ], 200);
-        }
+        //     $data = DB::select((string)$qr);
+        //     // foreach ($data as $avalue) {
+        //     //     dd($avalue);
+        //     // }
+        //     return response()->json([
+        //         'data' => $data,
+        //     ], 200);
+        // }else{
+        //     return response()->json([
+        //         'data' => null,
+        //     ], 200);
+        // }
     }
 }
