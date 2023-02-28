@@ -102,9 +102,9 @@ class TrackingController extends Controller {
             "order by d.dt desc",$dtFrom->created_at,$dtEnd->created_at,$device_id);
             
             $data = DB::select((string)$qr);
-            foreach ($data as $avalue) {
-                dd($avalue);
-            }
+            // foreach ($data as $avalue) {
+            //     dd($avalue);
+            // }
             return response()->json([
                 'data' => $data,
             ], 200);
