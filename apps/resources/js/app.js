@@ -34,7 +34,7 @@ window.dtHumanParse = function(isDateTime) {
     }
     //MM/DD/YYYY h:mm A - am/pm
     //dd Month yyyy - hh:i
-    return moment.utc(date.utc).zone(date.offset).format('DD MMM YYYY - hh:mm A');
+    return moment.utc(date.utc).zone(date.offset).format('YYYY-MM-DD HH:mm:ss');
 }
 
 console.log(window.dtHumanID(),window.dtHumanName(),window.dtHumanParse("2023-02-28 02:41:09"));

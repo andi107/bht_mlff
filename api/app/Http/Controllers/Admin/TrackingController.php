@@ -61,10 +61,16 @@ class TrackingController extends Controller {
     }
 
     public function tracking_geo($device_id) {
+
+        $t1 = Carbon::parse('2016-07-05 12:29:16');
+        $t2 = Carbon::parse('2016-07-04 13:30:10');
+        $diff = $t1->diff($t2);
+        // dd($diff);
         $data = DB::table('v_geo_history')
         ->selectRaw('id,created_at,ftdevice_id,ftgeo_name,ftaddress,fngeo_declare')
         ->where('ftdevice_id','=', $device_id)
-        ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
+        // ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
+        ->orderBy('created_at','desc')
         ->get();
         // foreach ($data as $avalue) {
         //     foreach ($avalue as $a_key => $a_value) {
