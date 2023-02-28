@@ -29,7 +29,7 @@ from x_geo_declare_det xgdd join x_geo_declare xgd
 	on (xgdd.x_geo_declare_id = xgd.id );
 
 --
-CREATE OR REPLACE VIEW public.v_geo_history
+CREATE OR REPLACE VIEW public.v_geo_history_route
  AS
 select 
 	dr.id,dr.created_at,dr.ftdevice_id,dr.fngeo_id,dr.fngeo_declare,
@@ -38,3 +38,17 @@ From debuging_routes dr left join x_geo_declare xgd
 	on (dr.fngeo_id = xgd.id )
 where dr.fngeo_id is not NULL and dr.fttype = 'R1'
 order by dr.created_at asc;
+--
+
+CREATE OR REPLACE VIEW public.v_geo_history
+ AS
+select
+	a.*,xgd.ftgeo_name,xgd.ftaddress,xgd.fntype,xgd.fnstatus
+from (
+	select 
+		gh.id, gh.ftdevice_id,gh.fddeclaration,gh.fbdeclaration,gh.uuid_x_geo_id,gh.ftduration,
+		xd.ftdevice_name,xd.ftasset_id,xd.ftasset_name,xd.fncategory as device_category,xd.uuid_customer_id
+	from geo_history gh left join x_devices xd
+		on (gh.ftdevice_id = xd.ftdevice_id)
+) a left join x_geo_declare xgd
+	on (a.uuid_x_geo_id = xgd.id)
