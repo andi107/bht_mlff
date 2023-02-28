@@ -9,13 +9,8 @@
     "src": "resources/js/ts/dashboardmaps.js",
     "isEntry": true
   },
-  "resources/js/pages/tracking_status.js": {
-    "file": "assets/tracking_status-b8777ee9.js",
-    "src": "resources/js/pages/tracking_status.js",
-    "isEntry": true
-  },
   "resources/js/pages/tracking_geo.js": {
-    "file": "assets/tracking_geo-3a62312e.js",
+    "file": "assets/tracking_geo-e0b3e235.js",
     "src": "resources/js/pages/tracking_geo.js",
     "isEntry": true
   },
@@ -24,18 +19,23 @@
     "src": "resources/js/pages/device.js",
     "isEntry": true
   },
+  "resources/js/pages/tracking_map.js": {
+    "file": "assets/tracking_map-9eb7aba2.js",
+    "src": "resources/js/pages/tracking_map.js",
+    "isEntry": true
+  },
+  "resources/js/pages/tracking_status.js": {
+    "file": "assets/tracking_status-b8777ee9.js",
+    "src": "resources/js/pages/tracking_status.js",
+    "isEntry": true
+  },
   "resources/js/pages/geo.js": {
     "file": "assets/geo-f08ba1d8.js",
     "src": "resources/js/pages/geo.js",
     "isEntry": true
   },
-  "resources/js/pages/tracking_map.js": {
-    "file": "assets/tracking_map-ef346923.js",
-    "src": "resources/js/pages/tracking_map.js",
-    "isEntry": true
-  },
   "resources/js/app.js": {
-    "file": "assets/app-6b093f44.js",
+    "file": "assets/app-af5e95f8.js",
     "src": "resources/js/app.js",
     "isEntry": true
   }

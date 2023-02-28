@@ -122,9 +122,11 @@ $('#formMapTrack').submit(function (e) {
     
     if (polylines) {
         map.removeLayer(polylines);
-        map.removeLayer(animatedMarker);
-        animatedMarker = null;
     }
+    if (animatedMarker) {
+        map.removeLayer(animatedMarker);
+    }
+    animatedMarker = null;
     // if (myMovingMarker) {
     //     // myMovingMarker.stop();
     //     map.removeLayer(myMovingMarker);
@@ -137,7 +139,7 @@ $('#formMapTrack').submit(function (e) {
     // _speedToMkr = [];
     _lines = [];
     tbllogsdet.clear().draw();
-    $.get(url + "/tracking/detail/js/map?did="+ device_id +"&from="+ _dtfrom +"&to=" + _dtto, function (res) {
+    $.get(url + `/tracking/detail/js/map?did=${device_id}&from=${_dtfrom}&to=${_dtto}&humanTz=${window.dtHumanName()}`, function (res) {
         // console.log(res)
         // created_at
         // ffaccuracy_cep
@@ -162,7 +164,7 @@ $('#formMapTrack').submit(function (e) {
                     // shadowAnchor: [17, 37],  // the same for the shadow
                     popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
                 })
-            }, v.created_at, contentInfoWindow(v));
+            }, window.dtHumanParse(v.created_at), contentInfoWindow(v));
             myFGMarker.addLayer(markers[v.id]);
             myFGMarker.addTo(map);
             _lines.push({ lat: v.fflat, lng: v.fflon });
@@ -173,7 +175,7 @@ $('#formMapTrack').submit(function (e) {
                 _altitude = parseFloat(parseFloat(v.alt) / 3.2808).toFixed(2);
             }
             tbllogsdet.row.add([
-                v.id,v.created_at, v.fflat , v.fflon, v.ffaccuracy_cep, v.ffdirection,v.ffspeed,v.ffaltitude
+                v.id,window.dtHumanParse(v.created_at), v.fflat , v.fflon, v.ffaccuracy_cep, v.ffdirection,v.ffspeed,v.ffaltitude
             ]).draw(true);
         });
         if ( res.relay.data.length != 0) {
@@ -228,7 +230,7 @@ var contentInfoWindow = function(v) {
     }
     return '<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>' +
                 '<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">' +
-                'DATE TIME</div><div class="col-7 pl-4">'+ v.created_at +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
+                'DATE TIME</div><div class="col-7 pl-4">'+ window.dtHumanParse(v.created_at) +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
                 'ALT (Meters)</div><div class="col-7 pl-4">'+ parseFloat(parseFloat(v.ffaltitude) / 3.2808).toFixed(2) +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
                 'SPEED</div><div class="col-7 pl-4">'+ v.ffspeed +'Km/h</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
                 'ACCURACY (CEP)</div><div class="col-7 pl-4">'+ v.ffaccuracy_cep +'</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+

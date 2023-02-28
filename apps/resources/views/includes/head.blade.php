@@ -23,6 +23,7 @@
     Breakpoints();
 </script>
 <script src="{{ asset('global/sio/socket.io.min.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 @vite([
     'resources/css/app.css',
     'resources/js/app.js',

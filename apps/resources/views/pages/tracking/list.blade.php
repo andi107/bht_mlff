@@ -59,7 +59,7 @@
         var tbldevices = $('#tbldevices').DataTable({
             "lengthChange": false
             , order: [
-                [1, 'desc']
+                [5, 'desc']
             ],
             "columnDefs": [
               {
@@ -82,9 +82,10 @@
         });
         
         $.get("{{ route('tracking_list_js') }}", function(res) {
+            console.log(res)
             $.each(res.data, function(k, v) {
                 tbldevices.row.add([
-                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,'n/a','dd Month yyyy - hh:i'
+                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,'n/a',window.dtHumanParse(v.created_at)
                 ]).draw(true);
             });
         });

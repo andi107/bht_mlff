@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 class Hlps
 {
     public static function csrf($value = null)
@@ -158,5 +159,11 @@ class Hlps
         } else {
             return '';
         }
+    }
+
+    public static function dtHumanToUTC($dtString,$dtTzName) {
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $dtString, $dtTzName);
+        $date->setTimezone('UTC');
+        return $date->toDateTimeString();
     }
 }

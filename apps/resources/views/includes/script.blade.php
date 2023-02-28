@@ -42,4 +42,3 @@
 <script src="{{ asset('global/js/Plugin/asscrollable.js')}}"></script>
 <script src="{{ asset('global/js/Plugin/slidepanel.js')}}"></script>
 <script src="{{ asset('global/js/Plugin/switchery.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>

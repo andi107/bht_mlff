@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hlp;
+use Carbon\Carbon;
 class TrackingController extends Controller
 {
     public function device_list_js() {
@@ -21,7 +22,8 @@ class TrackingController extends Controller
         $did = $request->input('did');
         $from = str_replace('T',' ', $request->input('from'));
         $to = str_replace('T',' ', $request->input('to'));
-        $res = Hlp::apiGet('/tracking/d/map/relay?did='. $did .'&from='. $from .'&to='. $to);
+        $humanTz = $request->input('humanTz');
+        $res = Hlp::apiGet('/tracking/d/map/relay?did='. $did .'&from='. Hlp::dtHumanToUTC($from, $humanTz) .'&to='. Hlp::dtHumanToUTC($to, $humanTz));
         if ($res) {
             return response()->json([
                 'relay' => $res
@@ -60,12 +62,19 @@ class TrackingController extends Controller
     }
 
     public function detail_map($device_id) {
+        $td = '2023-02-28 09:41:38';
+        // $creat_at = Carbon::parse($td)
+        // // ->createFromTimestampUTC(420);
+        // ->utcOffset(420);
+        // dd(Hlp::dtHumanToUTC($td,'Asia/Jakarta'));
+        // dd(Carbon::now()->toString(),$creat_at,$date);
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_map',[
             'cfg' => [
                 'title' => $resDvStatus->deviceRelay->ftdevice_id
             ],
-            'deviceData' => $resDvStatus
+            'deviceData' => $resDvStatus,
+            // 'curStartDate' => 
         ]);
     }
 
