@@ -1,6 +1,5 @@
 const url = window.burl;
-const iconUrl = window.iconUrl;
-const shadowUrl = window.shadowUrl;
+const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
 
 var map = L.map('dashboardmap', {
     minZoom: 5,
@@ -26,9 +25,7 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
     if (customPopUp) {
         var popup = L.popup().setContent(customPopUp);
         mkr.bindPopup(popup, {
-            'maxWidth': '342px', // set max-width
-            'width': '342px',
-            'className': 'customPopup' // name custom popup
+            'className': 'custom-popup'
         }).openPopup();
     }
     if (customToolTip) {
@@ -42,31 +39,39 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 }
 
 var contentInfoWindow = function(v) {
-    return '<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>' +
-                '<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">' +
-                'DATE TIME</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'ALT (Meters)</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'SPEED</div><div class="col-7 pl-4">Km/h</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'ACCURACY (CEP)</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'SIGNAL</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'DIRECTION</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'COORDINATE</div><div class="col-7 pl-4"></div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">'+
-                'SATTELITE</div><div class="col-7 pl-4"></div></div>';
+    return `<h3 class="h6 d-block text-uppercase font-weight-bold">${v.ftdevice_name}</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>` +
+    `<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">` +
+    `Last Update</div><div class="col-7 pl-4">${v.created_at}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+    `Vehicle ID</div><div class="col-7 pl-4">${v.ftasset_id}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+    `Vehicle Name</div><div class="col-7 pl-4">${v.ftasset_name}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+    `</div>`;
 }
 
+// var isDivIcon = function() {
+//     var mydivIcon = '<div class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive marker-active" title="proident" tabindex="0" style="margin-left: 0px; margin-top: 0px; width: 12px; height: 12px; transform: translate3d(62px, 325px, 0px); z-index: 1324; opacity: 1; outline: none;"><div class="in-map-markers">' +
+//     '<div class="marker-icon">' +
+//     '<img src="http://localhost/themeforest-dsDnTHD1-remark-responsive-bootstrap-4-admin-template/material/global/photos/placeholder.png' +
+//     '</div></div></div>';
+//     return new L.divIcon({
+//         className: 'my-div-icon',
+//         html: mydivIcon
+//     });
+// }
+
 $.get(url + "/dashboard/js", function (res) {
+    console.log(res.data)
     $.each(res.data.data, function (k, v) {
         var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
-            icon : L.icon({
-                iconUrl: iconUrl,
-                shadowUrl: shadowUrl,
-                // iconSize:     [10, 95], // size of the icon
-                // shadowSize:   [50, 64], // size of the shadow
-                iconAnchor:   [17, 37], // point of the icon which will correspond to marker's location
-                shadowAnchor: [17, 37],  // the same for the shadow
-                popupAnchor:  [0, -15] // point from which the popup should open relative to the iconAnchor
-            })},
-            v.created_at,
+                icon : L.icon({
+                    iconUrl: iconUrl,
+                    iconSize:     [30, 30],
+                    iconAnchor:   [16, 23],
+                    popupAnchor:  [0, -15]
+                })
+                // icon : isDivIcon
+            },
+
+            v.ftasset_id,
             contentInfoWindow(v));
             myFGMarker.addLayer(marker);
             myFGMarker.addTo(map);
@@ -77,3 +82,5 @@ $.get(url + "/dashboard/js", function (res) {
         console.log('No Data')
     }
 });
+
+// var markersCluster = L.markerClusterGroup();

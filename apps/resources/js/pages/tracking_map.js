@@ -207,14 +207,12 @@ $('#formMapTrack').submit(function (e) {
                 animatedMarker.start();
             });
         }else{
-            console.log('No Data')
+            toastr.warning('No points found !.', 'Exclamation');
         }
     });
 });
 
-$('.datepicker').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm:ss'
-});
+
 
 function between(x, min, max) {
     return x >= min && x <= max;

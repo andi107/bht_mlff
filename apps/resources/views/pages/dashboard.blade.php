@@ -19,8 +19,8 @@
         </div>
     </div>
     @push('isscript')
-        {{-- <script src="{{ asset('global/vendor/mapbox-js/mapbox.js')}}"></script> --}}
-        {{-- <script src="{{ asset('global/vendor/mapbox-js/leaflet.markercluster.js')}}"></script> --}}
+        <script src="{{ asset('global/vendor/mapbox-js/mapbox.js')}}"></script>
+        <script src="{{ asset('global/vendor/mapbox-js/leaflet.markercluster.js')}}"></script>
         <script src="{{ asset('leaflet/leaflet.js')}}"></script>
     @endpush
     @vite([

@@ -1,5 +1,5 @@
 const url = window.burl;
-const iconUrl = window.iconUrl;
+const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
 const shadowUrl = window.shadowUrl;
 var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
 
@@ -43,9 +43,9 @@ var marker = _newMarker(
         {lat: _curLat, lng: _curLon}, {
         icon : L.icon({
             iconUrl: iconUrl,
-            shadowUrl: shadowUrl,
-            iconAnchor:   [17, 37],
-            shadowAnchor: [17, 37],
+            // shadowUrl: shadowUrl,
+            iconSize:     [30, 30],
+            iconAnchor:   [15, 33],
             popupAnchor:  [0, -15]
         })
     }, null,null

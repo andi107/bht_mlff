@@ -54,7 +54,7 @@
                                             @csrf
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <input type="text" id="txtdtfrom" name="txtdtfrom" class="form-control datepicker" required/>
+                                                <input value="asdasdasd" type="text" id="txtdtfrom" name="txtdtfrom" class="form-control datepicker" required/>
                                             </div>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtdtto" name="txtdtto" class="form-control datepicker" required/>
@@ -146,15 +146,19 @@
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-        today = mm + '-' + dd + '-' + yyyy;
+        today = yyyy + '-' + mm + '-' + dd;
         var _dtfrom = today + ' 00:00:00', _dtto = today + ' 23:59:59';
-        // $("#txtdtfrom").val(today + ' 00:00:00');
-        // $("#txtdtto").val(today + ' 00:00:00');
-        var el_down = document.getElementById("txtdtfrom");
-        var inputF = document.getElementById("txtdtto");
-        inputF.value = today + ' 00:00:00';
-        el_down.innerHTML = today + ' 00:00:00';
         
+        // var el_down = document.getElementById("txtdtfrom");
+        // var inputF = document.getElementById("txtdtto");
+        // inputF.innerHTML = today + ' 00:00:00';
+        // el_down.innerHTML = today + ' 00:00:00';
+        $("#txtdtfrom").val(_dtfrom);
+        $("#txtdtto").val(_dtto);
+        console.log(today)
+        $('.datepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
     </script>
     @endpush
     
