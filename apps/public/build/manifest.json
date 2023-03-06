@@ -1,22 +1,12 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-3fbefc67.css",
+    "file": "assets/app-dee75cbb.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
-  "resources/js/pages/tracking_geo.js": {
-    "file": "assets/tracking_geo-e0b3e235.js",
-    "src": "resources/js/pages/tracking_geo.js",
-    "isEntry": true
-  },
-  "resources/js/pages/device.js": {
-    "file": "assets/device-3fb26b7d.js",
-    "src": "resources/js/pages/device.js",
-    "isEntry": true
-  },
-  "resources/js/ts/dashboardmaps.js": {
-    "file": "assets/dashboardmaps-4aee337b.js",
-    "src": "resources/js/ts/dashboardmaps.js",
+  "resources/js/pages/resource_monitor.js": {
+    "file": "assets/resource_monitor-4a5aca0e.js",
+    "src": "resources/js/pages/resource_monitor.js",
     "isEntry": true
   },
   "resources/js/pages/tracking_status.js": {
@@ -24,13 +14,28 @@
     "src": "resources/js/pages/tracking_status.js",
     "isEntry": true
   },
+  "resources/js/ts/dashboardmaps.js": {
+    "file": "assets/dashboardmaps-e4960c31.js",
+    "src": "resources/js/ts/dashboardmaps.js",
+    "isEntry": true
+  },
+  "resources/js/pages/device.js": {
+    "file": "assets/device-3fb26b7d.js",
+    "src": "resources/js/pages/device.js",
+    "isEntry": true
+  },
   "resources/js/pages/geo.js": {
     "file": "assets/geo-f08ba1d8.js",
     "src": "resources/js/pages/geo.js",
     "isEntry": true
   },
+  "resources/js/pages/tracking_geo.js": {
+    "file": "assets/tracking_geo-e0b3e235.js",
+    "src": "resources/js/pages/tracking_geo.js",
+    "isEntry": true
+  },
   "resources/js/pages/tracking_map.js": {
-    "file": "assets/tracking_map-4b106773.js",
+    "file": "assets/tracking_map-4fe21448.js",
     "src": "resources/js/pages/tracking_map.js",
     "isEntry": true
   },

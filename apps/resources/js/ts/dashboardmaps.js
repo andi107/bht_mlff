@@ -41,7 +41,7 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 var contentInfoWindow = function(v) {
     return `<h3 class="h6 d-block text-uppercase font-weight-bold">${v.ftdevice_name}</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>` +
     `<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">` +
-    `Last Update</div><div class="col-7 pl-4">${v.created_at}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+    `Last Update</div><div class="col-7 pl-4">${window.dtHumanParse(v.created_at)}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
     `Vehicle ID</div><div class="col-7 pl-4">${v.ftasset_id}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
     `Vehicle Name</div><div class="col-7 pl-4">${v.ftasset_name}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
     `</div>`;
@@ -59,7 +59,7 @@ var contentInfoWindow = function(v) {
 // }
 
 $.get(url + "/dashboard/js", function (res) {
-    console.log(res.data)
+    // console.log(res.data)
     $.each(res.data.data, function (k, v) {
         var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
                 icon : L.icon({

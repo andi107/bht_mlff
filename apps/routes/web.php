@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\GeoController;
+use App\Http\Controllers\Admin\DevToolsController;
 
 Route::get('/', function() {
     return Redirect::to(route('dashboard'));
@@ -60,5 +61,12 @@ Route::controller(GeoController::class)->group(function () {
         Route::get('list','list')->name('geo_list');
         Route::get('add', 'formindex')->name('geo_create_index');
         Route::get('detail/{geoid}', 'detail')->name('geo_detail');
+    });
+});
+Route::controller(DevToolsController::class)->group(function () {
+    Route::group([
+        'prefix' => 'devtools',
+    ], function() {
+        Route::get('/','index')->name('dev_src_monitor');
     });
 });

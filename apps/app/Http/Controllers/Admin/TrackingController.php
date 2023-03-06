@@ -55,7 +55,8 @@ class TrackingController extends Controller
         // dd($resDvStatus);
         return view('pages.tracking.form_status',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id
+                'title' => $resDvStatus->deviceRelay->ftdevice_id,
+                'deviceid' => $resDvStatus->deviceRelay->ftdevice_id,
             ],
             'deviceData' => $resDvStatus
         ]);

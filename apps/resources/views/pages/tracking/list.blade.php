@@ -76,7 +76,6 @@
         });
         $('#tbldevices tbody').on( 'click', 'button.btnview', function () {
             var data = tbldevices.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
             sURL = `{{ route('tracking_status', ':id') }}`;
             window.location.href = sURL.replace(":id", data[0]);
         });

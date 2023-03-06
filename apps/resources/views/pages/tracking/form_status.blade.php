@@ -1,4 +1,5 @@
 <x-default>
+    <input type="hidden" name="_deviceid" value="{{ $deviceData->deviceRelay->ftdevice_id }}">
     <input type="hidden" name="_lat" value="{{ $deviceData->deviceRelay->fflat }}">
     <input type="hidden" name="_lon" value="{{ $deviceData->deviceRelay->fflon }}">
     @include('pages.tracking.thead')

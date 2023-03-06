@@ -207,7 +207,7 @@ $('#formMapTrack').submit(function (e) {
                 animatedMarker.start();
             });
         }else{
-            toastr.warning('No points found !.', 'Exclamation');
+            toastr.info('Vehicle tracking not found.', 'Information');
         }
     });
 });

@@ -54,7 +54,7 @@
                                             @csrf
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <input value="asdasdasd" type="text" id="txtdtfrom" name="txtdtfrom" class="form-control datepicker" required/>
+                                                <input type="text" id="txtdtfrom" name="txtdtfrom" class="form-control datepicker" required/>
                                             </div>
                                             <div class="col-md-4">
                                                 <input type="text" id="txtdtto" name="txtdtto" class="form-control datepicker" required/>

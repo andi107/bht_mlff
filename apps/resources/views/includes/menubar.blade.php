@@ -63,8 +63,15 @@
                         </li>
                     </ul>
                 </li>
+                <li class="site-menu-category">Engineer Tools</li>
+                <li class="site-menu-item {{ \Hlp::chkActive(route('dev_src_monitor')) }}">
+                    <a class="animsition-link" href="{{ route('dev_src_monitor') }}">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title">Resource Monitor</span>
+                    </a>
+                </li>
             </ul>
-            <div class="site-menubar-section">
+            {{-- <div class="site-menubar-section">
                 <h5>
                     Server CPU
                     <span class="float-right">30%</span>
@@ -79,7 +86,7 @@
                 <div class="progress progress-xs">
                     <div class="progress-bar progress-bar-warning" style="width: 60%;" role="progressbar"></div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
