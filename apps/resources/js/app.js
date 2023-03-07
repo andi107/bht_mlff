@@ -9,7 +9,7 @@ window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-window.sio = io("http://110.5.105.26:6001");
+window.sio = io("http://110.5.105.26:60011");
 
 const offsetTz = new Date().getTimezoneOffset();
 window.dtHumanID = function () {

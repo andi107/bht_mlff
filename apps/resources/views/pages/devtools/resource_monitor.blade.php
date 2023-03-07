@@ -14,20 +14,20 @@
                         <div class="card-block p-30">
                             <div class="row">
                                 <div class="col-12">
-                                    <label>SERVER 26-54322</label>
+                                    <label>SERVER 2654322</label>
                                     <h5>
                                         CPU
-                                        <span class="float-right">0%</span>
+                                        <span id="svr_2654322_cpu_value" class="float-right">0%</span>
                                     </h5>
                                     <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width:0%;" role="progressbar"></div>
+                                        <div id="svr_2654322_cpu" class="progress-bar progress-bar-danger" style="width:0%;" role="progressbar"></div>
                                     </div>
                                     <h5>
                                         RAM
-                                        <span class="float-right">0%</span>
+                                        <span id="svr_2654322_mem_value" class="float-right">0%</span>
                                     </h5>
                                     <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-warning" style="width: 0%;" role="progressbar"></div>
+                                        <div id="svr_2654322_mem" class="progress-bar progress-bar-warning" style="width: 0%;" role="progressbar"></div>
                                     </div>
                                 </div>
 
@@ -40,20 +40,20 @@
                         <div class="card-block p-30">
                             <div class="row">
                                 <div class="col-12">
-                                    <label>Server Not Registered</label>
+                                    <label>SERVER 2654324</label>
                                     <h5>
                                         CPU
-                                        <span class="float-right">0%</span>
+                                        <span id="svr_2654324_cpu_value" class="float-right">0%</span>
                                     </h5>
                                     <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 0%;" role="progressbar"></div>
+                                        <div id="svr_2654324_cpu" class="progress-bar progress-bar-danger" style="width: 0%;" role="progressbar"></div>
                                     </div>
                                     <h5>
                                         RAM
-                                        <span class="float-right">0%</span>
+                                        <span id="svr_2654324_mem_value" class="float-right">0%</span>
                                     </h5>
                                     <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-warning" style="width: 0%;" role="progressbar"></div>
+                                        <div id="svr_2654324_mem" class="progress-bar progress-bar-warning" style="width: 0%;" role="progressbar"></div>
                                     </div>
                                 </div>
                             </div>
@@ -110,34 +110,35 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-12 col-md-12">
-                <div class="card card-shadow ">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">SERVICES</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                GSM Services
-                                <span class="badge badge-success badge-pill">ON</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                SIGFOX Services
-                                <span class="badge badge-default badge-pill">OFF</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                ALPS Services
-                                <span class="badge badge-warning badge-pill">Not Registered</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                TELTONIKA Services
-                                <span class="badge badge-warning badge-pill">Not Registered</span>
-                            </li>
-                        </ul>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-shadow ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">SERVICES</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    GSM Services
+                                    <span id="service_gsm" class="text">🔴</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    SIGFOX Services
+                                    <span class="text">🔴</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    ALPS Services
+                                    <span class="badge badge-warning badge-pill">Not Registered</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    TELTONIKA Services
+                                    <span class="badge badge-warning badge-pill">Not Registered</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     </div>
