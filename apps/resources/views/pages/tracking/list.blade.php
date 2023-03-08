@@ -34,17 +34,6 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Device ID</th>
-                            <th>Device Name</th>
-                            <th>Vehicle ID</th>
-                            <th>Vehicle Name</th>
-                            <th>Last Location</th>
-                            <th>Last Update</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody></tbody>
                 </table>
             </div>

@@ -203,7 +203,7 @@ $('#formGeo').submit(
                 $('#formGeo').css("opacity", "");
                 var r = res.msg;
                 if (r.code === 200) {
-                    sio.emit('trx_obu_data', 'polygon_reload');
+                    sio.emit('trx_downlink', 'polygon_reload');
                     swal({
                         title: "Success",
                         text: "Continue editing?",

@@ -30,14 +30,6 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Geo Location Name</th>
-                            <th>Geo Location Address</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody></tbody>
                 </table>
             </div>
