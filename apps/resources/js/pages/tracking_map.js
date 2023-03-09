@@ -32,14 +32,14 @@ var tbllogsdet = $('#tbllogsdet').DataTable({
         },
     ],
     scrollX: true,
-    order: [[0, 'asc']],
-    "columnDefs": [
-        {
-            target: 0,
-            visible: false,
-            searchable: false,
-        },
-    ],
+    order: [[0, 'desc']],
+    // "columnDefs": [
+    //     {
+    //         target: 0,
+    //         visible: false,
+    //         searchable: false,
+    //     },
+    // ],
 });
 $("#tbllogsdet").width("100%");
 
@@ -175,7 +175,7 @@ $('#formMapTrack').submit(function (e) {
                 _altitude = parseFloat(parseFloat(v.alt) / 3.2808).toFixed(2);
             }
             tbllogsdet.row.add([
-                v.id,window.dtHumanParse(v.created_at), v.fflat , v.fflon, v.ffaccuracy_cep, v.ffdirection,v.ffspeed,v.ffaltitude
+                window.dtHumanParse(v.created_at), v.fflat , v.fflon, v.ffaccuracy_cep, v.ffdirection,v.ffspeed,v.ffaltitude
             ]).draw(true);
         });
         if ( res.relay.data.length != 0) {

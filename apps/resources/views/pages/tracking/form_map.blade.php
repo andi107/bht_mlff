@@ -84,38 +84,37 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modallogdetail" tabindex="-1" role="dialog" aria-labelledby="modallogdetailLongTitle" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modaltitleLogs">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <table class="table table-hover dataTable table-striped w-full"  id="tbllogsdet">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Time</th>
-                                        <th>Latitude</th>
-                                        <th>Longitude</th>
-                                        <th>Accuracy(CEP)</th>
-                                        <th>Direction</th>
-                                        <th>Speed(Km/h)</th>
-                                        <th>Altitude(Meters)</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+        
+    </div>
+    <div class="modal fade" id="modallogdetail" tabindex="-1" role="dialog" aria-labelledby="modallogdetailLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modaltitleLogs">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <table class="table table-bordered dt-responsive table-hover dataTable table-striped w-full"  id="tbllogsdet">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Accuracy(CEP)</th>
+                                    <th>Direction</th>
+                                    <th>Speed(Km/h)</th>
+                                    <th>Altitude(Meters)</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
     
     @include('pages.tracking.tfoot')
     
@@ -155,7 +154,7 @@
         // el_down.innerHTML = today + ' 00:00:00';
         $("#txtdtfrom").val(_dtfrom);
         $("#txtdtto").val(_dtto);
-        console.log(today)
+        // console.log(today)
         $('.datepicker').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss'
         });

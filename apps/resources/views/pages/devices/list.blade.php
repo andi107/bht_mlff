@@ -54,6 +54,7 @@
             , order: [
                 [1, 'desc']
             ],
+            scrollX: true,
             "columnDefs": [
               {
                 // <button class="btn btn-info waves-effect waves-classic" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover" data-toggle="popover" data-original-title="Hover to trigger" tabindex="0" title="" type="button">Hover to trigger</button>

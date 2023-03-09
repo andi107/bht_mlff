@@ -46,6 +46,7 @@
             , order: [
                 [1, 'asc']
             ],
+            scrollX: true,
             "columnDefs": [
                 { 'visible': false, 'targets': [0] },
                 {
