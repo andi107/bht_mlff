@@ -29,7 +29,6 @@
                             <th>Device Name</th>
                             <th>Vehicle ID</th>
                             <th>Vehicle Name</th>
-                            <th>Last Location</th>
                             <th>Last Update</th>
                             <th>Action</th>
                         </tr>
@@ -74,7 +73,7 @@
             console.log(res)
             $.each(res.data, function(k, v) {
                 tbldevices.row.add([
-                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,'n/a',window.dtHumanParse(v.created_at)
+                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,window.dtHumanParse(v.created_at)
                 ]).draw(true);
             });
         });
