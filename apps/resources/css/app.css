@@ -10,7 +10,8 @@ body {
 }
 #objmap,
 #trackingmap,
-#statusmap {
+#statusmap,
+#livemap {
     height: 500px;
 }
 /* .leaflet-popup-content {

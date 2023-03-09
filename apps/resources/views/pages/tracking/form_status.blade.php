@@ -35,6 +35,11 @@
                                 Geofence
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
+                                Live Location
+                            </a>
+                        </li>
                     </ul>
                     <div class="py-4"></div>
                     <div id="tabsContent" class="tab-content">

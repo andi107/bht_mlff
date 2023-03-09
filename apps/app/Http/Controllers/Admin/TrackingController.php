@@ -63,12 +63,6 @@ class TrackingController extends Controller
     }
 
     public function detail_map($device_id) {
-        $td = '2023-02-28 09:41:38';
-        // $creat_at = Carbon::parse($td)
-        // // ->createFromTimestampUTC(420);
-        // ->utcOffset(420);
-        // dd(Hlp::dtHumanToUTC($td,'Asia/Jakarta'));
-        // dd(Carbon::now()->toString(),$creat_at,$date);
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_map',[
             'cfg' => [
@@ -89,4 +83,13 @@ class TrackingController extends Controller
         ]);
     }
 
+    public function detail_live($device_id) {
+        $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
+        return view('pages.tracking.form_live',[
+            'cfg' => [
+                'title' => $resDvStatus->deviceRelay->ftdevice_id
+            ],
+            'deviceData' => $resDvStatus,
+        ]);
+    }
 }

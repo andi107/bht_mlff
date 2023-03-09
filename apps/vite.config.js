@@ -15,7 +15,8 @@ export default defineConfig({
                 'resources/js/pages/tracking_map.js',
                 'resources/js/pages/tracking_status.js',
                 'resources/js/pages/tracking_geo.js',
-                'resources/js/pages/resource_monitor.js'
+                'resources/js/pages/resource_monitor.js',
+                'resources/js/pages/tracking_live.js',
             ],
             refresh: true,
         }),

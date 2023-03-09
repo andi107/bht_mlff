@@ -34,6 +34,7 @@ Route::controller(TrackingController::class)->group(function () {
         Route::get('detail/{deviceid}/status', 'detail_status')->name('tracking_status');
         Route::get('detail/{deviceid}/map', 'detail_map')->name('tracking_map');
         Route::get('detail/{deviceid}/geofence', 'detail_geo')->name('tracking_geo');
+        Route::get('detail/{deviceid}/live', 'detail_live')->name('tracking_live');
     });
 });
 

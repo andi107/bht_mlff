@@ -34,12 +34,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tracking_geo',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase active">
+                            <a href="{{ route('tracking_geo',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
                                 Geofence
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
+                            <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase active">
                                 Live Location
                             </a>
                         </li>
@@ -49,17 +49,7 @@
                         <div class="tab-pane fade active show">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-hover dataTable table-striped w-full" id="tblgeolist">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Geofence Name</th>
-                                                <th>Geofence Address</th>
-                                                <th>Declaration</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
+                                    <div id="livemap"></div>
                                 </div>
                             </div>
                         </div>
@@ -69,13 +59,7 @@
         </div>
     </div>
     @include('pages.tracking.tfoot')
-    @push('isscript')
-    <script src="{{ asset('global/vendor/datatables.net/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('global/vendor/bootbox/bootbox.js')}}"></script>
-    <script src="{{ asset('global/js/Plugin/datatables.js')}}"></script>
-    @endpush
     @vite([
-        'resources/js/pages/tracking_geo.js',
+        'resources/js/pages/tracking_live.js',
     ])
 </x-default>
