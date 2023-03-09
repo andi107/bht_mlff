@@ -68,7 +68,7 @@ _tileLayer.addTo(map);
 // const mk = new DriftMarker([-6.174995875435529, 106.8269879988658]);
 
 var mk = new DriftMarker([_curLat, _curLon], {
-    draggable: false,
+    draggable: true,
     title: "Resource location",
     alt: "Resource Location",
     riseOnHover: true,
@@ -85,11 +85,11 @@ sio.on('trx_device_data_rcv', function (data) {
     console.log(v,v.id,_device_id)
     if (v.id === _device_id) {
         mk.slideTo([v.lat, v.lon], {
-            duration: 50000,
+            duration: 5000,
             keepAtCenter: false,
         });
         
-        mk.setIcon(myIcon(iconTop));
+        mk.setIcon(myIcon(iconUrl));
         
         console.log(v.id,v.lat, v.lon)
         console.log(mk)
