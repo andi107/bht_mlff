@@ -1,9 +1,17 @@
-var sio = window.sio,gsm_timeout;
+var sio = window.sio;
 
 sio.on("trx_resources_monitor_rcv", (data) => {
-    // console.log(data,data.search("gsm_parse_v2.1"))
     var gsm = data.search("Tracking ON.");
-    if  (gsm < 0) {
+    var _sigfox = data.search("Sigfox ON.");
+    
+    if (_sigfox >= 0) {
+        console.log(`gsm ${gsm}`,`sigfox ${_sigfox}`)
+        $('#service_sigfox').text('🟢');
+        var sigfox_timeout = setTimeout(function() {
+            $('#service_sigfox').text('🔴');
+        }, 3000);
+    }
+    if  (gsm < 0 && _sigfox < 0) {
         var v = JSON.parse(data);
         // console.log("o",v)
         if (v.app_name === 'SRCM-2654322') {

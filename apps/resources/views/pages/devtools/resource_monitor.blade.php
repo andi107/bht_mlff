@@ -123,15 +123,15 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     SIGFOX Services
-                                    <span class="text">🔴</span>
+                                    <span id="service_sigfox" class="text">🔴</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     ALPS Services
-                                    <span class="badge badge-warning badge-pill">Not Registered</span>
+                                    <span class="text">Not Registered</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     TELTONIKA Services
-                                    <span class="badge badge-warning badge-pill">Not Registered</span>
+                                    <span class="text">Not Registered</span>
                                 </li>
                             </ul>
                         </div>
