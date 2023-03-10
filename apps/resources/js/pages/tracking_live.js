@@ -1,17 +1,17 @@
 import DriftMarker from "leaflet-drift-marker";
 import "leaflet-rotatedmarker";
-const url = window.burl;
+// const url = window.burl;
 const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
 const iconTop = "/assets/images/leaflet/yellow-car-top.png";
 const sio = window.sio;
 var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val(),
 _device_id = $("input[name=_id]").val(),
-myIcon = function name(iUrl) {
+myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
         iconSize:     [30, 30],
-        iconAnchor:   [15, 33],
-        popupAnchor:  [0, -15]
+        iconAnchor:   [15, 20],
+        // popupAnchor:  [0, -15]
     })
 };
 
@@ -39,7 +39,20 @@ fgMkr.addLayer(mk);
 fgMkr.addTo(map);
 map.fitBounds(fgMkr.getBounds());
 
+var flagStop = true;
+function setStop() {
+    setTimeout(function () {
+        flagStop = true;
+    }, 300000);
+}
 
+setInterval(function () {
+    if (flagStop) {
+        mk.setIcon(myIcon(iconUrl));
+        mk.setRotationAngle(0);
+        // mk.setRotationOrigin("center center");
+    }
+}, 15000)
 
 sio.on('trx_device_data_rcv', function (data) {
     var v = JSON.parse(data);
@@ -72,6 +85,7 @@ sio.on('trx_device_data_rcv', function (data) {
         mk.setIcon(_movIcon);
         mk.setRotationAngle(v.direction);
         mk.setRotationOrigin("center center");
-        
+        flagStop = false;
+        setStop();
     }
 });

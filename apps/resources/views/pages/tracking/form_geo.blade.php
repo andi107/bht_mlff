@@ -40,7 +40,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
-                                Live Location
+                                🔴Live Location
                             </a>
                         </li>
                     </ul>
