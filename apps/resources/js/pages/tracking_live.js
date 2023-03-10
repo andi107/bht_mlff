@@ -65,7 +65,7 @@ sio.on('trx_device_data_rcv', function (data) {
         var _movIcon = L.icon({
             iconUrl: iconTop,
             iconSize:     [15, 30],
-            iconAnchor:   [7,13],
+            iconAnchor:   [7,16],
             // popupAnchor:  [0, -15]
         });
         
