@@ -4,14 +4,22 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/pages/tracking_geo.js": {
+    "file": "assets/tracking_geo-e0b3e235.js",
+    "src": "resources/js/pages/tracking_geo.js",
+    "isEntry": true
+  },
+  "__commonjsHelpers-28e086c5.js": {
+    "file": "assets/_commonjsHelpers-28e086c5.js"
+  },
   "resources/js/pages/device.js": {
     "file": "assets/device-3fb26b7d.js",
     "src": "resources/js/pages/device.js",
     "isEntry": true
   },
-  "resources/js/pages/tracking_geo.js": {
-    "file": "assets/tracking_geo-e0b3e235.js",
-    "src": "resources/js/pages/tracking_geo.js",
+  "resources/js/pages/tracking_status.js": {
+    "file": "assets/tracking_status-d009bd70.js",
+    "src": "resources/js/pages/tracking_status.js",
     "isEntry": true
   },
   "resources/js/ts/dashboardmaps.js": {
@@ -19,17 +27,14 @@
     "src": "resources/js/ts/dashboardmaps.js",
     "isEntry": true
   },
-  "__commonjsHelpers-28e086c5.js": {
-    "file": "assets/_commonjsHelpers-28e086c5.js"
+  "resources/js/pages/resource_monitor.js": {
+    "file": "assets/resource_monitor-f888e1c5.js",
+    "src": "resources/js/pages/resource_monitor.js",
+    "isEntry": true
   },
   "resources/js/pages/geo.js": {
     "file": "assets/geo-610464cf.js",
     "src": "resources/js/pages/geo.js",
-    "isEntry": true
-  },
-  "resources/js/pages/tracking_status.js": {
-    "file": "assets/tracking_status-9e1d6f16.js",
-    "src": "resources/js/pages/tracking_status.js",
     "isEntry": true
   },
   "resources/js/pages/tracking_map.js": {
@@ -37,13 +42,8 @@
     "src": "resources/js/pages/tracking_map.js",
     "isEntry": true
   },
-  "resources/js/pages/resource_monitor.js": {
-    "file": "assets/resource_monitor-f888e1c5.js",
-    "src": "resources/js/pages/resource_monitor.js",
-    "isEntry": true
-  },
   "resources/js/pages/tracking_live.js": {
-    "file": "assets/tracking_live-ee5146d7.js",
+    "file": "assets/tracking_live-587e1033.js",
     "src": "resources/js/pages/tracking_live.js",
     "isEntry": true,
     "imports": [
