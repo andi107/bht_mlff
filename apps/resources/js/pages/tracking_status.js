@@ -3,6 +3,8 @@ const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
 const shadowUrl = window.shadowUrl;
 var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
 
+var _dateTime = $("#datetime").text();
+$("#datetime").text(window.dtHumanParse(_dateTime));
 var map = L.map('statusmap', {
     minZoom: 5,
     fullscreenControl: true,
