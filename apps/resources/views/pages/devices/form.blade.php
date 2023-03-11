@@ -90,8 +90,7 @@
     <script src="{{ asset('global/vendor/ladda/spin.min.js')}}"></script>
     <script src="{{ asset('global/vendor/ladda/ladda.min.js')}}"></script>
     <script src="{{ asset('global/js/Plugin/ladda.js')}}"></script>
-    <script src="{{ asset('global/vendor/bootstrap-sweetalert/sweetalert.js')}}"></script>
-    <script src="{{ asset('global/js/Plugin/bootstrap-sweetalert.js')}}"></script>
+    
     <script src="{{ asset('global/vendor/select2/select2.full.min.js')}}"></script>
     <script src="{{ asset('global/js/Plugin/select2.js')}}"></script>
     <script src="{{ asset('global/vendor/bootstrap-select/bootstrap-select.js')}}"></script>

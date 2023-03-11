@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\GeoController;
 use App\Http\Controllers\Admin\DevToolsController;
+use App\Http\Controllers\Info\DataController;
 
 Route::get('/', function() {
     return Redirect::to(route('dashboard'));
@@ -69,5 +70,14 @@ Route::controller(DevToolsController::class)->group(function () {
         'prefix' => 'devtools',
     ], function() {
         Route::get('/','index')->name('dev_src_monitor');
+    });
+});
+Route::controller(DataController::class)->group(function () {
+    Route::group([
+        'prefix' => 'info',
+    ], function() {
+        Route::get('js/geo/{geoid}','geo_info_js')->name('geo_info_js');
+        Route::get('js/device/{deviceid}','device_info_js')->name('device_info_js');
+        // 862636051555512
     });
 });

@@ -103,7 +103,7 @@ class GeoController extends Controller {
         $status = $request->input('status');
         
         DB::beginTransaction();
-        // try {
+        try {
             $dtnow = Carbon::now();
 
             DB::table('x_geo_declare')
@@ -142,16 +142,16 @@ class GeoController extends Controller {
             DB::commit();
             return response()->json([], 200);
             
-        // } catch (\Throwable $th) {
-        //     DB::rollback();
-        //     return response()->json([
-        //         'error' => 'Internal Server Error.',
-        //     ], 500)
-        //         ->header('X-Content-Type-Options', 'nosniff')
-        //         ->header('X-Frame-Options', 'DENY')
-        //         ->header('X-XSS-Protection', '1; mode=block')
-        //         ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
-        // }
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'error' => 'Internal Server Error.',
+            ], 500)
+                ->header('X-Content-Type-Options', 'nosniff')
+                ->header('X-Frame-Options', 'DENY')
+                ->header('X-XSS-Protection', '1; mode=block')
+                ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
+        }
     }
 
     public function detail($geoid) {

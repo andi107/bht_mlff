@@ -40,5 +40,13 @@ $router->group([
         $router->get('d/{geoid}', 'Admin\GeoController@detail');
         $router->get('d/{geoid}/point', 'Admin\GeoController@detail_point');
     });
+
+    $router->group([
+        'prefix' => 'info'
+    ], function() use($router) {
+        $router->get('geo/{geoid}', 'InfoData\IDataController@geo_information');
+        $router->get('device/{deviceid}', 'InfoData\IDataController@device_information');
+        
+    });
 });
 

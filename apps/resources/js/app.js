@@ -9,7 +9,74 @@ window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-window.sio = io("http://110.5.105.26:60011");
+const sio = io("http://110.5.105.26:60011");
+window.sio = sio;
+var _arrMsg = {};
+sio.on("trx_device_geo_rcv",function(data) {
+    // {
+    //     "app_name": "polygon_v1",
+    //     "id": "860371050882459",
+    //     "type": "geo_notif",
+    //     "geoid": "994ff33a-f3af-48a5-ad35-e06550873d95",
+    //     "declare": 1
+    // }
+    // {
+    //     "data": {
+    //         "id": "994ff33a-f3af-48a5-ad35-e06550873d95",
+    //         "ftgeo_name": "PT. Bagus Harapan Tritunggal Office",
+    //         "ftaddress": "Jl. Harmoni, Jakarta indonesia",
+    //         "fntype": 1,
+    //         "fnstatus": 1,
+    //         "created_at": "2023-02-26 16:59:28",
+    //         "updated_at": "2023-03-09 07:57:48"
+    //     }
+    // }
+    // {
+    //     "data": {
+    //         "ftdevice_id": "860371050882459",
+    //         "ftdevice_name": "Xenxor Made",
+    //         "ftasset_id": "B XXX CA",
+    //         "ftasset_name": "Motor",
+    //         "ftasset_description": "Main Test Device",
+    //         "fncategory": 1,
+    //         "uuid_customer_id": null,
+    //         "fflat": "0",
+    //         "fflon": "0",
+    //         "ffdirect": "0",
+    //         "ffalt": "0",
+    //         "fbignition": false,
+    //         "ffbattery": "0",
+    //         "fnstatus": 1,
+    //         "created_at": "2023-02-25 21:04:28",
+    //         "updated_at": "2023-03-01 01:34:35",
+    //         "uuid_geo_id": "994ff33a-f3af-48a5-ad35-e06550873d95"
+    //     }
+    // }
+    console.log(data);
+    var res = JSON.parse(data);
+    
+    if (res.type === 'geo_notif') {
+        // _arrMsg = {
+        //     'asset_name': '',
+        //     'geo_name': ''
+        // };
+
+        // http://localhost:8989/info/js/geo/664974b5-e2a5-416b-9935-90cb3063460c
+        // http://localhost:8989/info/js/device/862636051555512
+        $.get(url + `/info/js/device/${res.id}`, function(resDevice) {
+            _arrMsg['asset_name'] = resDevice.data.ftasset_name;
+        });
+        $.get(url + `/info/js/geo/${res.geoid}`, function(resGeo) {
+            _arrMsg['geo_name'] = resGeo.data.ftgeo_name;
+        });
+        console.log(_arrMsg)
+        if (res.declare == 1) {
+            toastr.success(`${_arrMsg.asset_name} <i><b>Enter</b></i> ${_arrMsg.geo_name}`, 'Geo Notification');
+        }else{
+            toastr.warning(`${_arrMsg.asset_name} <i><b>Exit</b></i> ${_arrMsg.geo_name}`, 'Geo Notification');
+        }
+    }
+});
 
 const offsetTz = new Date().getTimezoneOffset();
 window.dtHumanID = function () {
