@@ -27,7 +27,7 @@ var _tileLayer = L.tileLayer(window.mapLayer);
 _tileLayer.addTo(map);
 
 var mk = new DriftMarker([_curLat, _curLon], {
-    draggable: true,
+    draggable: false,
     title: "Resource location",
     alt: "Resource Location",
     riseOnHover: true,
@@ -40,11 +40,6 @@ fgMkr.addTo(map);
 map.fitBounds(fgMkr.getBounds());
 
 var flagStop = true;
-function setStop() {
-    setTimeout(function () {
-        flagStop = true;
-    }, 300000);
-}
 
 setInterval(function () {
     if (flagStop) {
@@ -85,7 +80,8 @@ sio.on('trx_device_data_rcv', function (data) {
         mk.setIcon(_movIcon);
         mk.setRotationAngle(v.direction);
         mk.setRotationOrigin("center center");
-        flagStop = false;
-        setStop();
+        setTimeout(function () {
+            flagStop = true;
+        }, 300000);
     }
 });

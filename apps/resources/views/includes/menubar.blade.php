@@ -70,6 +70,12 @@
                         <span class="site-menu-title">Resource Monitor</span>
                     </a>
                 </li>
+                <li class="site-menu-item {{ \Hlp::chkActive(route('devices_live')) }}">
+                    <a class="animsition-link" href="{{ route('devices_live') }}">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title">Live All Devices</span>
+                    </a>
+                </li>
             </ul>
             {{-- <div class="site-menubar-section">
                 <h5>

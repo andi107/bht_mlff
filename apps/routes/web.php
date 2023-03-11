@@ -69,7 +69,10 @@ Route::controller(DevToolsController::class)->group(function () {
     Route::group([
         'prefix' => 'devtools',
     ], function() {
+        Route::get('monitor/js/devices','divice_live_js')->name('devices_live_js');
+        
         Route::get('/','index')->name('dev_src_monitor');
+        Route::get('monitor/devices','devices_live')->name('devices_live');
     });
 });
 Route::controller(DataController::class)->group(function () {
@@ -78,6 +81,5 @@ Route::controller(DataController::class)->group(function () {
     ], function() {
         Route::get('js/geo/{geoid}','geo_info_js')->name('geo_info_js');
         Route::get('js/device/{deviceid}','device_info_js')->name('device_info_js');
-        // 862636051555512
     });
 });

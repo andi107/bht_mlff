@@ -11,7 +11,7 @@ body {
 #objmap,
 #trackingmap,
 #statusmap,
-#livemap {
+#livemap,#devicesmap {
     height: 500px;
 }
 /* .leaflet-popup-content {
