@@ -5,13 +5,13 @@ html,
 body {
     height: 100%;
 }
-#dashboardmap {
+#dashboardmap ,#devicesmap{
     min-height: 720px;
 }
 #objmap,
 #trackingmap,
 #statusmap,
-#livemap,#devicesmap {
+#livemap {
     height: 500px;
 }
 /* .leaflet-popup-content {
