@@ -8,6 +8,7 @@ const sio = window.sio;
 var map = L.map('devicesmap', {
     minZoom: 5,
     attributionControl: false,
+    fullscreenControl: true,
 }).setView([
     0.33995192349439596, 120.3733680354565
 ], 5), myFGMarker = new L.FeatureGroup(), markers = {},
