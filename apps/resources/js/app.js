@@ -64,7 +64,7 @@ sio.on("trx_device_geo_rcv",function(data) {
             _geo_name = res.data.data.ftgeo_name;
         }).catch(err => {});
 
-        console.log(_asset_name,geo_name)
+        console.log(_asset_name,_geo_name)
         if (res.declare == 1) {
             toastr.success(`${_asset_name} <i><b>Enter</b></i> ${_geo_name}`, 'Geo Notification');
         }else{
