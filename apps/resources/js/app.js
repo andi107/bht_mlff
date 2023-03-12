@@ -61,7 +61,7 @@ sio.on("trx_device_geo_rcv",function(data) {
             _asset_name = res.data.data.ftasset_name;
         }).catch(err => {});
         axios.get(url + `/info/js/geo/${res.geoid}`).then(res => {
-            _asset_name = res.data.data.ftasset_name;
+            _geo_name = res.data.data.ftgeo_name;
         }).catch(err => {});
 
         console.log(_asset_name,geo_name)
