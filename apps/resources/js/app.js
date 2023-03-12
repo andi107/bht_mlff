@@ -11,7 +11,6 @@ window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const sio = io("http://110.5.105.26:60011");
 window.sio = sio;
-var _arrMsg = {};
 sio.on("trx_device_geo_rcv",function(data) {
     // {
     //     "app_name": "polygon_v1",
@@ -56,24 +55,20 @@ sio.on("trx_device_geo_rcv",function(data) {
     var res = JSON.parse(data);
     
     if (res.type === 'geo_notif') {
-        // _arrMsg = {
-        //     'asset_name': '',
-        //     'geo_name': ''
-        // };
+        var _asset_name,_geo_name;
 
-        // http://localhost:8989/info/js/geo/664974b5-e2a5-416b-9935-90cb3063460c
-        // http://localhost:8989/info/js/device/862636051555512
-        $.get(url + `/info/js/device/${res.id}`, function(resDevice) {
-            _arrMsg['asset_name'] = resDevice.data.ftasset_name;
-        });
-        $.get(url + `/info/js/geo/${res.geoid}`, function(resGeo) {
-            _arrMsg['geo_name'] = resGeo.data.ftgeo_name;
-        });
-        console.log(_arrMsg)
+        axios.get(url + `/info/js/device/${res.id}`).then(res => {
+            _asset_name = res.data.data.ftasset_name;
+        }).catch(err => {});
+        axios.get(url + `/info/js/geo/${res.geoid}`).then(res => {
+            _asset_name = res.data.data.ftasset_name;
+        }).catch(err => {});
+
+        console.log(_asset_name,geo_name)
         if (res.declare == 1) {
-            toastr.success(`${_arrMsg.asset_name} <i><b>Enter</b></i> ${_arrMsg.geo_name}`, 'Geo Notification');
+            toastr.success(`${_asset_name} <i><b>Enter</b></i> ${_geo_name}`, 'Geo Notification');
         }else{
-            toastr.warning(`${_arrMsg.asset_name} <i><b>Exit</b></i> ${_arrMsg.geo_name}`, 'Geo Notification');
+            toastr.warning(`${_asset_name} <i><b>Exit</b></i> ${_geo_name}`, 'Geo Notification');
         }
     }
 });

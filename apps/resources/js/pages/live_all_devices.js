@@ -78,6 +78,7 @@ $.get(url + "/devtools/monitor/js/devices", function (res) {
             'className': 'custom-popup'
         }).openPopup();
         markers[v.ftdevice_id] = mk;
+        markers[v.ftdevice_id].__pathColor = `#${randHexColor()}`;
         mk.addTo(map);
         myFGMarker.addLayer(mk);
         myFGMarker.addTo(map);
@@ -97,13 +98,13 @@ function startRecord() {
         if (typeof(markers[v.id]) !== "undefined") {
             var _curLatLng = { lat:v.lat, lng:v.lon};
             var polylines = new L.Polyline([markers[v.id]._latlng, _curLatLng], {
-                color: `#${randHexColor()}`,
+                color: markers[v.id].__pathColor,
                 weight: 5,
                 opacity: 0.5,
                 smoothFactor: 1
             });
             polylines.addTo(map);
-            console.log(polylines)
+            
             markers[v.id].slideTo([v.lat, v.lon], {
                 duration: 5000,
                 keepAtCenter: false,
@@ -124,6 +125,7 @@ function startRecord() {
                 markers[v.id].setIcon(myIcon(iconUrl));
                 markers[v.id].setRotationAngle(0);
             }, 300000);
+            console.log(markers[v.id]);
         }
     });
 }
