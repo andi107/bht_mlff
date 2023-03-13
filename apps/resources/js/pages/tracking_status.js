@@ -4,7 +4,9 @@ const shadowUrl = window.shadowUrl;
 var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val();
 
 var _dateTime = $("#datetime").text();
+var _ignitionTime = $("#ignitiondate").text();
 $("#datetime").text(window.dtHumanParse(_dateTime));
+$("#ignitiondate").text(window.dtHumanParse(_ignitionTime));
 var map = L.map('statusmap', {
     minZoom: 5,
     fullscreenControl: true,
