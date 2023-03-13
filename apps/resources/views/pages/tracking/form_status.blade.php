@@ -75,6 +75,10 @@
                                                                     <li><label class="text-capitalize font-size-12">Device ID</label></i>
                                                                     <li><label class="text-capitalize font-size-12">Device Type</label></i>
                                                                     <li><label class="text-capitalize font-size-12">Device Name</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Battery</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Sattelite</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Signal</label></i>
+                                                                    <li><label class="text-capitalize font-size-12">Cellular</label></i>
                                                                 </ul>
                                                             </div>
                                                             <div class="col-sm-6">
@@ -86,6 +90,10 @@
                                                                     <li><label class="text-capitalize font-size-12 font-weight-bold green-400">SIGFOX</label></i>
                                                                     @endif
                                                                     <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceRelay->ftdevice_name}}</label></i>
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceIgnition->ffbattery}}%</label></i>
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceIgnition->fnsattelite}}</label></i>
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{\Hlp::betweenNumb($deviceData->deviceIgnition->fnsignal)}}</label></i>
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceIgnition->ftcellular}}</label></i>
                                                                 </ul>
                                                             </div>
                                                         </div>

@@ -166,4 +166,19 @@ class Hlps
         $date->setTimezone('UTC');
         return $date->toDateTimeString();
     }
+
+    public static function betweenNumb($x) {
+        if (($x <= 9)) {
+            return 'Low';
+        }else if(($x >= 10 && $x <= 14)) {
+            return 'Ok';
+        }else if(($x >= 15 && $x <= 19)) {
+            return 'Good';
+        }else if(($x >= 20 && $x <= 31)) {
+            return 'Excellent';
+        }else{
+            return 'Not Detectable';
+        }
+        //|| ($x > 40 && $x < 50)
+    }
 }
