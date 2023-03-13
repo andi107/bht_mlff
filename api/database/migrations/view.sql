@@ -18,7 +18,14 @@ SELECT
 	dv.ftdevice_name,dv.ftasset_id,dv.ftasset_name,dv.ftasset_description,dv.fncategory, dr.*
 FROM x_devices dv LEFT JOIN LATERAL
 (
-    select id as logs_id,ftdevice_id, created_at, ffbattery,fnsattelite,fnsignal,fncellular from debuging_routes where fttype = '0F' and ftdevice_id = dv.ftdevice_id order by created_at desc limit 1
+    select id as logs_id,ftdevice_id, created_at, ffbattery,fnsattelite,fnsignal,fncellular,fbpower,
+    CASE fncellular
+    	WHEN 11 THEN 'GPRS, LTE'
+    	WHEN 10 THEN 'LTE'
+    	WHEN 01 THEN 'GPRS'
+    	ELSE 'No Cellular'
+    	END AS ftcellular
+    from debuging_routes where fttype = '0F' and ftdevice_id = dv.ftdevice_id order by created_at desc limit 1
 ) dr ON 1=1;
 
 -- 
