@@ -27,7 +27,7 @@ class TrackingController extends Controller {
         ->where('ftdevice_id','=', $device_id)
         ->first();
         $deviceIgnition = DB::table('v_device_ignition')
-        ->selectRaw('created_at,ffbattery,fnsattelite,fnsignal,fncellular,ftcellular')
+        ->selectRaw('created_at,ffbattery,fnsattelite,fnsignal,fncellular,ftcellular,fbpower')
         ->where('ftdevice_id','=', $device_id)
         ->first();
         
