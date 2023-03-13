@@ -72,6 +72,7 @@
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <ul style="list-style-type: none;">
+                                                                    <li><label class="text-capitalize font-size-12">Ignition Time</label></i>
                                                                     <li><label class="text-capitalize font-size-12">Device ID</label></i>
                                                                     <li><label class="text-capitalize font-size-12">Device Type</label></i>
                                                                     <li><label class="text-capitalize font-size-12">Device Name</label></i>
@@ -83,6 +84,7 @@
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <ul style="list-style-type: none;">
+                                                                    <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceIgnition->created_at}}</label></li>
                                                                     <li><label class="text-capitalize font-size-12 font-weight-bold green-400">{{$deviceData->deviceRelay->ftdevice_id}}</label></li>
                                                                     @if ($deviceData->deviceRelay->fncategory === 1)
                                                                     <li><label class="text-capitalize font-size-12 font-weight-bold green-400">GSM</label></i>
