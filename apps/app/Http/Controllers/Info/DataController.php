@@ -20,4 +20,13 @@ class DataController extends Controller
             'data' => $res->data
         ], 200);
     }
+
+    public function device_geonotif_js($deviceid, $geoid) {
+        $resDevice = Hlp::apiGet('/info/device/'. $deviceid);
+        $resGeo = Hlp::apiGet('/info/geo/'. $geoid);
+        return response()->json([
+            'dataDevice' => $resDevice->data,
+            'dataGeo' => $resGeo->data
+        ], 200);
+    }
 }

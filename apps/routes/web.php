@@ -81,5 +81,7 @@ Route::controller(DataController::class)->group(function () {
     ], function() {
         Route::get('js/geo/{geoid}','geo_info_js')->name('geo_info_js');
         Route::get('js/device/{deviceid}','device_info_js')->name('device_info_js');
+        Route::get('js/geonotif/{deviceid}/{geoid}','device_geonotif_js')->name('device_geonotif_js');
+        // /info/js/geonotif/${res.id}/${res.geoid}
     });
 });
