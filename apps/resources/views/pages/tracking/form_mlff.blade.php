@@ -51,7 +51,7 @@
                         <div class="tab-pane fade active show">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    asd
+                                    [Dev Progress...]
                                 </div>
                             </div>
                         </div>

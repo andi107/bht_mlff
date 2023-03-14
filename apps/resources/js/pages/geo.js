@@ -78,8 +78,8 @@ map.on(L.Draw.Event.CREATED, function (event) {
         }
         self.Polygon = layer;
         self.Polygon.setStyle({
-            color: '#D61355',
-            fillColor: '#D61355',
+            color: '#16FF00',
+            fillColor: '#16FF00',
             fillOpacity : 0.1
         });
     }else {
