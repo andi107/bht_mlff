@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\GeoController;
+use App\Http\Controllers\Admin\GeoMlffController;
+use App\Http\Controllers\Admin\TollRouteController;
 use App\Http\Controllers\Admin\DevToolsController;
 use App\Http\Controllers\Info\DataController;
 
@@ -36,6 +38,7 @@ Route::controller(TrackingController::class)->group(function () {
         Route::get('detail/{deviceid}/map', 'detail_map')->name('tracking_map');
         Route::get('detail/{deviceid}/geofence', 'detail_geo')->name('tracking_geo');
         Route::get('detail/{deviceid}/live', 'detail_live')->name('tracking_live');
+        Route::get('detail/{deviceid}/mlff', 'detail_mlff')->name('tracking_mlff');
     });
 });
 
@@ -65,6 +68,35 @@ Route::controller(GeoController::class)->group(function () {
         Route::get('detail/{geoid}', 'detail')->name('geo_detail');
     });
 });
+
+Route::controller(GeoMlffController::class)->group(function () {
+    Route::group([
+        'prefix' => 'geomlff',
+    ], function() {
+        Route::get('js','list_js')->name('geomlff_list_js');
+        Route::post('js/add','create_update')->name('geomlff_create_update_js');
+        Route::get('js/detail/{geoid}/point','detail_point')->name('geomlff_detail_point_js');
+        
+        Route::get('list','list')->name('geomlff_list');
+        Route::get('add', 'formindex')->name('geomlff_create_index');
+        Route::get('detail/{geoid}', 'detail')->name('geomlff_detail');
+    });
+});
+
+Route::controller(TollRouteController::class)->group(function () {
+    Route::group([
+        'prefix' => 'tollroute',
+    ], function() {
+        Route::get('js','list_js')->name('tollroute_list_js');
+        Route::post('js/add','create_update')->name('tollroute_create_update_js');
+        Route::get('js/detail/{geoid}/point','detail_point')->name('tollroute_detail_point_js');
+        
+        Route::get('list','list')->name('tollroute_list');
+        Route::get('add', 'formindex')->name('tollroute_create_index');
+        Route::get('detail/{geoid}', 'detail')->name('tollroute_detail');
+    });
+});
+
 Route::controller(DevToolsController::class)->group(function () {
     Route::group([
         'prefix' => 'devtools',

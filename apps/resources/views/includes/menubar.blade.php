@@ -40,6 +40,7 @@
                         </li>
                     </ul>
                 </li>
+                <li class="site-menu-category">Configuration</li>
                 @if (\Hlp::chkActive(route('geo_create_index')) || \Hlp::chkActive(route('geo_list')))
                     <li class="site-menu-item has-sub active open">
                 @else
@@ -47,7 +48,7 @@
                 @endif
                     <a href="javascript:void(0)">
                         <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                        <span class="site-menu-title">Configuration</span>
+                        <span class="site-menu-title">Geo Zone</span>
                         <span class="site-menu-arrow"></span>
                     </a>
                     <ul class="site-menu-sub">
@@ -59,6 +60,52 @@
                         <li class="site-menu-item {{ \Hlp::chkActive(route('geo_create_index')) }}">
                             <a class="animsition-link" href="{{ route('geo_create_index') }}">
                                 <span class="site-menu-title">Add Geo-Location</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @if (\Hlp::chkActive(route('geomlff_create_index')) || \Hlp::chkActive(route('geomlff_list')))
+                    <li class="site-menu-item has-sub active open">
+                @else
+                    <li class="site-menu-item has-sub">
+                @endif
+                    <a href="javascript:void(0)">
+                        <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                        <span class="site-menu-title">MLFF Gate Declaration</span>
+                        <span class="site-menu-arrow"></span>
+                    </a>
+                    <ul class="site-menu-sub">
+                        <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_list')) }}">
+                            <a class="animsition-link" href="{{ route('geomlff_list') }}">
+                                <span class="site-menu-title">Gate List</span>
+                            </a>
+                        </li>
+                        <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
+                            <a class="animsition-link" href="{{ route('geomlff_create_index') }}">
+                                <span class="site-menu-title">Add Gate-Location</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @if (\Hlp::chkActive(route('tollroute_create_index')) || \Hlp::chkActive(route('tollroute_list')))
+                    <li class="site-menu-item has-sub active open">
+                @else
+                    <li class="site-menu-item has-sub">
+                @endif
+                    <a href="javascript:void(0)">
+                        <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                        <span class="site-menu-title">Toll Routes</span>
+                        <span class="site-menu-arrow"></span>
+                    </a>
+                    <ul class="site-menu-sub">
+                        <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_list')) }}">
+                            <a class="animsition-link" href="{{ route('tollroute_list') }}">
+                                <span class="site-menu-title">Toll Listed</span>
+                            </a>
+                        </li>
+                        <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_create_index')) }}">
+                            <a class="animsition-link" href="{{ route('tollroute_create_index') }}">
+                                <span class="site-menu-title">Add Toll Route</span>
                             </a>
                         </li>
                     </ul>

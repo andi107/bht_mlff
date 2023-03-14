@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-class GeoController extends Controller {
-    
+class GeoMlffController extends Controller {
     public function list() {
 
-        $data = DB::table('x_geo_declare')
+        $data = DB::table('x_geo_mlff_declare')
         ->orderBy('created_at','desc')
         ->get();
 
@@ -37,7 +36,7 @@ class GeoController extends Controller {
         try {
             $dtnow = Carbon::now();
 
-            DB::table('x_geo_declare')
+            DB::table('x_geo_mlff_declare')
             ->insert([
                 'id' => $id,
                 'ftgeo_name' => $geo_name,
@@ -50,12 +49,13 @@ class GeoController extends Controller {
 
             switch ($geo_type) {
                 case '1':
+                    
                     $polygon_point = json_decode($request->input('polygon_point'));
                     foreach ($polygon_point as $key => $value) {
-                        DB::table('x_geo_declare_det')
+                        DB::table('x_geo_mlff_declare_det')
                         ->insert([
                             'id' => Str::uuid(),
-                            'x_geo_declare_id' => $id,
+                            'x_geo_mlff_declare_id' => $id,
                             'fflat' => $value->lat,
                             'fflon' => $value->lng,
                             'fnindex' => $key,
@@ -101,7 +101,7 @@ class GeoController extends Controller {
         try {
             $dtnow = Carbon::now();
 
-            DB::table('x_geo_declare')
+            DB::table('x_geo_mlff_declare')
             ->where('id','=',$id)
             ->update([
                 'ftgeo_name' => $geo_name,
@@ -114,14 +114,14 @@ class GeoController extends Controller {
             switch ($geo_type) {
                 case '1':
                     $polygon_point = json_decode($request->input('polygon_point'));
-                    DB::table('x_geo_declare_det')
-                    ->where('x_geo_declare_id','=',$id)
+                    DB::table('x_geo_mlff_declare_det')
+                    ->where('x_geo_mlff_declare_id','=',$id)
                     ->delete();
                     foreach ($polygon_point as $key => $value) {
-                        DB::table('x_geo_declare_det')
+                        DB::table('x_geo_mlff_declare_det')
                         ->insert([
                             'id' => Str::uuid(),
-                            'x_geo_declare_id' => $id,
+                            'x_geo_mlff_declare_id' => $id,
                             'fflat' => $value->lat,
                             'fflon' => $value->lng,
                             'fnindex' => $key,
@@ -150,7 +150,7 @@ class GeoController extends Controller {
     }
 
     public function detail($geoid) {
-        $data = DB::table('x_geo_declare')
+        $data = DB::table('x_geo_mlff_declare')
         ->where('id','=', $geoid)
         ->first();
         return response()->json([
@@ -159,9 +159,9 @@ class GeoController extends Controller {
     }
 
     public function detail_point($geoid) {
-        $data = DB::table('x_geo_declare_det')
+        $data = DB::table('x_geo_mlff_declare_det')
         ->selectRaw('id,fflat,fflon,fnindex')
-        ->where('x_geo_declare_id','=', $geoid)
+        ->where('x_geo_mlff_declare_id','=', $geoid)
         ->orderBy('fnindex','asc')
         ->get();
         return response()->json([

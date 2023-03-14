@@ -18,6 +18,8 @@ export default defineConfig({
                 'resources/js/pages/resource_monitor.js',
                 'resources/js/pages/tracking_live.js',
                 'resources/js/pages/live_all_devices.js',
+                'resources/js/pages/geomlff.js',
+                'resources/js/pages/tollroute.js',
             ],
             refresh: true,
         }),

@@ -92,4 +92,14 @@ class TrackingController extends Controller
             'deviceData' => $resDvStatus,
         ]);
     }
+    
+    public function detail_mlff($device_id) {
+        $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
+        return view('pages.tracking.form_mlff',[
+            'cfg' => [
+                'title' => $resDvStatus->deviceRelay->ftdevice_id
+            ],
+            'deviceData' => $resDvStatus,
+        ]);
+    }
 }

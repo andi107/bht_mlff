@@ -1,11 +1,8 @@
 <x-default>
-    <input type="hidden" name="_id" value="{{ $deviceData->deviceRelay->ftdevice_id }}">
+    <input type="hidden" name="_deviceid" value="{{ $deviceData->deviceRelay->ftdevice_id }}">
     <input type="hidden" name="_lat" value="{{ $deviceData->deviceRelay->fflat }}">
     <input type="hidden" name="_lon" value="{{ $deviceData->deviceRelay->fflon }}">
     @include('pages.tracking.thead')
-    @push('isstyles')
-    <link rel="stylesheet" href="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.css')}}">
-    @endpush
     <div class="page-header page-header-bordered">
         <h1 class="page-title">{{ $cfg['title'] }}</h1>
         <div class="page-header-actions">
@@ -39,12 +36,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tracking_mlff',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
+                            <a href="{{ route('tracking_mlff',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase active">
                                 Toll Declaration
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase active">
+                            <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
                                 🔴Live Location
                             </a>
                         </li>
@@ -54,7 +51,7 @@
                         <div class="tab-pane fade active show">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div id="livemap"></div>
+                                    asd
                                 </div>
                             </div>
                         </div>
@@ -65,6 +62,6 @@
     </div>
     @include('pages.tracking.tfoot')
     @vite([
-        'resources/js/pages/tracking_live.js',
+    'resources/js/pages/tracking_status.js',
     ])
 </x-default>

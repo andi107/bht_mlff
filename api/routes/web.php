@@ -42,6 +42,26 @@ $router->group([
     });
 
     $router->group([
+        'prefix' => 'geomlff'
+    ], function() use($router) {
+        $router->get('/', 'Admin\GeoMlffController@list');
+        $router->post('/', 'Admin\GeoMlffController@create');
+        $router->put('/', 'Admin\GeoMlffController@update');
+        $router->get('d/{geoid}', 'Admin\GeoMlffController@detail');
+        $router->get('d/{geoid}/point', 'Admin\GeoMlffController@detail_point');
+    });
+
+    $router->group([
+        'prefix' => 'tollroute'
+    ], function() use($router) {
+        $router->get('/', 'Admin\TollRouteController@list');
+        $router->post('/', 'Admin\TollRouteController@create');
+        $router->put('/', 'Admin\TollRouteController@update');
+        $router->get('d/{geoid}', 'Admin\TollRouteController@detail');
+        $router->get('d/{geoid}/point', 'Admin\TollRouteController@detail_point');
+    });
+
+    $router->group([
         'prefix' => 'info'
     ], function() use($router) {
         $router->get('geo/{geoid}', 'InfoData\IDataController@geo_information');

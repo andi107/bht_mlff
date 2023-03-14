@@ -39,6 +39,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('tracking_mlff',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
+                                Toll Declaration
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('tracking_live',$deviceData->deviceRelay->ftdevice_id) }}" class="nav-link small text-uppercase">
                                 🔴Live Location
                             </a>
