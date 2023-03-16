@@ -12,7 +12,7 @@ class DashboardController extends Controller {
 
         $data = DB::table('v_device_relay')
         ->orWhereNotNull('logs_id')
-        ->orderBy('device_name','asc')
+        ->orderBy('ftdevice_name','asc')
         ->get();
 
         return response()->json([

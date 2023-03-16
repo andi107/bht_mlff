@@ -119,6 +119,6 @@ class GeoMlffController extends Controller
     }
 
     public function tollmapindex() {
-        return view('pages.mlff.toll_map_view');
+        return view('pages.mlff.toll_map');
     }
 }
