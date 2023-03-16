@@ -126,7 +126,6 @@ function startRecord() {
                 markers[v.id].setIcon(myIcon(iconUrl));
                 markers[v.id].setRotationAngle(0);
             }, 300000);
-            console.log(markers[v.id]);
         }
     });
 }

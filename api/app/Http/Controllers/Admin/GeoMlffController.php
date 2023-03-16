@@ -168,4 +168,12 @@ class GeoMlffController extends Controller {
             'data' => $data
         ], 200);
     }
+
+    public function gate_point() {
+        $data = DB::table('x_gate_point')
+        ->get();
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
 }

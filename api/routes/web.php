@@ -12,6 +12,8 @@ $router->group([
     ], function() use($router) {
         $router->get('/', 'Admin\DashboardController@index');
         $router->get('test', 'Admin\DashboardController@test');
+        $router->get('test/section', 'Admin\DashboardController@importSection');
+        $router->get('test/sectionlatlng', 'Admin\DashboardController@importSectionLatLng');
     });
     $router->group([
         'prefix' => 'device'
@@ -49,6 +51,7 @@ $router->group([
         $router->put('/', 'Admin\GeoMlffController@update');
         $router->get('d/{geoid}', 'Admin\GeoMlffController@detail');
         $router->get('d/{geoid}/point', 'Admin\GeoMlffController@detail_point');
+        $router->get('gate/point', 'Admin\GeoMlffController@gate_point');
     });
 
     $router->group([

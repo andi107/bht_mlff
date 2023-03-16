@@ -13,17 +13,20 @@ return new class extends Migration
     {
         Schema::create('x_geo_toll_route', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('ftgeo_name')->unique();
-            $table->string('ftaddress');
-            $table->integer('fntype');
+            $table->string('ftsection_name'); //NAMA
+            $table->string('ftaddress'); //PROPINSI,KABUPATEN
+            $table->string('fttype'); // Type
+            $table->string('ftisland'); //Island
+            $table->string('ftlength')->nullable(); //PANJANG
+            $table->string('ftmanager')->nullable(); // Pengelola
 
-            $table->integer('fnstatus');
+            $table->string('ftstatus'); // STATUS
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->index([
                 'id',
-                'ftgeo_name',
-                'fntype',
+                'ftsection_name',
+                'fttype',
                 'created_at',
                 'updated_at'
             ]);

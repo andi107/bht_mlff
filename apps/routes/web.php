@@ -23,6 +23,11 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(DashboardController::class)->group(function () {
     Route::get('dashboard/js', 'divice_map')->name('dashboard_js');
     Route::get('dashboard', 'index')->name('dashboard');
+    
+    Route::get('test', 'test')->name('test');
+    Route::get('test/js', 'test_gate_import')->name('test_gate_import');
+    Route::get('test/section/js', 'import_section')->name('import_section');
+    Route::get('test/sectionlatlng/js', 'import_section_latlng')->name('import_section_latlng');
 });
 
 Route::controller(TrackingController::class)->group(function () {
@@ -76,10 +81,12 @@ Route::controller(GeoMlffController::class)->group(function () {
         Route::get('js','list_js')->name('geomlff_list_js');
         Route::post('js/add','create_update')->name('geomlff_create_update_js');
         Route::get('js/detail/{geoid}/point','detail_point')->name('geomlff_detail_point_js');
+        Route::get('gatepoint/js','tollmapindex_js')->name('tollmapindex_js');
         
         Route::get('list','list')->name('geomlff_list');
         Route::get('add', 'formindex')->name('geomlff_create_index');
         Route::get('detail/{geoid}', 'detail')->name('geomlff_detail');
+        Route::get('gatepoint', 'tollmapindex')->name('tollmapindex');
     });
 });
 

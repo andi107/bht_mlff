@@ -33,11 +33,16 @@ self.drawControlFull = new L.Control.Draw({
         },
     },
     draw: {
-        polygon: {
+        // polygon: {
+        //     allowIntersection: false,
+        //     showArea: true
+        // },
+        polygon: false,
+        // polyline: false,
+        polyline: {
             allowIntersection: false,
             showArea: true
         },
-        polyline: false,
         rectangle: false,
         marker: false,
         circle: false,

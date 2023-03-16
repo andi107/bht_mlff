@@ -27,6 +27,7 @@
                             <th>ID</th>
                             <th>Toll Name</th>
                             <th>Toll Address</th>
+                            <th>Manger</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -63,13 +64,11 @@
         });
         $('#tblgeofence tbody').on( 'click', 'button.btnedit', function () {
             var data = tblgeofence.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
             sURL = `{{ route('tollroute_detail', ':id') }}`;
             window.location.href = sURL.replace(":id", data[0]);
         });
         $('#tblgeofence tbody').on( 'click', 'button.btndel', function () {
             var data = tblgeofence.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
             sURL = `{{ route('tollroute_detail', ':id') }}`;
             // window.location.href = sURL.replace(":id", data[0]);
         });
@@ -84,10 +83,9 @@
 
 
         $.get("{{ route('tollroute_list_js') }}", function(res) {
-            console.log(res)
             $.each(res.data, function(k, v) {
                 tblgeofence.row.add([
-                    v.id,v.ftgeo_name, v.ftaddress
+                    v.id,v.ftsection_name, v.ftaddress,v.ftmanager
                 ]).draw(true);
             });
         });

@@ -24,6 +24,7 @@ return new class extends Migration
                 'x_geo_toll_route_id',
                 'fflat',
                 'fflon',
+                'fnindex',
                 'fnchkpoint'
             ]);
         });

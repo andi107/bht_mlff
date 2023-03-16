@@ -8,11 +8,12 @@ const url = location.protocol + '//' + window.location.host;
 window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
+window.gateUrl = url + '/assets/images/leaflet/access_gt.png';
 window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const sio = io("http://110.5.105.26:60011");
 window.sio = sio;
 
-sio.on("trx_device_geo_rcv",function(data) {
+sio.on("trx_device_geo_rcv", function (data) {
     // {
     //     "app_name": "polygon_v1",
     //     "id": "860371050882459",
@@ -53,16 +54,16 @@ sio.on("trx_device_geo_rcv",function(data) {
     //     }
     // }
     var res = JSON.parse(data);
-    
+
     if (res.type === 'geo_notif') {
         axios.get(url + `/info/js/geonotif/${res.id}/${res.geoid}`).then(rr => {
             if (res.declare == 1) {
                 toastr.options.closeDuration = 10000;
                 toastr.success(`${rr.data.dataDevice.ftasset_name} <i><b>Enter</b></i> ${rr.data.dataGeo.ftgeo_name}`, 'Geo Notification');
-            }else{
+            } else {
                 toastr.warning(`${rr.data.dataDevice.ftasset_name} <i><b>Exit</b></i> ${rr.data.dataGeo.ftgeo_name}`, 'Geo Notification');
             }
-        }).catch(err => {});
+        }).catch(err => { });
     }
 });
 
@@ -71,17 +72,17 @@ window.dtHumanID = function () {
     const tzCode = parseInt(- (offsetTz / 60));
     if (tzCode > 0) {
         return `+${tzCode}`;
-    }else{
+    } else {
         return `${tzCode}`;
     }
 };
-window.dtHumanName = function() {
+window.dtHumanName = function () {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
     // return moment.tz.guess();
 };
 // var visitortime = new Date();
 // var visitortimezone = "GMT " + - visitortime.getTimezoneOffset() / 60;
-window.dtHumanParse = function(isDateTime) {
+window.dtHumanParse = function (isDateTime) {
     var date = {
         // utc: '2013-10-16T21:31:51',
         utc: isDateTime.toString(),
@@ -95,34 +96,81 @@ window.dtHumanParse = function(isDateTime) {
 var latitude = '-6.22609';
 var longitude = '106.833912';
 // isNaN(latitude[i])
-if(latitude < -127 || latitude > 75){
+if (latitude < -127 || latitude > 75) {
     console.log("Lat 1 not vaild.");
 }
 
-if(longitude < -127 || longitude > 75){
+if (longitude < -127 || longitude > 75) {
     console.log("Long 1 not vaild.");
 }
 
 var reg = new RegExp("^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$");
 
 
-if( reg.exec(latitude) ) {
- //do nothing
+if (reg.exec(latitude)) {
+    //do nothing
 } else {
     console.log("LAt 2 not vaild.");
 }
 
-if( reg.exec(longitude) ) {
- //do nothing
+if (reg.exec(longitude)) {
+    //do nothing
 } else {
     console.log("Long 2 not vaild.");
 }
 
-console.log(window.dtHumanID(),window.dtHumanName(),window.dtHumanParse("2023-02-28 02:41:09"));
+console.log(window.dtHumanID(), window.dtHumanName(), window.dtHumanParse("2023-02-28 02:41:09"));
+
+const button = document.querySelector("button");
+
+if (window.self !== window.top) {
+
+    if (Notification?.permission === "granted") {
+        // If the user agreed to get notified
+        // Let's try to send ten notifications
+        let i = 0;
+        // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
+        const interval = setInterval(() => {
+            // Thanks to the tag, we should only see the "Hi! 9" notification
+            const n = new Notification(`Hi! ${i}`, { tag: "soManyNotification" });
+            if (i === 9) {
+                clearInterval(interval);
+            }
+            i++;
+        }, 200);
+    } else if (Notification && Notification.permission !== "denied") {
+        // If the user hasn't told if they want to be notified or not
+        // Note: because of Chrome, we are not sure the permission property
+        // is set, therefore it's unsafe to check for the "default" value.
+        Notification.requestPermission((status) => {
+            // If the user said okay
+            if (status === "granted") {
+                let i = 0;
+                // Using an interval cause some browsers (including Firefox) are blocking notifications if there are too much in a certain time.
+                const interval = setInterval(() => {
+                    // Thanks to the tag, we should only see the "Hi! 9" notification
+                    const n = new Notification(`Hi! ${i}`, {
+                        tag: "soManyNotification",
+                    });
+                    if (i === 9) {
+                        clearInterval(interval);
+                    }
+                    i++;
+                }, 200);
+            } else {
+                // Otherwise, we can fallback to a regular modal alert
+                alert("Hi!");
+            }
+        });
+    } else {
+        // If the user refuses to get notified, we can fallback to a regular modal alert
+        alert("Hi!");
+    }
+}
 
 $(() => {
     // console.log('isJQ')
-    
+
     Site.run();
 });
 // (function(document, window, $){

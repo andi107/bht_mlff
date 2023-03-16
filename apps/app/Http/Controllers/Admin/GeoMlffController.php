@@ -110,4 +110,15 @@ class GeoMlffController extends Controller
             ],
         ]);
     }
+
+    public function tollmapindex_js() {
+        $res = Hlp::apiGet('/geomlff/gate/point');
+        return response()->json([
+            'gatePoint' => $res->data
+        ], 200);
+    }
+
+    public function tollmapindex() {
+        return view('pages.mlff.toll_map_view');
+    }
 }

@@ -17,6 +17,12 @@
                         <span class="site-menu-title">Tracking</span>
                     </a>
                 </li>
+                <li class="site-menu-item {{ \Hlp::chkActive(route('tollmapindex')) }}">
+                    <a class="animsition-link" href="{{ route('tollmapindex') }}">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title">Toll Map</span>
+                    </a>
+                </li>
                 @if (\Hlp::chkActive(route('device_list')) || \Hlp::chkActive(route('device_create_index')))
                     <li class="site-menu-item has-sub active open">
                 @else
@@ -94,18 +100,18 @@
                 @endif
                     <a href="javascript:void(0)">
                         <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                        <span class="site-menu-title">Toll Routes</span>
+                        <span class="site-menu-title">Toll Section</span>
                         <span class="site-menu-arrow"></span>
                     </a>
                     <ul class="site-menu-sub">
                         <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_list')) }}">
                             <a class="animsition-link" href="{{ route('tollroute_list') }}">
-                                <span class="site-menu-title">Toll Listed</span>
+                                <span class="site-menu-title">Section Listed</span>
                             </a>
                         </li>
                         <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_create_index')) }}">
                             <a class="animsition-link" href="{{ route('tollroute_create_index') }}">
-                                <span class="site-menu-title">Add Toll Route</span>
+                                <span class="site-menu-title">Add Toll Section</span>
                             </a>
                         </li>
                     </ul>

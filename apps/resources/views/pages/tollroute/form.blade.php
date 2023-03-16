@@ -45,7 +45,7 @@
 
                                             <div class="col">
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                    <input type="text" class="form-control" name="txtName" required value="{{ isset($d) ? $d->ftgeo_name : '' }}" />
+                                                    <input type="text" class="form-control" name="txtName" required value="{{ isset($d) ? $d->ftsection_name : '' }}" />
                                                     <label class="floating-label">Geo Location Name</label>
                                                 </div>
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">

@@ -20,6 +20,7 @@ export default defineConfig({
                 'resources/js/pages/live_all_devices.js',
                 'resources/js/pages/geomlff.js',
                 'resources/js/pages/tollroute.js',
+                'resources/js/pages/toll_map.js',
             ],
             refresh: true,
         }),

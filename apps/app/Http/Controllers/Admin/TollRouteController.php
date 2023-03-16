@@ -96,7 +96,7 @@ class TollRouteController extends Controller
         return view('pages.tollroute.form', [
             'cfg' => [
                 'id' => $res->data->id,
-                'title' => $res->data->ftgeo_name
+                'title' => $res->data->ftsection_name
             ],
             'd' => $res->data
         ]);
