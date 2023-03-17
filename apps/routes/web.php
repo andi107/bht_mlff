@@ -82,6 +82,7 @@ Route::controller(GeoMlffController::class)->group(function () {
         Route::post('js/add','create_update')->name('geomlff_create_update_js');
         Route::get('js/detail/{geoid}/point','detail_point')->name('geomlff_detail_point_js');
         Route::get('gatepoint/js','tollmapindex_js')->name('tollmapindex_js');
+        Route::get('gatepoint/section/js','tollmapsection_js')->name('tollmapsection_js');
         
         Route::get('list','list')->name('geomlff_list');
         Route::get('add', 'formindex')->name('geomlff_create_index');

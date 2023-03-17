@@ -27,4 +27,3 @@
         'resources/js/pages/toll_map.js',
     ])
 </x-default>
-+

@@ -176,4 +176,25 @@ class GeoMlffController extends Controller {
             'data' => $data
         ], 200);
     }
+
+    public function section_point() {
+        $data = DB::table('x_geo_toll_route')
+        ->get();
+        foreach ($data as $avalue) {
+            foreach ($avalue as $a_key => $a_value) {
+                if ($a_key == 'id') {
+                    $avalue->detail = DB::table('x_geo_toll_route_det')
+                    ->selectRaw('fnchkpoint,fnindex,fflat,fflon')
+                    ->where('x_geo_toll_route_id','=',$a_value)
+                    ->groupBy('fnchkpoint','fnindex','fflat','fflon')
+                    ->orderBy('fnchkpoint','asc')
+                    ->orderBy('fnindex','asc')
+                    ->get();
+                }
+            }
+        }
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
 }

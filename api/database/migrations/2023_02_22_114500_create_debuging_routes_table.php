@@ -32,6 +32,7 @@ return new class extends Migration
             $table->boolean('fbpower')->nullable();
             $table->integer('fnsignal')->nullable();
             $table->integer('fnseq')->nullable();
+            $table->uuid('ftmlff_history_id')->nullable();
             $table->index([
                 'id',
                 'fflat',

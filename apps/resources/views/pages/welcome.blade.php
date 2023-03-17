@@ -6,6 +6,7 @@
     <script src="{{ asset('tol_operasi_260121_REV_1.js') }}"></script>
     <script>
         console.log(json_tol_operasi_260121_REV_1.features)
+        var _tmpLatLng = {};
         const url = location.protocol + '//' + window.location.host;
         function importSection() {
             $.each(json_tol_operasi_260121_REV_1.features, function(i, v) {
@@ -13,9 +14,12 @@
                 var _prop = v.properties, _latLng = v.geometry.coordinates
                 _id = uuidv4();
                 if (_prop.NAMA) {
-                    $.get(url + `/test/section/js?id=${_id}&section_name=${_prop.NAMA}&address=${_prop.PROPINSI},${_prop.KABUPATEN}&type=${_prop.Type}&island=${_prop.Island}&length=${_prop.PANJANG}&manager=${_prop.PENGELOLA}&status=${_prop.STATUS}`, function (r) {
-                        console.log('SECTION',r)
-                    });
+                    // $.get(url + `/test/section/js?id=${_id}&section_name=${_prop.NAMA}&address=${_prop.PROPINSI},${_prop.KABUPATEN}&type=${_prop.Type}&island=${_prop.Island}&length=${_prop.PANJANG}&manager=${_prop.PENGELOLA}&status=${_prop.STATUS}`, function (r) {
+                    //     console.log('SECTION',r)
+                    // });
+                    console.log(`INSERT INTO public.x_geo_toll_route(` +
+	                `id, ftsection_name, ftaddress, fttype, ftisland, ftlength, ftmanager, ftstatus, created_at, updated_at) ` +
+	                `VALUES ('${_id}', '${_prop.NAMA}', '${_prop.PROPINSI},${_prop.KABUPATEN}', '${_prop.Type}', '${_prop.Island}', '${_prop.PANJANG}', '${_prop.PENGELOLA}', '${_prop.STATUS}', NOW(), NOW());`)
                     // console.log(
                     //     _prop.NAMA,
                     //     _prop.PANJANG,
@@ -29,13 +33,17 @@
                     $.each(_latLng, function( i, v ) {
                         // console.log("CHECK POINT",i, v)
                         $.each(v, function( ii, vv ) {
-                            $.get(url + `/test/sectionlatlng/js?x_geo_toll_route_id=${_id}&lat=${vv[1]}&lon=${vv[0]}&checkpoint=${i}&index=${ii}`, function (r) {
-                                console.log('SECTION_LATLNG',r)
-                            });
+                            console.log(`INSERT INTO public.x_geo_toll_route_det(` +
+                                `id, x_geo_toll_route_id, fflat, fflon, fnindex, fnchkpoint) ` +
+                                `VALUES ('${uuidv4()}', '${_id}', '${vv[1]}', '${vv[0]}', '${ii}', '${i}');`)
+                            // $.get(url + `/test/sectionlatlng/js?x_geo_toll_route_id=${_id}&lat=${vv[1]}&lon=${vv[0]}&checkpoint=${i}&index=${ii}`, function (r) {
+                            //     console.log('SECTION_LATLNG',r)
+                            // });
                             // console.log("INDEX",i,ii, vv)
                         });
                     });
                 }
+                // console.log('stop')
             });
             
         }

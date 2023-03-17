@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('fnstatus');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
+            $table->uuid('uuid_geo_mlff_id')->default('00000000-0000-0000-0000-000000000000');
             $table->index([
                 'ftdevice_id',
                 'ftdevice_name',
