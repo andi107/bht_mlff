@@ -77,13 +77,13 @@
                 @endif
                     <a href="javascript:void(0)">
                         <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                        <span class="site-menu-title">MLFF Gate Declaration</span>
+                        <span class="site-menu-title">Toll Gate</span>
                         <span class="site-menu-arrow"></span>
                     </a>
                     <ul class="site-menu-sub">
                         <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_list')) }}">
                             <a class="animsition-link" href="{{ route('geomlff_list') }}">
-                                <span class="site-menu-title">Gate List</span>
+                                <span class="site-menu-title">Add Toll Gate</span>
                             </a>
                         </li>
                         <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
@@ -93,29 +93,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (\Hlp::chkActive(route('tollroute_create_index')) || \Hlp::chkActive(route('tollroute_list')))
-                    <li class="site-menu-item has-sub active open">
-                @else
-                    <li class="site-menu-item has-sub">
-                @endif
-                    <a href="javascript:void(0)">
-                        <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                        <span class="site-menu-title">Toll Section</span>
-                        <span class="site-menu-arrow"></span>
-                    </a>
-                    <ul class="site-menu-sub">
-                        <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_list')) }}">
-                            <a class="animsition-link" href="{{ route('tollroute_list') }}">
-                                <span class="site-menu-title">Section Listed</span>
-                            </a>
-                        </li>
-                        <li class="site-menu-item {{ \Hlp::chkActive(route('tollroute_create_index')) }}">
-                            <a class="animsition-link" href="{{ route('tollroute_create_index') }}">
-                                <span class="site-menu-title">Add Toll Section</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class="site-menu-category">Engineer Tools</li>
                 <li class="site-menu-item {{ \Hlp::chkActive(route('dev_src_monitor')) }}">
                     <a class="animsition-link" href="{{ route('dev_src_monitor') }}">

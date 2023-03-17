@@ -26,7 +26,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Gate Name</th>
-                            <th>Gate Address</th>
+                            <th>Toll Section</th>
                             <th>Action</th>
                         </tr>
                     </thead>
