@@ -54,7 +54,7 @@ sio.on("trx_device_geo_rcv", function (data) {
     //     }
     // }
     var res = JSON.parse(data);
-
+    console.log('res',res)
     if (res.type === 'geo_notif') {
         axios.get(url + `/info/js/geonotif/${res.id}/${res.geoid}`).then(rr => {
             if (res.declare == 1) {
@@ -64,6 +64,8 @@ sio.on("trx_device_geo_rcv", function (data) {
                 toastr.warning(`${rr.data.dataDevice.ftasset_name} <i><b>Exit</b></i> ${rr.data.dataGeo.ftgeo_name}`, 'Geo Notification');
             }
         }).catch(err => { });
+    }else if (res.type === 'geo_mlff_notif') {
+        toastr.success("NOTIFY: MLFF Declaration");
     }
 });
 
