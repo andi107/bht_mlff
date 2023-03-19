@@ -2,6 +2,7 @@
     @include('pages.tracking.thead')
     @push('isstyles')
     <link href="{{ asset('global/js/dtpicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('global/vendor/ladda/ladda.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.css"/>
     @endpush
@@ -70,8 +71,10 @@
                                                 <input type="text" id="txtdtto" name="txtdtto" class="form-control datepicker" required/>
                                             </div>
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn btn-info ladda-button">
-                                                    Submit
+                                                <button type="submit" class="btn btn-info ladda-button" data-style="expand-left" data-plugin="ladda">
+                                                    <span class="ladda-label"><i class="icon md-arrows mr-10" aria-hidden="true"></i>
+                                                        Submit
+                                                    </span>
                                                 </button>
                                             </div>
                                         </div>
@@ -84,11 +87,11 @@
                                     </div>
                                 
                             </div>
-                            <div class="col-xl-12">
+                            {{-- <div class="col-xl-12">
                                 <div class="lt-body text-center p-20">
                                     <button class="btn btn-md btn-primary" onclick="showLogs()">Data Log</button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -140,7 +143,10 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.1/af-2.5.1/b-2.3.3/b-colvis-2.3.3/b-html5-2.3.3/b-print-2.3.3/cr-1.6.1/date-1.2.0/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/rg-1.3.0/rr-1.3.1/sc-2.0.7/sb-1.4.0/sp-2.1.0/sl-1.5.0/sr-1.2.0/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
-    
+    <script src="{{ asset('global/vendor/ladda/spin.min.js')}}"></script>
+    <script src="{{ asset('global/vendor/ladda/ladda.min.js')}}"></script>
+    <script src="{{ asset('global/js/Plugin/ladda.js')}}"></script>
+
     @vite([
         'resources/js/pages/tracking_map.js'
     ])

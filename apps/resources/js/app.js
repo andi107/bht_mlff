@@ -3,13 +3,14 @@ import $ from 'jquery';
 window.jQuery = $;
 import 'popper.js';
 
-// window.mapLayer = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 const url = location.protocol + '//' + window.location.host;
 window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.gateUrl = url + '/assets/images/leaflet/access_gt.png';
-window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+// window.mapLayer = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+// window.mapLayer = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+window.mapLayer = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 const sio = io("http://110.5.105.26:60011");
 window.sio = sio;
 
@@ -54,7 +55,6 @@ sio.on("trx_device_geo_rcv", function (data) {
     //     }
     // }
     var res = JSON.parse(data);
-    console.log('res',res)
     if (res.type === 'geo_notif') {
         axios.get(url + `/info/js/geonotif/${res.id}/${res.geoid}`).then(rr => {
             if (res.declare == 1) {
@@ -65,7 +65,7 @@ sio.on("trx_device_geo_rcv", function (data) {
             }
         }).catch(err => { });
     }else if (res.type === 'geo_mlff_notif') {
-        toastr.success("NOTIFY: MLFF Declaration");
+        console.log('res',res)
     }
 });
 
