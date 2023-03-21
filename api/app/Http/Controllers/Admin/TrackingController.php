@@ -123,4 +123,14 @@ class TrackingController extends Controller {
         //     ], 200);
         // }
     }
+
+    public function tracking_mlff_declare_log($device_id) {
+        $res = DB::table('v_device_geo_mlff_declare')
+        ->where('ftdevice_id','=', $device_id)
+        ->orderBy('fddeclaration','desc')
+        ->get();
+        return response()->json([
+            'data' => $res,
+        ], 200);
+    }
 }

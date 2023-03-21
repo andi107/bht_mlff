@@ -21,6 +21,7 @@ export default defineConfig({
                 'resources/js/pages/geomlff.js',
                 'resources/js/pages/tollroute.js',
                 'resources/js/pages/toll_map.js',
+                'resources/js/pages/tracking_mlff.js',
             ],
             refresh: true,
         }),

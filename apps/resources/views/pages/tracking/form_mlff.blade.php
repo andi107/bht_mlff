@@ -3,6 +3,9 @@
     <input type="hidden" name="_lat" value="{{ $deviceData->deviceRelay->fflat }}">
     <input type="hidden" name="_lon" value="{{ $deviceData->deviceRelay->fflon }}">
     @include('pages.tracking.thead')
+    @push('isstyles')
+    <link rel="stylesheet" href="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.css')}}">
+    @endpush
     <div class="page-header page-header-bordered">
         <h1 class="page-title">{{ $cfg['title'] }}</h1>
         <div class="page-header-actions">
@@ -51,7 +54,18 @@
                         <div class="tab-pane fade active show">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    [Dev Progress...]
+                                    <table class="table table-hover dataTable table-striped w-full" id="tblmlfflist">
+                                        <thead>
+                                            <tr>
+                                                <th>Detection Time</th>
+                                                <th>Gate Detection</th>
+                                                <th>Toll Section</th>
+                                                <th>Gate Payment</th>
+                                                <th>Charging</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +75,13 @@
         </div>
     </div>
     @include('pages.tracking.tfoot')
+    @push('isscript')
+    <script src="{{ asset('global/vendor/datatables.net/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('global/vendor/bootbox/bootbox.js')}}"></script>
+    <script src="{{ asset('global/js/Plugin/datatables.js')}}"></script>
+    @endpush
     @vite([
-    'resources/js/pages/tracking_status.js',
+    'resources/js/pages/tracking_mlff.js',
     ])
 </x-default>

@@ -36,7 +36,8 @@ Route::controller(TrackingController::class)->group(function () {
     ], function() {
         Route::get('list/js', 'device_list_js')->name('tracking_list_js');
         Route::get('detail/js/map', 'detail_js_map')->name('tracking_map_js');
-        Route::get('detail/js/geo/{device_id}', 'detail_js_geo')->name('tracking_map_js');
+        Route::get('detail/js/geo/{device_id}', 'detail_js_geo')->name('tracking_geo_js');
+        Route::get('detail/js/mlff/{device_id}', 'detail_mlff_history_js')->name('tracking_mlff_history_js');
         
         Route::get('list', 'list')->name('tracking_list');
         Route::get('detail/{deviceid}/status', 'detail_status')->name('tracking_status');

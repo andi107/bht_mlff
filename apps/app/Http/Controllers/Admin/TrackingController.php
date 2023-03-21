@@ -102,4 +102,11 @@ class TrackingController extends Controller
             'deviceData' => $resDvStatus,
         ]);
     }
+
+    public function detail_mlff_history_js($device_id) {
+        $resDvMLFFHistory = Hlp::apiGet('/tracking/d/mlff/log/'.$device_id);
+        return response()->json([
+            'mlffHistoryData' => $resDvMLFFHistory
+        ], 200);
+    }
 }

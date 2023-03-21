@@ -80,3 +80,12 @@ select
 		END AS ftpayment_type
 From x_geo_mlff_declare xgmd left join x_gate_point xgp
 	ON (xgmd.uuid_x_gate_point_id = xgp.id);
+--
+
+CREATE OR REPLACE VIEW public.v_device_geo_mlff_declare
+ AS
+select
+	mh.id,mh.ftdevice_id,mh.fddeclaration,mh.fbdeclaration,mh.uuid_x_geo_mlff_id,
+	vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type
+From mlff_history mh left join v_geo_mlff_declare vgmd
+	on (mh.uuid_x_geo_mlff_id = vgmd.id)

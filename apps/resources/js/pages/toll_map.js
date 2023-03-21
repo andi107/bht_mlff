@@ -1,7 +1,7 @@
 import 'leaflet-svg-shape-markers';
 const url = window.burl;
 const iconUrl = window.gateUrl;
-
+const gateIcon = '/assets/images/leaflet/toll_gate.png';
 var map = L.map('tollmap', {
     minZoom: 5,
     attributionControl: false,
@@ -154,7 +154,14 @@ function pointing(map) {
         pointToLayer: function (feature, latlng) {
             
             // console.log(feature,latlng)
-            return L.shapeMarker(latlng, style_Relay());
+            return L.marker(latlng,{icon: L.icon({
+                    iconUrl: gateIcon,
+                    iconSize:     [30, 30],
+                    iconAnchor:   [16, 25],
+                    popupAnchor:  [0, -15]
+                })
+            });
+            // return L.shapeMarker(latlng, style_Relay());
         },
     });
     bounds_group.addLayer(lGate);
