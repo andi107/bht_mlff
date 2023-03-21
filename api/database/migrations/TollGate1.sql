@@ -480,4 +480,4 @@ INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpay
 INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpayment_type) VALUES (NOW(), gen_random_uuid(), 'GT CIMANGGIS 5', 'cimcib', '106.897883794101858', '-6.387745876171209', 0);
 INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpayment_type) VALUES (NOW(), gen_random_uuid(), 'GT JATIKARYA 2', 'cimcib', '106.918658987722154', '-6.381908987409815', 0);
 INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpayment_type) VALUES (NOW(), gen_random_uuid(), 'GT CERME', 'klbm', '112.573537127875227', '-7.216263624416803', 0);
-INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpayment_type) VALUES (NOW(), gen_random_uuid(), 'GT JAKABARING', 'kapalbt', '104.801711755051059', '-3.090734944979029');
+INSERT INTO x_gate_point (created_at, id, ftname, ftsection, fflon, fflat, fnpayment_type) VALUES (NOW(), gen_random_uuid(), 'GT JAKABARING', 'kapalbt', '104.801711755051059', '-3.090734944979029',0);
