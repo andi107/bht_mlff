@@ -52,7 +52,9 @@ $router->group([
         $router->get('d/{geoid}', 'Admin\GeoMlffController@detail');
         $router->get('d/{geoid}/point', 'Admin\GeoMlffController@detail_point');
         $router->get('gate/point', 'Admin\GeoMlffController@gate_point');
+        $router->get('gate/section/{section_name}', 'Admin\GeoMlffController@gate_point_section');
         $router->get('gate/section', 'Admin\GeoMlffController@section_point');
+        $router->get('gate/point/det/{gate_id}', 'Admin\GeoMlffController@gate_point_section_det');
     });
 
     $router->group([

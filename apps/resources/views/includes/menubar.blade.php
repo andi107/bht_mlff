@@ -83,7 +83,7 @@
                     <ul class="site-menu-sub">
                         <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_list')) }}">
                             <a class="animsition-link" href="{{ route('geomlff_list') }}">
-                                <span class="site-menu-title">Add Toll Gate</span>
+                                <span class="site-menu-title">Gate List</span>
                             </a>
                         </li>
                         <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">

@@ -61,3 +61,22 @@ from (
 		on (gh.ftdevice_id = xd.ftdevice_id)
 ) a left join x_geo_declare xgd
 	on (a.uuid_x_geo_id = xgd.id)
+
+-- MLFF Declaration
+CREATE OR REPLACE VIEW public.v_geo_mlff_declare
+ AS
+select
+	xgmd.id,xgmd.fntype,
+	CASE xgmd.fntype
+		WHEN 1 THEN 'Entry'
+		WHEN 2 THEN 'Exit'
+		END AS ftdeclaration_type,
+	xgmd.fnstatus,xgmd.created_at,xgmd.updated_at,xgmd.uuid_x_gate_point_id,
+	xgp.ftname,xgp.ftsection,xgp.fflat,xgp.fflon,xgp.fnpayment_type,
+	CASE xgp.fnpayment_type
+		WHEN 1 THEN 'Open'
+		WHEN 2 THEN 'Close'
+		ELSE 'n/a'
+		END AS ftpayment_type
+From x_geo_mlff_declare xgmd left join x_gate_point xgp
+	ON (xgmd.uuid_x_gate_point_id = xgp.id);

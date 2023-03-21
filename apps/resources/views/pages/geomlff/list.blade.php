@@ -87,7 +87,7 @@
             console.log(res)
             $.each(res.data, function(k, v) {
                 tblgeofence.row.add([
-                    v.id,v.ftgeo_name, v.ftaddress
+                    v.id,v.ftname, v.ftsection
                 ]).draw(true);
             });
         });

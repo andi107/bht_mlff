@@ -21,10 +21,11 @@ class GeoMlffController extends Controller
 
     public function create_update(Request $request) {
         $validator = Validator::make($request->all(), [
-            'txtName' => 'required',
-            'txtAddress' => 'required',
+            // 'txtName' => 'required',
+            // 'txtAddress' => 'required',
             'polygon_point' => 'required',
             'geo_type' => 'required',
+            'gate_id' => 'required'
             // 'status' => 'required|numeric'
         ]);
         if ($validator->fails()) {
@@ -38,22 +39,18 @@ class GeoMlffController extends Controller
 
         return response()->json([
             'msg' => $res
+            // 'msg' => $request->all()
         ]);
     }
 
     function create($re) {
-        // _token', $("input[name=_token]").val());
-        // fd.append('txtName', $("input[name=txtName]").val());
-        // fd.append('txtaddress'
-        // $txtName = $request->input('txtName');
-        // $txtAddress = $request->input('txtAddress');
-        // $polygon_point = $request->input('polygon_point');
         $body = [
             'id' => $re->input('id'),
-            'geo_name' => $re->input('txtName'),
-            'geo_address' => $re->input('txtAddress'),
+            // 'geo_name' => $re->input('txtName'),
+            // 'geo_address' => $re->input('txtAddress'),
             'geo_type' => $re->input('geo_type'),
             'polygon_point' => $re->input('polygon_point'),
+            'gate_id' => $re->input('gate_id'),
             'status' => 1
         ];
         $flag = $re->input('_isEdit');
@@ -76,13 +73,14 @@ class GeoMlffController extends Controller
         }
         return [
             'obj' => $r->object(),
-            'code' => $r->getStatusCode()
+            'code' => $r->getStatusCode(),
         ];
     }
 
     public function detail_point($geoid) {
         $res = Hlp::apiGet('/geomlff/d/'. $geoid .'/point');
         return response()->json([
+            'dataHead' => $res->dataHead,
             'dataPoint' => $res->data
         ], 200);
     }
@@ -93,10 +91,11 @@ class GeoMlffController extends Controller
 
     public function detail($geoid) {
         $res = Hlp::apiGet('/geomlff/d/'. $geoid);
+        // dd($res);
         return view('pages.geomlff.form', [
             'cfg' => [
                 'id' => $res->data->id,
-                'title' => $res->data->ftgeo_name
+                'title' => $res->data->ftname
             ],
             'd' => $res->data
         ]);
@@ -106,13 +105,33 @@ class GeoMlffController extends Controller
         return view('pages.geomlff.form', [
             'cfg' => [
                 'id' => Str::uuid(),
-                'title' => 'Add GATE Location'
+                'title' => 'Add Gate Location'
             ],
         ]);
     }
 
     public function tollmapindex_js() {
         $res = Hlp::apiGet('/geomlff/gate/point');
+        return response()->json([
+            'gatePoint' => $res->data
+        ], 200);
+    }
+
+    public function tollmapsection_js() {
+        $res = Hlp::apiGet('/geomlff/gate/section');
+        return response()->json([
+            'sectionName' => $res->data
+        ], 200);
+    }
+
+    public function tollmapsection_map_js($section_name) {
+        $res = Hlp::apiGet('/geomlff/gate/section/'.$section_name);
+        return response()->json([
+            'gatePoint' => $res->data
+        ], 200);
+    }
+    public function tollmapsection_map_det_js($id) {
+        $res = Hlp::apiGet('/geomlff/gate/point/det/'.$id);
         return response()->json([
             'gatePoint' => $res->data
         ], 200);

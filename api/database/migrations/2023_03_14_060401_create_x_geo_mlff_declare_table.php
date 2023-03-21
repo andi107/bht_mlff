@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('x_geo_mlff_declare', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('ftgeo_name')->unique();
-            $table->string('ftaddress');
+            // $table->string('ftgeo_name');
+            // $table->string('ftaddress');
             $table->integer('fntype');
-
+            $table->uuid('uuid_x_gate_point_id');
             $table->integer('fnstatus');
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->index([
                 'id',
-                'ftgeo_name',
                 'fntype',
                 'created_at',
                 'updated_at'

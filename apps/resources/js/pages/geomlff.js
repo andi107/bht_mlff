@@ -1,7 +1,7 @@
 const url = window.burl;
 const geoid = $("input[name=_id]").val();
 
-var layerTmp = null, geoTmp = [], osmUrl = window.mapLayer,
+var layerTmp = null, geoTmp = [], osmUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     osm = L.tileLayer(osmUrl, { minZoom: 5 }),
     map = new L.Map('objmap', {
         center: new L.LatLng(0.339951, 120.373368),
@@ -65,7 +65,7 @@ map.addControl(drawControlFull);
 
 map.on(L.Draw.Event.CREATED, function (event) {
     if (self.Polygon || self.Circle) {
-        alert('You can only create 1 location per geofence');
+        toastr.error("You can only create 1 location per geofence", 'Warning');
         return null;
     }
     var layer = event.layer;
@@ -75,7 +75,7 @@ map.on(L.Draw.Event.CREATED, function (event) {
     }else if (layer._latlngs && layer._bounds){
         geoTmp = layer._latlngs[0];
         if (geoTmp.length < 4) {
-            alert('Minimum 4 points required!');
+            toastr.error("Minimum 4 points required!", 'Warning');
             return null;
         }
         self.Polygon = layer;
@@ -138,8 +138,9 @@ $('#formGeo').submit(
         var fd = new FormData();
         fd.append('_token', $("input[name=_token]").val());
         fd.append('id', $("input[name=_id]").val());
-        fd.append('txtName', $("input[name=txtName]").val());
-        fd.append('txtAddress', $("textarea[name=txtAddress]").val());
+        // fd.append('txtName', $("input[name=txtName]").val());
+        // fd.append('txtAddress', $("textarea[name=txtAddress]").val());
+        fd.append('gate_id',$("#sel_toll_gate").val());
         fd.append('_isEdit', isEdit);
         console.log(isEdit);
 
@@ -153,10 +154,14 @@ $('#formGeo').submit(
                 $.each(val, function(ii, vv) {
                     _resPolygon[ii] = {lat: vv.lat, lng: vv.lng};
                 });
-            })
+            });
             console.log(JSON.stringify(_resPolygon))
-
-            fd.append('geo_type', 1);
+            var _chkGateDec = $("select[name=gate_declare]").val();
+            if (_chkGateDec <= 0) {
+                toastr.error("Please select declaration!", 'Warning');
+                return null;
+            }
+            fd.append('geo_type', parseInt(_chkGateDec));
             fd.append('polygon_point', JSON.stringify(_resPolygon));
         }else{
             toastr.error("Please make 1 Geofencing!", 'Warning');
@@ -178,7 +183,7 @@ $('#formGeo').submit(
                 $('#formGeo').css("opacity", "");
                 var r = res.msg;
                 if (r.code === 200) {
-                    sio.emit('trx_downlink', '{POLYGONLOADMLFF}');
+                    // sio.emit('trx_downlink', '{POLYGONLOADMLFF}');
                     swal({
                         title: "Success",
                         text: "Continue editing?",
@@ -207,11 +212,80 @@ $('#formGeo').submit(
     }
 );
 
+$("#sel_toll_section").select2();
+$("#sel_toll_gate").select2();
+axios.get(url + `/geomlff/gatepoint/section/js`).then(rr => {
+    $("#sel_toll_section").select2({
+        data: rr.data.sectionName
+    });
+}).catch(err => {
+    console.log(err);
+});
+
+var _gatePosition;
+$("#sel_toll_section").on("change",function () {
+    if (_gatePosition) {
+        map.removeLayer(_gatePosition);
+    }
+    _loadTollGate($("#sel_toll_section").val());
+});
+
+function _loadTollGate(tollsec_name) {
+    axios.get(url + `/geomlff/gatepoint/section/js/${tollsec_name}`).then(rr => {
+        $("#sel_toll_gate").select2({
+            data: rr.data.gatePoint
+        });
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+$("#sel_toll_gate").on("change",function () {
+    if (_gatePosition) {
+        map.removeLayer(_gatePosition);
+    }
+    _markerGate($("#sel_toll_gate").val());
+});
+
+function _markerGate(gate_id) {
+    axios.get(url + `/geomlff/gatepoint/section/det/js/${gate_id}`).then(rr => {
+        console.log(rr)
+        var v = rr.data.gatePoint,payment_type = 'n/a';
+        
+        if (v.fnpayment_type === 1) {
+            payment_type = 'Open';
+        }else if (v.fnpayment_type === 2) {
+            payment_type = 'Close';
+        }
+        _gatePosition = window._newMarker({ lat: v.fflat, lng: v.fflon }, {
+            icon : L.icon({
+                iconUrl: window.gateUrl,
+                iconSize:     [30, 30],
+                iconAnchor:   [16, 25],
+                popupAnchor:  [0, -20]
+            })
+        },
+        null,`<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>` +
+        `<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">` +
+        `GATE NAME</div><div class="col-7 pl-4">${v.ftname}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+        `SECTION</div><div class="col-7 pl-4">${v.ftsection}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">`+
+        `PAYMENT TYPE</div><div class="col-7 pl-4">${payment_type}</div></div>`);
+        _gatePosition.addTo(map);
+        var myFGMarker = new L.FeatureGroup();
+        myFGMarker.addLayer(_gatePosition);
+        myFGMarker.addTo(map);
+        map.fitBounds(myFGMarker.getBounds());
+    });
+}
+
 $.get(url + `/geomlff/js/detail/${geoid}/point`, function(res) {
+    console.log(res.dataHead)
+    var v = res.dataHead;
+    _markerGate(v.uuid_x_gate_point_id);
     var _tmpPoint = [];
     $.each(res.dataPoint, function(k,v) {
         isEdit = 1;
-        _tmpPoint.push([v.fflat, v.fflon])
+        _tmpPoint.push([v.fflat, v.fflon]);
     });
     if (res.dataPoint.length !== 0) {
         var polygonData = L.polygon(_tmpPoint);
@@ -220,6 +294,13 @@ $.get(url + `/geomlff/js/detail/${geoid}/point`, function(res) {
         map.fitBounds(drawnItems.getBounds());
         self.drawControlFull.remove();
         self.drawControlEdit.addTo(map);
+        if (isEdit === 1) {
+            _loadTollGate(v.ftsection);
+            $('input[name=sel_toll_gate]').val(v.uuid_x_gate_point_id)
+            // $("#sel_toll_gate").select2({
+            //     data: [{'id': v.uuid_x_gate_point_id, 'text': v.ftname}]
+            // });
+        }
     }
 });
 

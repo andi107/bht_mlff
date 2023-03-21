@@ -44,16 +44,35 @@
                                         <div class="row row-lg">
 
                                             <div class="col">
-                                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                    <input type="text" class="form-control" name="txtName" required value="{{ isset($d) ? $d->ftgeo_name : '' }}" />
-                                                    <label class="floating-label">Geo Location Name</label>
+                                                <div class="m-lg-0">
+                                                    <label class="floating-label">Toll Section</label>
+                                                    <div class="form-group">
+                                                        @if (isset($d))
+                                                        <input type="text" id="sel_toll_section" name="sel_toll_section" style="width: 100%" value="{{ isset($d) ? $d->ftsection : '0' }}" readonly disabled/>
+                                                        @else
+                                                        <input type="text" id="sel_toll_section" name="sel_toll_section" data-plugin="ionRangeSlider" style="width:100%"/>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                                    <textarea class="form-control" name="txtAddress" rows="3" required>{{ isset($d) ? $d->ftaddress : '' }}</textarea>
-                                                    <label class="floating-label">Address</label>
+                                                <div class="m-lg-0">
+                                                    <label class="floating-label">Toll Gate Name</label>
+                                                    <div class="form-group">
+                                                        @if (isset($d))
+                                                        <input type="text" id="sel_toll_gate" name="sel_toll_gate" style="width: 100%" value="{{ isset($d) ? $d->uuid_x_gate_point_id : '0' }}" readonly disabled/>
+                                                        @else
+                                                        <input type="text" id="sel_toll_gate" name="sel_toll_gate" data-plugin="ionRangeSlider" style="width:100%"/>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="m-lg-0">
+                                                    <select class="form-control" id="gate_declare" name="gate_declare" data-plugin="selectpicker" data-style="btn-info" required="">
+                                                        <option value="0">Gate Declaration</option>
+                                                        <option value="1">Entry</option>
+                                                        <option value="2">Exit</option>
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-material col-xl-12 text-right padding-top-m">
+                                            <div class="form-group form-material col-xl-12 text-right mt-4">
                                                 <button type="submit" class="btn btn-info ladda-button" data-style="expand-left" data-plugin="ladda">
                                                     <span class="ladda-label"><i class="icon md-arrows mr-10" aria-hidden="true"></i>
                                                         Submit
@@ -118,6 +137,9 @@
     <script src="{{ asset('leaflet/draw/edit/handler/Edit.Circle.js')}}"></script>
     <script src="{{ asset('leaflet/fullscreen/Leaflet.fullscreen.min.js')}}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        $("select[name=gate_declare]").val(`{{ isset($d) ? $d->fntype : 0 }}`);
+    </script>
     @vite([
     'resources/js/pages/geomlff.js',
     ])

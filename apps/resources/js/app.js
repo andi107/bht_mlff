@@ -121,6 +121,30 @@ if (reg.exec(longitude)) {
     console.log("Long 2 not vaild.");
 }
 
+window._newMarker = function(latLng,customIcon = null,customToolTip = null, customPopUp = null) {
+    var mkr;
+    if (customIcon) {
+        mkr = L.marker(
+            latLng,
+            customIcon //// { icon: greenIcon }
+        );
+    }else{
+        mkr = L.marker(latLng);
+    }
+    if (customPopUp) {
+        var popup = L.popup().setContent(customPopUp);
+        mkr.bindPopup(popup, {
+            'className': 'custom-popup'
+        }).openPopup();
+    }
+    if (customToolTip) {
+        var tooltip = L.tooltip()
+        .setContent(customToolTip)
+        mkr.bindTooltip(tooltip).openTooltip();
+    }
+    return mkr;
+}
+
 console.log(window.dtHumanID(), window.dtHumanName(), window.dtHumanParse("2023-02-28 02:41:09"));
 
 const button = document.querySelector("button");
@@ -160,13 +184,13 @@ if (window.self !== window.top) {
                     i++;
                 }, 200);
             } else {
-                // Otherwise, we can fallback to a regular modal alert
-                alert("Hi!");
+                // Otherwise, we can fallback to a regular modal console.log
+                console.log("Hi!");
             }
         });
     } else {
-        // If the user refuses to get notified, we can fallback to a regular modal alert
-        alert("Hi!");
+        // If the user refuses to get notified, we can fallback to a regular modal console.log
+        console.log("Hi!");
     }
 }
 

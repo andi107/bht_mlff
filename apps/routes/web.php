@@ -83,7 +83,9 @@ Route::controller(GeoMlffController::class)->group(function () {
         Route::get('js/detail/{geoid}/point','detail_point')->name('geomlff_detail_point_js');
         Route::get('gatepoint/js','tollmapindex_js')->name('tollmapindex_js');
         Route::get('gatepoint/section/js','tollmapsection_js')->name('tollmapsection_js');
-        
+        Route::get('gatepoint/section/js/{section_name}','tollmapsection_map_js')->name('tollmapsection_map_js');
+        Route::get('gatepoint/section/det/js/{id}','tollmapsection_map_det_js')->name('tollmapsection_map_js');
+
         Route::get('list','list')->name('geomlff_list');
         Route::get('add', 'formindex')->name('geomlff_create_index');
         Route::get('detail/{geoid}', 'detail')->name('geomlff_detail');
