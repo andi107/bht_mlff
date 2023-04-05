@@ -50,19 +50,8 @@
   
         <!-- Navbar Toolbar Right -->
         <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+          
           {{-- <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up"
-              aria-expanded="false" role="button">
-              <span class="flag-icon flag-icon-us"></span>
-            </a>
-            <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-us"></span> English</a>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="flag-icon flag-icon-id"></span> Indonesia</a>
-            </div>
-          </li> --}}
-          <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" title="Notifications"
               aria-expanded="false" data-animation="scale-up" role="button">
               <i class="icon md-notifications" aria-hidden="true"></i>
@@ -144,7 +133,7 @@
                 </a>
               </div>
             </div>
-          </li>
+          </li> --}}
           <li class="nav-item dropdown">
             <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
               data-animation="scale-up" role="button">
@@ -154,11 +143,11 @@
               </span>
             </a>
             <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
+              {{-- <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
               <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
               <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
-              <div class="dropdown-divider" role="presentation"></div>
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+              <div class="dropdown-divider" role="presentation"></div> --}}
+              <a class="dropdown-item" href="{{ route('logout') }}" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
             </div>
           </li>
         </ul>

@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Auth;
 class GeoController extends Controller {
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function list() {
 
         $data = DB::table('x_geo_declare')
+        ->where('uuid_customer_id','=', Auth::id())
         ->orderBy('created_at','desc')
         ->get();
 
@@ -45,7 +52,8 @@ class GeoController extends Controller {
                 'fntype' => $geo_type,
                 'fnstatus' => $status,
                 'created_at' => $dtnow,
-                'updated_at' => $dtnow
+                'updated_at' => $dtnow,
+                'uuid_customer_id' => Auth::id()
             ]);
 
             switch ($geo_type) {
@@ -103,6 +111,7 @@ class GeoController extends Controller {
 
             DB::table('x_geo_declare')
             ->where('id','=',$id)
+            ->where('uuid_customer_id', '=', Auth::id())
             ->update([
                 'ftgeo_name' => $geo_name,
                 'ftaddress' => $geo_address,
@@ -152,6 +161,7 @@ class GeoController extends Controller {
     public function detail($geoid) {
         $data = DB::table('x_geo_declare')
         ->where('id','=', $geoid)
+        ->where('uuid_customer_id','=',Auth::id())
         ->first();
         return response()->json([
             'data' => $data

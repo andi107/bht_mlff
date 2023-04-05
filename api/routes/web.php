@@ -6,7 +6,25 @@ $router->get('/', function () use ($router) {
 
 $router->group([
     'prefix' => 'api',
+    'middleware' => ['nocache','hideserver', 'security','csp','gzip'],
 ], function() use($router) {
+    $router->get('check', 'Users\CheckController@index');
+    $router->group([
+        'prefix' => 'auth',
+        'middleware' => ['middleware' => 'throttle:5,1']
+    ], function() use($router) {
+        $router->post('/', 'Users\AuthController@index');
+        $router->get('logout', 'Users\CheckController@go_logout');
+    });
+    
+    $router->group([
+        'prefix' => 'user',
+        'middleware' => ['root']
+    ], function() use($router) {
+        $router->get('/', 'Admin\UsersController@index');
+        $router->post('/', 'Admin\UsersController@create');
+        $router->put('/', 'Admin\UsersController@update');
+    });
     $router->group([
         'prefix' => 'dashboard'
     ], function() use($router) {
@@ -45,7 +63,8 @@ $router->group([
     });
 
     $router->group([
-        'prefix' => 'geomlff'
+        'prefix' => 'geomlff',
+        'middleware' => ['root']
     ], function() use($router) {
         $router->get('/', 'Admin\GeoMlffController@list');
         $router->post('/', 'Admin\GeoMlffController@create');
@@ -59,7 +78,8 @@ $router->group([
     });
 
     $router->group([
-        'prefix' => 'tollroute'
+        'prefix' => 'tollroute',
+        'middleware' => ['root']
     ], function() use($router) {
         $router->get('/', 'Admin\TollRouteController@list');
         $router->post('/', 'Admin\TollRouteController@create');

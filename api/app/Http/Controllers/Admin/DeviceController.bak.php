@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class DeviceController extends Controller {
     
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
 
         $data = DB::table('x_devices')
@@ -27,7 +32,8 @@ class DeviceController extends Controller {
             'description' => 'max:255',
             'vehicle_id' => 'required|max:50',
             'vehicle_name' => 'required|max:100',
-            'status' => 'required|numeric'
+            'status' => 'required|numeric',
+            'customer_id' => 'required|numeric'
         ]);
         $device_id = $request->input('device_id');
         $name = $request->input('name');
@@ -36,17 +42,23 @@ class DeviceController extends Controller {
         $vehicle_id = $request->input('vehicle_id');
         $vehicle_name = $request->input('vehicle_name');
         $status = $request->input('status');
+        $customer_id = $request->input('customer_id');
         DB::beginTransaction();
         try {
             $dtnow = Carbon::now();
 
+            
             $chkData = DB::table('x_devices')
             ->where('ftdevice_id','=', $device_id)
             ->first();
             $chkVehicle_id = DB::table('x_devices')
             ->where('ftvehicle_id','=',$vehicle_id)
             ->first();
-            if ($chkData) {
+            if ($chkUser) {
+                return response()->json([
+                    'msg' => 'Customer not found.',
+                ], 442);
+            }else if ($chkData) {
                 return response()->json([
                     'msg' => $device_id. ' already exists.',
                 ], 442);
@@ -66,7 +78,8 @@ class DeviceController extends Controller {
                 'updated_at' => $dtnow,
                 'ftvehicle_id' => $vehicle_id,
                 'ftvehicle_name' => $vehicle_name,
-                'fnstatus' => $status
+                'fnstatus' => $status,
+                'uuid_customer_id' => $customer_id
             ]);
 
             $data = DB::table('x_devices')

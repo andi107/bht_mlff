@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-class DashboardController extends Controller {
-    
-    public function index() {
+use Auth;
 
+use Illuminate\Contracts\Auth\Guard;
+class DashboardController extends Controller {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index() {
         $data = DB::table('v_device_relay')
+        ->where('uuid_customer_id','=', Auth::id())
         ->orWhereNotNull('logs_id')
         ->orderBy('ftdevice_name','asc')
         ->get();

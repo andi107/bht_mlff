@@ -85,6 +85,7 @@ window.dtHumanName = function () {
 // var visitortime = new Date();
 // var visitortimezone = "GMT " + - visitortime.getTimezoneOffset() / 60;
 window.dtHumanParse = function (isDateTime) {
+    if (!isDateTime) { return null }
     var date = {
         // utc: '2013-10-16T21:31:51',
         utc: isDateTime.toString(),

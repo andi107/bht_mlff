@@ -12,7 +12,9 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "cookies-js": "^1.2.3",
         "jquery": "^3.6.3",
+        "jsdom": "^21.1.1",
         "leaflet-drift-marker": "^2.0.0",
         "leaflet-rotatedmarker": "^0.2.0",
         "leaflet-svg-shape-markers": "^1.4.0",

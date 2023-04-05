@@ -80,58 +80,6 @@ class Hlps
         return $response;
     }
 
-    public static function fixPagination($url, $obj, $filter = "")
-    {
-        if ($obj->first_page_url != null) {
-            $fpage = explode('?', $obj->first_page_url);
-            if ($filter != "") {
-                $obj->first_page_url = $url . "?filter=" . $filter . "&" . $fpage[1]; // replace first page pagination
-            } else {
-                $obj->first_page_url = $url . "?" . $fpage[1]; // replace first page pagination
-            }
-        }
-
-        if ($obj->last_page_url != null) {
-            $lpage = explode('?', $obj->last_page_url);
-            if ($filter != "") {
-                $obj->last_page_url = $url . "?filter=" . $filter . "&" . $lpage[1]; // replace last page pagination
-            } else {
-                $obj->last_page_url = $url . "?" . $lpage[1]; // replace last page pagination
-            }
-        }
-
-        if ($obj->prev_page_url != null) {
-            $ppage = explode('?', $obj->prev_page_url);
-            if ($filter != "") {
-                $obj->prev_page_url = $url . "?filter=" . $filter . "&" . $ppage[1]; // replace prev page pagination
-            } else {
-                $obj->prev_page_url = $url . "?" . $ppage[1]; // replace prev page pagination
-            }
-        }
-
-        if ($obj->next_page_url != null) {
-            $npage = explode('?', $obj->next_page_url);
-            if ($filter != "") {
-                $obj->next_page_url = $url . "?filter=" . $filter . "&" . $npage[1]; // replace next page pagination
-            } else {
-                $obj->next_page_url = $url . "?" . $npage[1]; // replace next page pagination
-            }
-        }
-
-        foreach ($obj->links as $key => $item) {
-            if ($item->url != null) {
-                $page = explode('?', $item->url);
-                if ($filter != "") {
-                    $obj->links[$key]->url = $url . "?filter=" . $filter . "&" . $page[1];
-                } else {
-                    $obj->links[$key]->url = $url . "?" . $page[1];
-                }
-            }
-        }
-
-        return $obj;
-    }
-
     public static function string_limit($string,$limit = 100,$with_dot = true) {
         if (strlen($string) > $limit) {
             $stringCut = substr($string, 0, $limit);

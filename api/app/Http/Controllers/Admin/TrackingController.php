@@ -5,16 +5,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Auth;
 class TrackingController extends Controller {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function list() {
         $data = DB::table('v_device_relay')
+        ->where('uuid_customer_id','=',Auth::id())
+        ->where('logs_id','<>', null)
+        // ->orWhereNotNull('logs_id')
+        // ->where('uuid_customer_id','=',Auth::id())
         ->orderBy('created_at','desc')
-        ->orWhereNotNull('logs_id')
         ->get();
-        // $data = DB::table('x_device')
-        // ->orderBy('created_at','desc')
-        // ->get();
+        // dd($data);
         return response()->json([
             'data' => $data
         ], 200);
@@ -25,10 +32,12 @@ class TrackingController extends Controller {
         // SELECT * From v_device_relay
         $deviceRelay = DB::table('v_device_relay')
         ->where('ftdevice_id','=', $device_id)
+        ->where('uuid_customer_id','=',Auth::id())
         ->first();
         $deviceIgnition = DB::table('v_device_ignition')
         ->selectRaw('created_at,ffbattery,fnsattelite,fnsignal,fncellular,ftcellular,fbpower')
         ->where('ftdevice_id','=', $device_id)
+        ->where('uuid_customer_id','=',Auth::id())
         ->first();
         
         return response()->json([
@@ -51,9 +60,11 @@ class TrackingController extends Controller {
         ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
         ->where('ftdevice_id','=',$did)
         ->where('fttype','=', 'R1')
+        ->where('uuid_customer_id','=',Auth::id())
         ->whereBetween('created_at', [$from, $to])
         ->orWhere('ftdevice_id','=',$did)
         ->where('fttype','=', '2F')
+        ->where('uuid_customer_id','=',Auth::id())
         ->whereBetween('created_at', [$from, $to])
         ->orderBy('created_at','asc')
         ->get();
@@ -71,6 +82,7 @@ class TrackingController extends Controller {
         // dd($diff);
         $data = DB::table('v_geo_history')
         ->selectRaw('id,fddeclaration as created_at,ftdevice_id,ftgeo_name,ftaddress, fbdeclaration as fngeo_declare')
+        ->where('uuid_customer_id','=',Auth::id())
         ->where('ftdevice_id','=', $device_id)
         // ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')
         ->orderBy('fddeclaration','desc')
