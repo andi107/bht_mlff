@@ -18,7 +18,8 @@ class DashboardController extends Controller {
     public function index() {
         $data = DB::table('v_device_relay')
         ->where('uuid_customer_id','=', Auth::id())
-        ->orWhereNotNull('logs_id')
+        ->where('logs_id','<>', null)
+        // ->orWhereNotNull('logs_id')
         ->orderBy('ftdevice_name','asc')
         ->get();
 
