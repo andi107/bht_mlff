@@ -60,11 +60,11 @@ class TrackingController extends Controller {
         ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
         ->where('ftdevice_id','=',$did)
         ->where('fttype','=', 'R1')
-        ->where('uuid_customer_id','=',Auth::id())
+        // ->where('uuid_customer_id','=',Auth::id())
         ->whereBetween('created_at', [$from, $to])
         ->orWhere('ftdevice_id','=',$did)
         ->where('fttype','=', '2F')
-        ->where('uuid_customer_id','=',Auth::id())
+        // ->where('uuid_customer_id','=',Auth::id())
         ->whereBetween('created_at', [$from, $to])
         ->orderBy('created_at','asc')
         ->get();

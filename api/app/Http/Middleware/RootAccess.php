@@ -9,7 +9,6 @@ class RootAccess
 
     public function handle($request, Closure $next)
     {
-        // dd($request);
         if (Auth::id() == '72252c8a-8947-4300-b933-90609c37a55d') {
             return $next($request);
         }

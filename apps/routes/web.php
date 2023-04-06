@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GeoController;
 use App\Http\Controllers\Admin\GeoMlffController;
 use App\Http\Controllers\Admin\TollRouteController;
 use App\Http\Controllers\Admin\DevToolsController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Info\DataController;
 
 Route::get('/', function() {
@@ -128,6 +129,17 @@ Route::group(['middleware' => 'chk'], function () {
             Route::get('js/device/{deviceid}','device_info_js')->name('device_info_js');
             Route::get('js/geonotif/{deviceid}/{geoid}','device_geonotif_js')->name('device_geonotif_js');
             // /info/js/geonotif/${res.id}/${res.geoid}
+        });
+    });
+    Route::controller(CustomerController::class)->group(function () {
+        Route::group([
+            'prefix' => 'customer',
+        ], function() {
+            Route::get('list/js','list_js')->name('customer_list_js');
+
+            Route::get('list','list')->name('customer_list');
+            Route::get('add','create')->name('customer_create_index');
+            Route::get('d/{uid}','detail')->name('customer_detail');
         });
     });
 });

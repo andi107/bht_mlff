@@ -24,6 +24,7 @@ $router->group([
         $router->get('/', 'Admin\UsersController@index');
         $router->post('/', 'Admin\UsersController@create');
         $router->put('/', 'Admin\UsersController@update');
+        $router->get('d/{uid}', 'Admin\UsersController@detail');
     });
     $router->group([
         'prefix' => 'dashboard'

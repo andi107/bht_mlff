@@ -17,7 +17,7 @@ class UsersController extends Controller {
     public function index() {
 
         $data = DB::table('users')
-        ->selectRaw('uid,email,ftfirst_name,ftlast_name,created_at,updated_at,fnstatus')
+        ->selectRaw('uid,email,ftfirst_name,ftlast_name,created_at,updated_at,fnstatus, (select count(*) from x_devices where uuid_customer_id = users.uid) as total_device')
         ->orderBy('created_at','desc')
         ->get();
 
@@ -128,6 +128,17 @@ class UsersController extends Controller {
                 ->header('X-XSS-Protection', '1; mode=block')
                 ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
         }
+    }
+
+    public function detail($uid) {
+        $data = DB::table('users')
+        ->selectRaw('uid,email,ftfirst_name,ftlast_name')
+        ->where('uid','=', $uid)
+        ->first();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
     }
 
 }
