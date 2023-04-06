@@ -26,7 +26,7 @@ class CheckController extends Controller {
         ], 200);
     }
 
-    public function go_logout() {
+    public function go_logout(Request $request) {
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }

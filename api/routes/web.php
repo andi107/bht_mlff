@@ -14,7 +14,7 @@ $router->group([
         'middleware' => ['middleware' => 'throttle:5,1']
     ], function() use($router) {
         $router->post('/', 'Users\AuthController@index');
-        $router->get('logout', 'Users\CheckController@go_logout');
+        $router->post('logout', 'Users\CheckController@go_logout');
     });
     
     $router->group([

@@ -56,8 +56,7 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        $res = Hlp::apiGet('/auth/logout');
-        dd($res);
+        $res = Hlp::apiPost('/auth/logout',[]);
         Cookie::forget('EMAIL');
         Cookie::forget('API_TOKEN');
         Cookie::forget('EXPIRES_IN');
