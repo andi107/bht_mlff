@@ -8,8 +8,8 @@
     <div class="page-header page-header-bordered">
         <h1 class="page-title">{{ $cfg['title'] }}</h1>
         <div class="page-header-actions">
-            <a href="{{ route('device_list') }}" type="button" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
-                <span class="text hidden-sm-down">Device List</span>
+            <a href="{{ route('customer_list') }}" type="button" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
+                <span class="text hidden-sm-down">User List</span>
                 <i class="icon md-chevron-right" aria-hidden="true"></i>
             </a>
         </div>
@@ -21,31 +21,38 @@
                     <h3 class="panel-title"></h3>
                 </div>
                 <div class="panel-body container-fluid">
-                    <form method="POST" id="formDevice" enctype="multipart/form-data" autocomplete="off">
+                    <form method="POST" id="formCustomer" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <input type="hidden" name="_backurl" value="{{ route('customer_list') }}">
-                        <input type="hidden" name="_id" value="{{ isset($d) ? $d->uid : '0' }}">
+                        <input type="hidden" name="_id" value="{{ isset($d) ? $d->uid : $cfg['uid'] }}">
+                        <input type="hidden" name="_isEdit" value="{{ isset($d) ? 1 : 0 }}">
                         <div class="row row-lg">
                             <div class="col-xl-6">
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    {{-- <div class="col">
-                                        <label class="floating-label">Tracking Category</label>
-                                    </div> --}}
-                                    <select class="form-control" id="trackcategory" data-plugin="selectpicker" data-style="btn-info" name="seltrackcategory" required="">
-                                        <option value="0">Device Type</option>
-                                        <option value="1">GSM</option>
-                                        <option value="2">SIGFOX</option>
-                                    </select>
-                                </div>
-                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="email" class="form-control" name="txtdevice_id" required="" value="{{ isset($d) ? $d->email : '' }}">
+                                    @if (isset($d))
+                                    <input type="email" class="form-control" name="txtemail" required="" readonly value="{{ isset($d) ? $d->email : '' }}">
+                                    @else
+                                    <input type="email" class="form-control" name="txtemail" required="">
+                                    @endif
                                     <label class="floating-label">Email
                                         <span class="required">*</span>
                                     </label>
                                 </div>
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtdevicename" required="" value="{{ isset($d) ? $d->ftfirst_name : '' }}">
+                                    <input type="text" class="form-control" name="txtfirstname" required="" value="{{ isset($d) ? $d->ftfirst_name : '' }}">
                                     <label class="floating-label">First Name
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="form-group form-material floating" data-plugin="formMaterial">
+                                    <input type="text" class="form-control" name="txtlastname" required="" value="{{ isset($d) ? $d->ftlast_name : '' }}">
+                                    <label class="floating-label">Last Name
+                                        <span class="required">*</span>
+                                    </label>
+                                </div>
+                                <div class="form-group form-material floating" data-plugin="formMaterial">
+                                    <input type="text" class="form-control" name="txttelephone" value="{{ isset($d) ? $d->fttelphone : '' }}">
+                                    <label class="floating-label">Telphone
                                         <span class="required">*</span>
                                     </label>
                                 </div>
@@ -53,20 +60,21 @@
 
                             <div class="col-xl-6 form-horizontal">
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtassetid" required="" value="{{ isset($d) ? $d->ftlast_name : '' }}">
-                                    <label class="floating-label">Last Name
+                                    <textarea class="form-control" name="txtaddress" rows="5" maxlength="255">{{ isset($d) ? $d->ftaddress : '' }}</textarea>
+                                    <label class="floating-label">Address</label>
+                                </div>
+                                <div class="form-group form-material floating" data-plugin="formMaterial">
+                                    <input type="password" class="form-control" name="txtpassword" required="" autocomplete="off">
+                                    <label class="floating-label">Password
                                         <span class="required">*</span>
                                     </label>
                                 </div>
                                 <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <input type="text" class="form-control" name="txtassetname" required="" value="{{ isset($d) ? $d->ftasset_name : '' }}">
-                                    <label class="floating-label">Vehicle Name
-                                        <span class="required">*</span>
-                                    </label>
-                                </div>
-                                <div class="form-group form-material floating" data-plugin="formMaterial">
-                                    <textarea class="form-control" name="txtassetdescription" rows="3">{{ isset($d) ? $d->ftasset_description : '' }}</textarea>
-                                    <label class="floating-label">Description</label>
+                                    <select class="form-control" id="status" data-plugin="selectpicker" data-style="btn-info" name="selstatus" required="">
+                                        <option value="0">Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="2">Deactive</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -96,10 +104,10 @@
     <script src="{{ asset('global/vendor/bootstrap-select/bootstrap-select.js')}}"></script>
     <script src="{{ asset('global/js/Plugin/bootstrap-select.js')}}"></script>
     <script>
-        $("select[name=seltrackcategory]").val(`{{ isset($d) ? $d->fncategory : 0 }}`);
+        $("select[name=selstatus]").val(`{{ isset($d) ? $d->fnstatus : 0 }}`);
     </script>
     @vite([
-    'resources/js/pages/device.js',
+    'resources/js/pages/customer.js',
     ])
     @endpush
 </x-default>

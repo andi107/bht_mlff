@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('ftfirst_name',20)->nullable();
             $table->string('ftlast_name',20)->nullable();
             
+            $table->text('ftaddress',255)->nullable();
+            $table->string('fttelphone',20)->nullable();
+
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->integer('fnstatus');
@@ -30,6 +33,7 @@ return new class extends Migration
                 'email',
                 'created_at',
                 'updated_at',
+                'fttelphone'
             ]);
         });
         $_id = '72252c8a-8947-4300-b933-90609c37a55d'; // Str::uuid();

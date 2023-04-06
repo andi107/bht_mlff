@@ -136,6 +136,7 @@ Route::group(['middleware' => 'chk'], function () {
             'prefix' => 'customer',
         ], function() {
             Route::get('list/js','list_js')->name('customer_list_js');
+            Route::post('js/addedit','addedit_js')->name('customer_addedit_js');
 
             Route::get('list','list')->name('customer_list');
             Route::get('add','create')->name('customer_create_index');

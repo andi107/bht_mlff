@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('x_geo_declare', function($table) {
-            $table->uuid('uuid_customer_id')->nullable();
-        });
-        Schema::table('debuging_routes', function($table) {
-            $table->uuid('uuid_customer_id')->nullable();
-        });
-        Schema::table('geo_history', function($table) {
-            $table->uuid('uuid_customer_id')->nullable();
+        Schema::table('users', function($table) {
+            $table->text('ftaddress',255)->nullable();
+            $table->string('fttelphone',20)->nullable();
+            $table->index([
+                'fttelphone'
+            ]);
         });
     }
 

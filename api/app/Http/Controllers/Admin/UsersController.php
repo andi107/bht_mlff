@@ -28,17 +28,23 @@ class UsersController extends Controller {
 
     public function create(Request $request) {
         $this->validate($request, [
+            'id' => 'required',
             'email' => 'required|max:100',
             'password' => 'required|max:100',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'status' => 'required|numeric'
+            'status' => 'required|numeric',
+            'tlp' => 'required|max:20',
+            'address' => 'required|max:255'
         ]);
+        $id = $request->input('id');
         $email = $request->input('email');
         $password = $request->input('password');
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
         $status = $request->input('status');
+        $tlp = $request->input('tlp');
+        $address = $request->input('address');
         DB::beginTransaction();
         try {
             $chkEmail = DB::table('users')
@@ -54,14 +60,16 @@ class UsersController extends Controller {
             $dtnow = Carbon::now();
             DB::table('users')
             ->insert([
-                'uid' => Str::uuid(),
+                'uid' => $id,
                 'email' => $email,
                 'password' => Hash::make($password),
                 'ftfirst_name' => $first_name,
                 'ftlast_name' => $last_name,
                 'created_at' => $dtnow,
                 'updated_at' => $dtnow,
-                'fnstatus' => $status
+                'fnstatus' => $status,
+                'ftaddress' => $tlp,
+                'ftaddress' => $address
             ]);
 
             DB::commit();
@@ -80,20 +88,22 @@ class UsersController extends Controller {
     public function update(Request $request) {
         $this->validate($request, [
             'id' => 'required',
-            'email' => 'required|max:100',
             'password' => 'required|max:100',
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'status' => 'required|numeric'
+            'status' => 'required|numeric',
+            'tlp' => 'required|max:20',
+            'address' => 'required|max:255'
         ]);
         $id = $request->input('id');
-        $email = $request->input('email');
         $password = $request->input('password');
         $first_name = $request->input('first_name');
         $last_name = $request->input('last_name');
         $status = $request->input('status');
+        $tlp = $request->input('tlp');
+        $address = $request->input('address');
         DB::beginTransaction();
-        try {
+        // try {
             $dtnow = Carbon::now();
 
             $chkEmail = DB::table('users')
@@ -109,30 +119,31 @@ class UsersController extends Controller {
             DB::table('users')
             ->where('uid','=', $id)
             ->update([
-                'email' => $email,
                 'password' => Hash::make($password),
                 'ftfirst_name' => $first_name,
                 'ftlast_name' => $last_name,
                 'updated_at' => $dtnow,
-                'fnstatus' => $status
+                'fnstatus' => $status,
+                'fttelphone' => $tlp,
+                'ftaddress' => $address
             ]);
 
             DB::commit();
             return response()->json([], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'error' => 'Internal Server Error.',
-            ], 500)
-                ->header('X-Content-Type-Options', 'nosniff')
-                ->header('X-Frame-Options', 'DENY')
-                ->header('X-XSS-Protection', '1; mode=block')
-                ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
-        }
+        // } catch (\Throwable $th) {
+        //     return response()->json([
+        //         'error' => 'Internal Server Error.',
+        //     ], 500)
+        //         ->header('X-Content-Type-Options', 'nosniff')
+        //         ->header('X-Frame-Options', 'DENY')
+        //         ->header('X-XSS-Protection', '1; mode=block')
+        //         ->header('Strict-Transport-Security', 'max-age=7776000; includeSubDomains');
+        // }
     }
 
     public function detail($uid) {
         $data = DB::table('users')
-        ->selectRaw('uid,email,ftfirst_name,ftlast_name')
+        ->selectRaw('uid,email,ftfirst_name,ftlast_name,fnstatus,fttelphone,ftaddress')
         ->where('uid','=', $uid)
         ->first();
 

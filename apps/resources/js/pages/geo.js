@@ -166,7 +166,6 @@ $('#formGeo').submit(
         fd.append('txtName', $("input[name=txtName]").val());
         fd.append('txtAddress', $("textarea[name=txtAddress]").val());
         fd.append('_isEdit', isEdit);
-        console.log(isEdit);
 
         if ( typeof(self.Polygon) !== "undefined" && self.Polygon !== null ) {
             
