@@ -13,13 +13,13 @@ class CheckController extends Controller {
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function index(Request $request) {
         $chkData = DB::table('users')
         ->where('uid','=', Auth::id())
         ->where('fnstatus','<>', 1)
         ->first();
         if ($chkData) {
-            $this->go_logout();
+            $this->go_logout($request);
         }
         return response()->json([
             'data' => 'ok'
@@ -27,6 +27,7 @@ class CheckController extends Controller {
     }
 
     public function go_logout(Request $request) {
+        dd($request);
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
