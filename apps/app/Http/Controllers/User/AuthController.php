@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Hlp;
 use Illuminate\Support\Facades\Validator;
 use Cookie;
+use Session;
 class AuthController extends Controller
 {
 
@@ -59,11 +60,13 @@ class AuthController extends Controller
         try {
             Hlp::apiPost('/auth/logout',[]);
         } catch (\Throwable $th) {}
+        Session::flush();
         return redirect()->route('auth-index')->withCookie(
             Cookie::forget('EMAIL'),
             Cookie::forget('API_TOKEN'),
             Cookie::forget('EXPIRES_IN'),
             Cookie::forget('USRID'),
+            Session::flush()
         );
     }
 }
