@@ -56,11 +56,14 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        $res = Hlp::apiPost('/auth/logout',[]);
-        Cookie::forget('EMAIL');
-        Cookie::forget('API_TOKEN');
-        Cookie::forget('EXPIRES_IN');
-        Cookie::forget('USRID');
-        return redirect()->route('auth-index');
+        try {
+            Hlp::apiPost('/auth/logout',[]);
+        } catch (\Throwable $th) {}
+        return redirect()->route('auth-index')->withCookie(
+            Cookie::forget('EMAIL'),
+            Cookie::forget('API_TOKEN'),
+            Cookie::forget('EXPIRES_IN'),
+            Cookie::forget('USRID'),
+        );
     }
 }
