@@ -15,11 +15,16 @@ class GeoController extends Controller {
     }
 
     public function list() {
-
-        $data = DB::table('x_geo_declare')
-        ->where('uuid_customer_id','=', Auth::id())
-        ->orderBy('created_at','desc')
-        ->get();
+        if (Auth::id() === env('RID')) {
+            $data = DB::table('x_geo_declare')
+            ->orderBy('created_at','desc')
+            ->get();
+        }else{
+            $data = DB::table('x_geo_declare')
+            ->where('uuid_customer_id','=', Auth::id())
+            ->orderBy('created_at','desc')
+            ->get();
+        }
 
         return response()->json([
             'data' => $data,
@@ -108,17 +113,28 @@ class GeoController extends Controller {
         DB::beginTransaction();
         try {
             $dtnow = Carbon::now();
-
-            DB::table('x_geo_declare')
-            ->where('id','=',$id)
-            ->where('uuid_customer_id', '=', Auth::id())
-            ->update([
-                'ftgeo_name' => $geo_name,
-                'ftaddress' => $geo_address,
-                'fntype' => $geo_type,
-                'fnstatus' => $status,
-                'updated_at' => $dtnow
-            ]);
+            if (Auth::id() === env('RID')) {
+                DB::table('x_geo_declare')
+                ->where('id','=',$id)
+                ->update([
+                    'ftgeo_name' => $geo_name,
+                    'ftaddress' => $geo_address,
+                    'fntype' => $geo_type,
+                    'fnstatus' => $status,
+                    'updated_at' => $dtnow
+                ]);
+            }else{
+                DB::table('x_geo_declare')
+                ->where('id','=',$id)
+                ->where('uuid_customer_id', '=', Auth::id())
+                ->update([
+                    'ftgeo_name' => $geo_name,
+                    'ftaddress' => $geo_address,
+                    'fntype' => $geo_type,
+                    'fnstatus' => $status,
+                    'updated_at' => $dtnow
+                ]);
+            }
 
             switch ($geo_type) {
                 case '1':
@@ -159,10 +175,17 @@ class GeoController extends Controller {
     }
 
     public function detail($geoid) {
-        $data = DB::table('x_geo_declare')
-        ->where('id','=', $geoid)
-        ->where('uuid_customer_id','=',Auth::id())
-        ->first();
+        if (Auth::id() === env('RID')) {
+            $data = DB::table('x_geo_declare')
+            ->where('id','=', $geoid)
+            ->first();
+        }else{
+            $data = DB::table('x_geo_declare')
+            ->where('id','=', $geoid)
+            ->where('uuid_customer_id','=',Auth::id())
+            ->first();
+        }
+        
         return response()->json([
             'data' => $data
         ], 200);

@@ -15,21 +15,33 @@ class DeviceController extends Controller {
     }
 
     public function list() {
-        // dd(Auth::id());
-        $data = DB::table('x_devices')
-        ->where('uuid_customer_id','=', Auth::id())
-        ->orderBy('created_at','desc')
-        ->get();
+        if (Auth::id() === env('RID')) {
+            $data = DB::table('x_devices')
+            ->orderBy('created_at','desc')
+            ->get();
+        }else{
+            $data = DB::table('x_devices')
+            ->where('uuid_customer_id','=', Auth::id())
+            ->orderBy('created_at','desc')
+            ->get();
+        }
+        
         return response()->json([
             'data' => $data
         ], 200);
     }
 
     public function detail($deviceid) {
-        $data = DB::table('x_devices')
-        ->where('ftdevice_id','=', $deviceid)
-        ->where('uuid_customer_id','=', Auth::id())
-        ->first();
+        if (Auth::id() === env('RID')) {
+            $data = DB::table('x_devices')
+            ->where('ftdevice_id','=', $deviceid)
+            ->first();
+        }else{
+            $data = DB::table('x_devices')
+            ->where('ftdevice_id','=', $deviceid)
+            ->where('uuid_customer_id','=', Auth::id())
+            ->first();
+        }
         return response()->json([
             'data' => $data
         ], 200);
@@ -177,20 +189,35 @@ class DeviceController extends Controller {
             // }
 
             $dtnow = Carbon::now();
-            DB::table('x_devices')
-            ->where('ftdevice_id','=',$device_id)
-            ->where('uuid_customer_id','=', Auth::id())
-            ->update([
-                'ftdevice_name' => $device_name,
-                'ftasset_id' => $asset_id,
-                'ftasset_name' => $asset_name,
-                // 'ftasset_type' => $asset_type,
-                'ftasset_description' => $description,
-                'fncategory' => $device_type,
-                // 'ftcustomer_name' => $customer_name,
-                'fnstatus' => $status,
-                'updated_at' => $dtnow
-            ]);
+
+            if (Auth::id() === env('RID')) {
+                DB::table('x_devices')
+                ->where('ftdevice_id','=',$device_id)
+                ->update([
+                    'ftdevice_name' => $device_name,
+                    'ftasset_id' => $asset_id,
+                    'ftasset_name' => $asset_name,
+                    'ftasset_description' => $description,
+                    'fncategory' => $device_type,
+                    'fnstatus' => $status,
+                    'updated_at' => $dtnow
+                ]);
+            }else{
+                DB::table('x_devices')
+                ->where('ftdevice_id','=',$device_id)
+                ->where('uuid_customer_id','=', Auth::id())
+                ->update([
+                    'ftdevice_name' => $device_name,
+                    'ftasset_id' => $asset_id,
+                    'ftasset_name' => $asset_name,
+                    // 'ftasset_type' => $asset_type,
+                    'ftasset_description' => $description,
+                    'fncategory' => $device_type,
+                    // 'ftcustomer_name' => $customer_name,
+                    'fnstatus' => $status,
+                    'updated_at' => $dtnow
+                ]);
+            }
             DB::commit();
             
             return response()->json([], 200);
