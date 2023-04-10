@@ -58,7 +58,7 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         try {
-            // Hlp::apiPost('/auth/logout',[]);
+            Hlp::apiPost('/auth/logout',[]);
         } catch (\Throwable $th) {}
         // Session::flush();
         // return redirect()->route('auth-index')->withCookie(
