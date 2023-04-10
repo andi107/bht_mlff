@@ -58,15 +58,20 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         try {
-            Hlp::apiPost('/auth/logout',[]);
+            // Hlp::apiPost('/auth/logout',[]);
         } catch (\Throwable $th) {}
-        Session::flush();
-        return redirect()->route('auth-index')->withCookie(
-            Cookie::forget('EMAIL'),
-            Cookie::forget('API_TOKEN'),
-            Cookie::forget('EXPIRES_IN'),
-            Cookie::forget('USRID'),
-            Session::flush()
-        );
+        // Session::flush();
+        // return redirect()->route('auth-index')->withCookie(
+        //     Cookie::forget('EMAIL'),
+        //     Cookie::forget('API_TOKEN'),
+        //     Cookie::forget('EXPIRES_IN'),
+        //     Cookie::forget('USRID'),
+        //     Session::flush()
+        // );
+        return redirect()->route('auth-index')
+        ->cookie('EMAIL', null, 0.01)
+        ->cookie('API_TOKEN', null, 0.01)
+        ->cookie('EXPIRES_IN', null, 0.01)
+        ->cookie('USRID', null, 0.01);
     }
 }
