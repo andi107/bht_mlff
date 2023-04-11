@@ -88,3 +88,11 @@ select
 	vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type
 From mlff_history mh left join v_geo_mlff_declare vgmd
 	on (mh.uuid_x_geo_mlff_id = vgmd.id)
+
+--
+CREATE OR REPLACE VIEW public.v_geo_declare_det
+ AS
+select
+	xgdd.*,xgd.uuid_customer_id
+From x_geo_declare_det xgdd left join x_geo_declare xgd
+	on (xgdd.x_geo_declare_id = xgd.id)
