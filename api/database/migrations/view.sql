@@ -51,15 +51,22 @@ order by dr.created_at asc;
 CREATE OR REPLACE VIEW public.v_geo_history
  AS
 select
-	a.*,xgd.ftgeo_name,xgd.ftaddress,xgd.fntype,xgd.fnstatus
+	b.*,xgd.uuid_customer_id
 from (
-	select 
-		gh.id, gh.ftdevice_id,gh.fddeclaration,gh.fbdeclaration,gh.uuid_x_geo_id,gh.ftduration,
-		xd.ftdevice_name,xd.ftasset_id,xd.ftasset_name,xd.fncategory as device_category,xd.uuid_customer_id
-	from geo_history gh left join x_devices xd
-		on (gh.ftdevice_id = xd.ftdevice_id)
-) a left join x_geo_declare xgd
-	on (a.uuid_x_geo_id = xgd.id)
+	select
+		a.*,xgd.ftgeo_name,xgd.ftaddress,xgd.fntype,xgd.fnstatus
+	from (
+		select 
+			gh.id, gh.ftdevice_id,gh.fddeclaration,gh.fbdeclaration,gh.uuid_x_geo_id,gh.ftduration,
+			xd.ftdevice_name,xd.ftasset_id,xd.ftasset_name,xd.fncategory as device_category,
+			gh.fddeclaration_exit
+		from geo_history gh left join x_devices xd
+			on (gh.ftdevice_id = xd.ftdevice_id)
+	) a left join x_geo_declare xgd
+		on (a.uuid_x_geo_id = xgd.id)
+) b left join x_geo_declare xgd
+	on (b.uuid_x_geo_id = xgd.id)
+
 
 -- MLFF Declaration
 CREATE OR REPLACE VIEW public.v_geo_mlff_declare

@@ -106,13 +106,13 @@ class TrackingController extends Controller {
 
         if (Auth::id() === env('RID')) {
             $data = DB::table('v_geo_history')
-            ->selectRaw('id,fddeclaration as created_at,ftdevice_id,ftgeo_name,ftaddress, fbdeclaration as fngeo_declare')
+            ->selectRaw('id,fddeclaration as created_at,ftdevice_id,ftgeo_name,ftaddress, fbdeclaration as fngeo_declare,fddeclaration_exit,ftduration')
             ->where('ftdevice_id','=', $device_id)
             ->orderBy('fddeclaration','desc')
             ->get();
         }else{
             $data = DB::table('v_geo_history')
-            ->selectRaw('id,fddeclaration as created_at,ftdevice_id,ftgeo_name,ftaddress, fbdeclaration as fngeo_declare')
+            ->selectRaw('id,fddeclaration as created_at,ftdevice_id,ftgeo_name,ftaddress, fbdeclaration as fngeo_declare,fddeclaration_exit,ftduration')
             ->where('uuid_customer_id','=',Auth::id())
             ->where('ftdevice_id','=', $device_id)
             // ->groupBy('id','created_at','ftdevice_id','ftgeo_name','ftaddress','fngeo_declare')

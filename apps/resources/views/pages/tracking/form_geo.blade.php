@@ -57,10 +57,12 @@
                                     <table class="table table-hover dataTable table-striped w-full" id="tblgeolist">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
+                                                <th>Entry Date Time</th>
+                                                <th>Exit Date Time</th>
                                                 <th>Geofence Name</th>
-                                                <th>Geofence Address</th>
-                                                <th>Declaration</th>
+                                                <th>Address</th>
+                                                <th>Status</th>
+                                                <th>Duration</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
