@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function($table) {
-            $table->text('ftaddress',255)->nullable();
-            $table->string('fttelphone',20)->nullable();
+        Schema::table('geo_history', function($table) {
+            $table->timestamp('fddeclaration_exit')->nullable();
+            
             $table->index([
-                'fttelphone'
+                'fddeclaration_exit'
             ]);
         });
     }

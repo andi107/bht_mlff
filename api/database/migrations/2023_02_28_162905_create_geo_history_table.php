@@ -19,9 +19,10 @@ return new class extends Migration
             $table->uuid('uuid_x_geo_id');
             $table->string('ftduration',50)->nullable();
             $table->uuid('uuid_customer_id')->nullable();
+            $table->timestamp('fddeclaration_exit')->nullable();
             $table->index([
                 'id','fddeclaration','fbdeclaration','uuid_x_geo_id','ftduration',
-                'uuid_customer_id'
+                'uuid_customer_id','fddeclaration_exit'
             ]);
         });
     }
