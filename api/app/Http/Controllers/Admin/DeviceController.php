@@ -16,7 +16,7 @@ class DeviceController extends Controller {
 
     public function list() {
         if (Auth::id() === env('RID')) {
-            $data = DB::table('x_devices')
+            $data = DB::table('v_devices')
             ->orderBy('created_at','desc')
             ->get();
         }else{

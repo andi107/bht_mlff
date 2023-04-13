@@ -1,7 +1,7 @@
 // import '../ts/mkrmove.js';
 const url = window.burl;
-const iconUrl = '/assets/images/leaflet/marker-reddot.png';
-const iconTop = "/assets/images/leaflet/yellow-car-top.png";
+// const iconUrl = '/assets/images/leaflet/marker-reddot.png';
+// const iconTop = "/assets/images/leaflet/yellow-car-top.png";
 import DriftMarker from "leaflet-drift-marker";
 import "leaflet-rotatedmarker";
 
@@ -268,9 +268,9 @@ function startReplay() {
         // alt: "Resource Location",
         riseOnHover: true,
         icon : L.icon({
-            iconUrl: iconTop,
-            iconSize:     [15, 30],
-            iconAnchor:   [7,16],
+            iconUrl: window.c_marker_top,
+            iconSize:     [23, 30],
+            iconAnchor:   [12,16],
             tooltipAnchor: [0, -15]
         }),
     }).addTo(map);
@@ -283,9 +283,9 @@ function startReplay() {
             keepAtCenter: false,
         });
         mk.setIcon(L.icon({
-            iconUrl: iconTop,
-            iconSize:     [15, 30],
-            iconAnchor:   [7,16],
+            iconUrl: window.c_marker_top,
+            iconSize:     [23, 30],
+            iconAnchor:   [12,16],
             tooltipAnchor: [16, 0]
         }));
         mk.setRotationAngle(resRelay.properties['ffdirection']);

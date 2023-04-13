@@ -1,8 +1,8 @@
 import DriftMarker from "leaflet-drift-marker";
 import "leaflet-rotatedmarker";
 const url = window.burl;
-const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
-const iconTop = "/assets/images/leaflet/yellow-car-top.png";
+// const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
+// const iconTop = "/assets/images/leaflet/yellow-car-top.png";
 const sio = window.sio;
 
 var map = L.map('devicesmap', {
@@ -15,7 +15,7 @@ var map = L.map('devicesmap', {
 myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
-        iconSize:     [30, 30],
+        iconSize:     [28, 28],
         iconAnchor:   [15, 20],
         // popupAnchor:  [0, -15]
     })
@@ -70,7 +70,7 @@ $.get(url + "/devtools/monitor/js/devices", function (res) {
             title: "Resource location",
             alt: "Resource Location",
             riseOnHover: true,
-            icon : myIcon(iconUrl)
+            icon : myIcon(window.c_marker_front)
         });
         mk.bindTooltip(v.ftasset_id).openTooltip();
         
@@ -112,9 +112,9 @@ function startRecord() {
             });
     
             var _movIcon = L.icon({
-                iconUrl: iconTop,
-                iconSize:     [15, 30],
-                iconAnchor:   [7,16],
+                iconUrl: window.c_marker_top,
+                iconSize:     [23, 30],
+                iconAnchor:   [12,16],
                 // popupAnchor:  [0, -15]
             });
             
@@ -123,7 +123,7 @@ function startRecord() {
             markers[v.id].setRotationOrigin("center center");
             markers[v.id]._latlng = _curLatLng;
             setTimeout(function () {
-                markers[v.id].setIcon(myIcon(iconUrl));
+                markers[v.id].setIcon(myIcon(window.c_marker_top));
                 markers[v.id].setRotationAngle(0);
             }, 300000);
         }

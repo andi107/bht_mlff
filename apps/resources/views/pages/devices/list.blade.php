@@ -35,6 +35,7 @@
                             <th>Device Name</th>
                             <th>Vehicle ID</th>
                             <th>Vehicle Name</th>
+                            <th>Ownership</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -84,7 +85,7 @@
         $.get("{{ route('device_list_js') }}", function(res) {
             $.each(res.data, function(k, v) {
                 tbldevices.row.add([
-                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name
+                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,v.ownership
                 ]).draw(true);
             });
         });

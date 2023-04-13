@@ -1,8 +1,8 @@
 // import '../ts/mkrmove.js';
 import '../ts/mkrmove2.js';
-const url = window.burl;
-const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
-const shadowUrl = window.shadowUrl;
+// const url = window.burl;
+// const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
+// const shadowUrl = window.shadowUrl;
 var _deviceid = $("input[name=_deviceid]").val(), _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val(), sio = window.sio;
 
 var map = L.map('statusmap', {
@@ -41,9 +41,9 @@ function _newMarker(latLng,customIcon = null,customToolTip = null, customPopUp =
 }
 
 var myIcon = L.icon({
-    iconUrl: iconUrl,
+    iconUrl: window.c_marker_front,
     // shadowUrl: shadowUrl,
-    iconSize:     [30, 30],
+    iconSize:     [28, 28],
     iconAnchor:   [15, 33],
     popupAnchor:  [0, -15]
 })

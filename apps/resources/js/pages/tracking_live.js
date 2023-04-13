@@ -1,15 +1,15 @@
 import DriftMarker from "leaflet-drift-marker";
 import "leaflet-rotatedmarker";
 // const url = window.burl;
-const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
-const iconTop = "/assets/images/leaflet/yellow-car-top.png";
+// const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
+// const iconTop = "/assets/images/leaflet/yellow-car-top.png";
 const sio = window.sio;
 var _curLat = $("input[name=_lat]").val(), _curLon = $("input[name=_lon]").val(),
 _device_id = $("input[name=_id]").val(),
 myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
-        iconSize:     [30, 30],
+        iconSize:     [28, 28],
         iconAnchor:   [15, 20],
         // popupAnchor:  [0, -15]
     })
@@ -31,7 +31,7 @@ var mk = new DriftMarker([_curLat, _curLon], {
     title: "Resource location",
     alt: "Resource Location",
     riseOnHover: true,
-    icon : myIcon(iconUrl)
+    icon : myIcon(window.c_marker_front)
   }).addTo(map);
 
 var fgMkr = new L.FeatureGroup();
@@ -43,7 +43,7 @@ var flagStop = true;
 
 setInterval(function () {
     if (flagStop) {
-        mk.setIcon(myIcon(iconUrl));
+        mk.setIcon(myIcon(window.c_marker_front));
         mk.setRotationAngle(0);
         // mk.setRotationOrigin("center center");
     }
@@ -66,14 +66,14 @@ sio.on('trx_device_data_rcv', function (data) {
         _curLat = v.lat;
         _curLon = v.lon;
         mk.slideTo([v.lat, v.lon], {
-            duration: 5000,
+            duration: 2000,
             keepAtCenter: false,
         });
 
         var _movIcon = L.icon({
-            iconUrl: iconTop,
-            iconSize:     [15, 30],
-            iconAnchor:   [7,16],
+            iconUrl: window.c_marker_top,
+            iconSize:     [23, 30],
+            iconAnchor:   [12,16],
             // popupAnchor:  [0, -15]
         });
         

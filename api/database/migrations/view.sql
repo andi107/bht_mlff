@@ -103,3 +103,10 @@ select
 	xgdd.*,xgd.uuid_customer_id
 From x_geo_declare_det xgdd left join x_geo_declare xgd
 	on (xgdd.x_geo_declare_id = xgd.id)
+--
+CREATE OR REPLACE VIEW public.v_devices
+ AS
+select
+	xd.*,us.ftfirst_name || ' ' || us.ftlast_name ::text as ownership
+from x_devices xd left join users us
+ on (xd.uuid_customer_id = us.uid)

@@ -55,7 +55,7 @@ class TrackingController extends Controller
         // dd($resDvStatus);
         return view('pages.tracking.form_status',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id,
+                'title' => $resDvStatus->deviceRelay->ftdevice_name,
                 'deviceid' => $resDvStatus->deviceRelay->ftdevice_id,
             ],
             'deviceData' => $resDvStatus
@@ -66,7 +66,7 @@ class TrackingController extends Controller
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_map',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id
+                'title' => $resDvStatus->deviceRelay->ftdevice_name
             ],
             'deviceData' => $resDvStatus,
             // 'curStartDate' => 
@@ -77,7 +77,7 @@ class TrackingController extends Controller
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_geo',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id
+                'title' => $resDvStatus->deviceRelay->ftdevice_name
             ],
             'deviceData' => $resDvStatus,
         ]);
@@ -87,7 +87,7 @@ class TrackingController extends Controller
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_live',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id
+                'title' => $resDvStatus->deviceRelay->ftdevice_name
             ],
             'deviceData' => $resDvStatus,
         ]);
@@ -97,7 +97,7 @@ class TrackingController extends Controller
         $resDvStatus = Hlp::apiGet('/tracking/d/'. $device_id);
         return view('pages.tracking.form_mlff',[
             'cfg' => [
-                'title' => $resDvStatus->deviceRelay->ftdevice_id
+                'title' => $resDvStatus->deviceRelay->ftdevice_name
             ],
             'deviceData' => $resDvStatus,
         ]);

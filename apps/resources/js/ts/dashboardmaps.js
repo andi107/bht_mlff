@@ -1,5 +1,5 @@
 const url = window.burl;
-const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
+// const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
 
 var map = L.map('dashboardmap', {
     minZoom: 5,
@@ -63,8 +63,8 @@ $.get(url + "/dashboard/js", function (res) {
     $.each(res.data.data, function (k, v) {
         var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
                 icon : L.icon({
-                    iconUrl: iconUrl,
-                    iconSize:     [30, 30],
+                    iconUrl: window.c_marker_front,
+                    iconSize:     [28, 28],
                     iconAnchor:   [16, 23],
                     popupAnchor:  [0, -15]
                 })

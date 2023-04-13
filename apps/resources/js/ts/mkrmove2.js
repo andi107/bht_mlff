@@ -37,9 +37,9 @@ L.Marker.MovingMarker = L.Marker.extend({
         this._currentDuration = 0;
         this._currentIndex = 0;
         this._icon = L.icon({
-            iconUrl: "/assets/images/leaflet/yellow-car40px.png",
+            iconUrl: window.c_marker_front,
             // shadowUrl: shadowUrl,
-            iconSize:     [30, 30],
+            iconSize:     [28, 28],
             iconAnchor:   [15, 33],
             popupAnchor:  [0, -15]
         })

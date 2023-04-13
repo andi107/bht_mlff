@@ -49,7 +49,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="py-4"></div>
+                    @include('pages.tracking.detail')
                     <div id="tabsContent" class="tab-content">
                         <div class="tab-pane fade active show">
                             <div class="row">
