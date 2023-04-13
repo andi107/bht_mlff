@@ -35,7 +35,9 @@
                             <th>Device Name</th>
                             <th>Vehicle ID</th>
                             <th>Vehicle Name</th>
+                            @if ($cfg['isroot'])
                             <th>Ownership</th>
+                            @endif
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,22 +73,26 @@
         });
         $('#tbldevices tbody').on( 'click', 'button.btnedit', function () {
             var data = tbldevices.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
             sURL = `{{ route('device_detail', ':id') }}`;
             window.location.href = sURL.replace(":id", data[0]);
         });
         $('#tbldevices tbody').on( 'click', 'button.btndel', function () {
             var data = tbldevices.row($(this).parents('tr')).data(), sURL;
-            console.log(data)
             sURL = `{{ route('device_detail', ':id') }}`;
             // window.location.href = sURL.replace(":id", data[0]);
         });
         
         $.get("{{ route('device_list_js') }}", function(res) {
             $.each(res.data, function(k, v) {
-                tbldevices.row.add([
-                    v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,v.ownership
-                ]).draw(true);
+                if (res.isroot) {
+                    tbldevices.row.add([
+                        v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name,v.ownership
+                    ]).draw(true);
+                }else{
+                    tbldevices.row.add([
+                        v.ftdevice_id, v.ftdevice_name ,v.ftasset_id,v.ftasset_name
+                    ]).draw(true);
+                }
             });
         });
     </script>

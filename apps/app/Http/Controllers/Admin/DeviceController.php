@@ -13,8 +13,14 @@ class DeviceController extends Controller
         if (!$res) {
             return response()->json([], 404);
         }
+        if (\Cookie::get('USRID') === '72252c8a-8947-4300-b933-90609c37a55d') {
+            $isroot = true;
+        }else{
+            $isroot = false;
+        }
         return response()->json([
-            'data' => $res->data
+            'data' => $res->data,
+            'isroot' => $isroot
         ], 200);
     }
 
@@ -118,7 +124,16 @@ class DeviceController extends Controller
     // End JS
 
     public function list() {
-        return view('pages.devices.list');
+        if (\Cookie::get('USRID') === '72252c8a-8947-4300-b933-90609c37a55d') {
+            $isroot = true;
+        }else{
+            $isroot = false;
+        }
+        return view('pages.devices.list',[
+            'cfg' => [
+                'isroot' => $isroot
+            ]
+        ]);
     }
 
     public function createIndex() {
