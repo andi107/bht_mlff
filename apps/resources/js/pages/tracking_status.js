@@ -49,8 +49,8 @@ var marker = _newMarker(
             iconUrl: window.c_marker_front,
             // shadowUrl: shadowUrl,
             iconSize:     [28, 28],
-            iconAnchor:   [15, 33],
-            popupAnchor:  [0, -15]
+            iconAnchor:   [15, 25],
+            popupAnchor:  [0, -25]
         })
     }, null,null
 );

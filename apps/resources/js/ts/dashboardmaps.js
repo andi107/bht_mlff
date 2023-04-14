@@ -65,8 +65,8 @@ $.get(url + "/dashboard/js", function (res) {
                 icon : L.icon({
                     iconUrl: window.c_marker_front,
                     iconSize:     [28, 28],
-                    iconAnchor:   [16, 23],
-                    popupAnchor:  [0, -15]
+                    iconAnchor:   [15, 26],
+                    popupAnchor:  [0, -25]
                 })
                 // icon : isDivIcon
             },

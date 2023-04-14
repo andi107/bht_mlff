@@ -40,7 +40,7 @@ L.Marker.MovingMarker = L.Marker.extend({
             iconUrl: window.c_marker_front,
             // shadowUrl: shadowUrl,
             iconSize:     [28, 28],
-            iconAnchor:   [15, 33],
+            iconAnchor:   [15, 25],
             popupAnchor:  [0, -15]
         })
         this._state = L.Marker.MovingMarker.notStartedState;

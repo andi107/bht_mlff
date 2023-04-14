@@ -10,8 +10,8 @@ myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
         iconSize:     [28, 28],
-        iconAnchor:   [15, 20],
-        // popupAnchor:  [0, -15]
+        iconAnchor:   [15, 26],
+        // popupAnchor:  [0, -25]
     })
 };
 
@@ -28,8 +28,8 @@ _tileLayer.addTo(map);
 
 var mk = new DriftMarker([_curLat, _curLon], {
     draggable: false,
-    title: "Resource location",
-    alt: "Resource Location",
+    // title: "Resource location",
+    // alt: "Resource Location",
     riseOnHover: true,
     icon : myIcon(window.c_marker_front)
   }).addTo(map);

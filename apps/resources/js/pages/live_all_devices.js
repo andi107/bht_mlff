@@ -67,8 +67,8 @@ $.get(url + "/devtools/monitor/js/devices", function (res) {
     $.each(res.data.data, function (k, v) {
         var mk = new DriftMarker([v.fflat, v.fflon], {
             draggable: false,
-            title: "Resource location",
-            alt: "Resource Location",
+            // title: "Resource location",
+            // alt: "Resource Location",
             riseOnHover: true,
             icon : myIcon(window.c_marker_front)
         });
@@ -115,7 +115,7 @@ function startRecord() {
                 iconUrl: window.c_marker_top,
                 iconSize:     [23, 30],
                 iconAnchor:   [12,16],
-                // popupAnchor:  [0, -15]
+                popupAnchor:  [0, -25]
             });
             
             markers[v.id].setIcon(_movIcon);
