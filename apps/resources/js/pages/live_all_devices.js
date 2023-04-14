@@ -15,9 +15,9 @@ var map = L.map('devicesmap', {
 myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
-        iconSize:     [28, 28],
-        iconAnchor:   [15, 20],
-        // popupAnchor:  [0, -15]
+        iconSize:     window.c_marker_front_cfg[0],
+        iconAnchor:   window.c_marker_front_cfg[1],
+        popupAnchor:  window.c_marker_front_cfg[2]
     })
 },randHexColor = function() {
     return Math.floor(Math.random()*16777215).toString(16);
@@ -113,9 +113,9 @@ function startRecord() {
     
             var _movIcon = L.icon({
                 iconUrl: window.c_marker_top,
-                iconSize:     [23, 30],
-                iconAnchor:   [12,16],
-                popupAnchor:  [0, -25]
+                iconSize:     window.c_marker_top_cfg[0],
+                iconAnchor:   window.c_marker_top_cfg[1],
+                popupAnchor:  window.c_marker_top_cfg[2]
             });
             
             markers[v.id].setIcon(_movIcon);
@@ -123,7 +123,7 @@ function startRecord() {
             markers[v.id].setRotationOrigin("center center");
             markers[v.id]._latlng = _curLatLng;
             setTimeout(function () {
-                markers[v.id].setIcon(myIcon(window.c_marker_top));
+                markers[v.id].setIcon(myIcon(window.c_marker_front));
                 markers[v.id].setRotationAngle(0);
             }, 300000);
         }

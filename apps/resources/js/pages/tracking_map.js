@@ -269,8 +269,8 @@ function startReplay() {
         riseOnHover: true,
         icon : L.icon({
             iconUrl: window.c_marker_top,
-            iconSize:     [23, 30],
-            iconAnchor:   [12,16],
+            iconSize:     window.c_marker_top_cfg[0],
+            iconAnchor:   window.c_marker_top_cfg[1],
             tooltipAnchor: [0, -15]
         }),
     }).addTo(map);
@@ -284,8 +284,8 @@ function startReplay() {
         });
         mk.setIcon(L.icon({
             iconUrl: window.c_marker_top,
-            iconSize:     [23, 30],
-            iconAnchor:   [12,16],
+            iconSize:     window.c_marker_top_cfg[0],
+            iconAnchor:   window.c_marker_top_cfg[1],
             tooltipAnchor: [16, 0]
         }));
         mk.setRotationAngle(resRelay.properties['ffdirection']);

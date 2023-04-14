@@ -64,9 +64,9 @@ $.get(url + "/dashboard/js", function (res) {
         var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
                 icon : L.icon({
                     iconUrl: window.c_marker_front,
-                    iconSize:     [28, 28],
-                    iconAnchor:   [15, 26],
-                    popupAnchor:  [0, -25]
+                    iconSize:     window.c_marker_front_cfg[0],
+                    iconAnchor:   window.c_marker_front_cfg[1],
+                    popupAnchor:  window.c_marker_front_cfg[2]
                 })
                 // icon : isDivIcon
             },
@@ -78,8 +78,6 @@ $.get(url + "/dashboard/js", function (res) {
     });
     if ( res.data.data.length != 0) {
         map.fitBounds(myFGMarker.getBounds());
-    }else{
-        console.log('No Data')
     }
 });
 

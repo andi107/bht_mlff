@@ -48,8 +48,8 @@ var marker = _newMarker(
         icon : L.icon({
             iconUrl: window.c_marker_front,
             // shadowUrl: shadowUrl,
-            iconSize:     [28, 28],
-            iconAnchor:   [15, 25],
+            iconSize:     window.c_marker_front_cfg[0],
+            iconAnchor:   window.c_marker_front_cfg[1],
             popupAnchor:  [0, -25]
         })
     }, null,null

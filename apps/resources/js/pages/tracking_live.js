@@ -9,8 +9,8 @@ _device_id = $("input[name=_id]").val(),
 myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
-        iconSize:     [28, 28],
-        iconAnchor:   [15, 26],
+        iconSize:     window.c_marker_front_cfg[0],
+        iconAnchor:   window.c_marker_front_cfg[1],
         // popupAnchor:  [0, -25]
     })
 };
@@ -72,9 +72,8 @@ sio.on('trx_device_data_rcv', function (data) {
 
         var _movIcon = L.icon({
             iconUrl: window.c_marker_top,
-            iconSize:     [23, 30],
-            iconAnchor:   [12,16],
-            // popupAnchor:  [0, -15]
+            iconSize:     window.c_marker_top_cfg[0],
+            // iconAnchor:   window.c_marker_top_cfg[1],    
         });
         
         mk.setIcon(_movIcon);
