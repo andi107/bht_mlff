@@ -9,7 +9,7 @@ var tblgeolist = $('#tblmlfflist').DataTable({
 $.get(url + `/tracking/detail/js/mlff/${device_id}`, function(res) {
     $.each(res.mlffHistoryData.data, function(k, v) {
         tblgeolist.row.add([
-            window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,v.ftpayment_type, '-'
+            window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,v.ftdeclaration_type, '-'
         ]).draw(true);
     });
 });

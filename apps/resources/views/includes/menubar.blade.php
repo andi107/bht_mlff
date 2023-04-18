@@ -115,7 +115,12 @@
                             </li>
                             <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
                                 <a class="animsition-link" href="{{ route('geomlff_create_index') }}">
-                                    <span class="site-menu-title">Add Gate-Location</span>
+                                    <span class="site-menu-title">Add Toll Gate</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
+                                <a class="animsition-link" href="{{ route('geomlff_create_index') }}">
+                                    <span class="site-menu-title">Add Gate Declaration</span>
                                 </a>
                             </li>
                         </ul>

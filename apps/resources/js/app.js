@@ -8,13 +8,13 @@ window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.gateUrl = url + '/assets/images/leaflet/access_gt.png';
-window.c_marker_top = url + "/assets/images/leaflet/pink-car-top.png";
+window.c_marker_top = url + "/assets/images/leaflet/yellow-car-top.png";
 window.c_marker_top_cfg = [
     [20, 30], //iconsize
     [12,16], //iconancor
     [0, -25] //popancor
 ]
-window.c_marker_front = url + '/assets/images/leaflet/pink-car-front.png';
+window.c_marker_front = url + '/assets/images/leaflet/yellow-car40px.png';
 window.c_marker_front_cfg = [
     [28, 28], //size
     [15, 20], //ancor

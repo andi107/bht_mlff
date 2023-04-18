@@ -96,5 +96,12 @@ $router->group([
         $router->get('device/{deviceid}', 'InfoData\IDataController@device_information');
         
     });
+
+    $router->group([
+        'prefix' => 'imei',
+        'middleware' => ['root']
+    ], function() use($router) {
+        $router->get('list','Admin\ImeiController@list');
+    });
 });
 

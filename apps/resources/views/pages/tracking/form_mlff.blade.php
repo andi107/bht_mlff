@@ -49,7 +49,7 @@
                             </a>
                         </li>
                     </ul>
-                    @include('pages.tracking.detail')
+                    <div class="py-4"></div>
                     <div id="tabsContent" class="tab-content">
                         <div class="tab-pane fade active show">
                             <div class="row">
@@ -60,7 +60,7 @@
                                                 <th>Detection Time</th>
                                                 <th>Gate Detection</th>
                                                 <th>Toll Section</th>
-                                                <th>Gate Payment</th>
+                                                <th>Declaration</th>
                                                 <th>Charging</th>
                                             </tr>
                                         </thead>

@@ -63,7 +63,7 @@ $.get(url + "/dashboard/js", function (res) {
     $.each(res.data.data, function (k, v) {
         var marker = _newMarker({ lat: v.fflat, lng: v.fflon }, {
                 icon : L.icon({
-                    iconUrl: window.c_marker_front,
+                    iconUrl: `${url}/assets/images/leaflet/red-car-front.png`,
                     iconSize:     window.c_marker_front_cfg[0],
                     iconAnchor:   window.c_marker_front_cfg[1],
                     popupAnchor:  window.c_marker_front_cfg[2]

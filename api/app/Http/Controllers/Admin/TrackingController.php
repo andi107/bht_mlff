@@ -71,6 +71,14 @@ class TrackingController extends Controller {
         $from = $request->input('from');
         $to = $request->input('to');
 
+        // "coordinates": [[
+        //     [-104.05, 48.99],
+        //     [-97.22,  48.98],
+        //     [-96.58,  45.94],
+        //     [-104.03, 45.94],
+        //     [-104.05, 48.99]
+        // ]]
+
         if (Auth::id() === env('RID')) {
             $routes = DB::table('debuging_routes')
             ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
@@ -82,6 +90,33 @@ class TrackingController extends Controller {
             ->whereBetween('created_at', [$from, $to])
             ->orderBy('created_at','asc')
             ->get();
+            $geoGate = DB::table('v_device_geo_mlff_declare')
+            ->where('ftdevice_id','=',$did)
+            ->whereBetween('fddeclaration', [$from, $to])
+            ->orWhere('ftdevice_id','=',$did)
+            ->whereBetween('fddeclaration', [$from, $to])
+            ->orderBy('fddeclaration','asc')
+            ->get();
+            foreach ($geoGate as $a_value) {
+                $tmpPoint = [];
+                $tmpLastPoint = null;
+                $resDecM = DB::table('x_geo_mlff_declare_det')
+                // ->where('x_geo_declare_id','=',$a_value->uuid_x_geo_mlff_id)
+                ->where('x_geo_mlff_declare_id','=',$a_value->uuid_x_geo_mlff_id)
+                ->orderBy('fnchkpoint','asc')
+                ->orderBy('fnindex','asc')
+                ->get();
+                foreach ($resDecM as $b_value) {
+                    if ($b_value->fnindex == 0) {
+                        $tmpLastPoint = [$b_value->fflon,$b_value->fflat];
+                    }
+                    $tmpPoint[$b_value->fnindex] = [$b_value->fflon,$b_value->fflat];
+                }
+                if ($tmpLastPoint) {
+                    $tmpPoint[count($tmpPoint) - 1] = $tmpLastPoint;
+                }
+                $a_value->polygon = $tmpPoint;
+            }
         }else{
             $routes = DB::table('debuging_routes')
             ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
@@ -95,10 +130,12 @@ class TrackingController extends Controller {
             ->whereBetween('created_at', [$from, $to])
             ->orderBy('created_at','asc')
             ->get();
+            $geoGate = [];
         }
 
         return response()->json([
             'data' => $routes,
+            'geo_gate' => $geoGate
         ], 200);
     }
 

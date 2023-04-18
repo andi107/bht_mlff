@@ -110,3 +110,11 @@ select
 	xd.*,us.ftfirst_name || ' ' || us.ftlast_name ::text as ownership
 from x_devices xd left join users us
  on (xd.uuid_customer_id = us.uid)
+ --
+CREATE OR REPLACE VIEW public.v_geo_mlff_history
+ AS
+select
+	mh.id,mh.ftdevice_id,mh.fddeclaration,mh.fbdeclaration,mh.uuid_x_geo_mlff_id,
+	vgmd.ftname,vgmd.ftsection,vgmd.fflat as gate_lat,vgmd.fflon as gate_lon,vgmd.ftpayment_type
+from mlff_history mh left join v_geo_mlff_declare vgmd
+	on (mh.uuid_x_geo_mlff_id = vgmd.id)

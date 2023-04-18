@@ -60,7 +60,7 @@ map = L.map('trackingmap', {
 
 var _tileLayer = L.tileLayer(window.mapLayer);
 _tileLayer.addTo(map);
-var lRelay,layer_line_relay, _lRelay = [],_lRelayLine = [];
+var lRelay,layer_line_relay, _lRelay = [],_lRelayLine = [], layer_polyGates, _lPolyGate = [];
 $('#formMapTrack').submit(function (e) {
     e.preventDefault();
     device_id = $("input[name=device_id]").val();
@@ -101,10 +101,30 @@ $('#formMapTrack').submit(function (e) {
             //     window.dtHumanParse(v.created_at)
             // ]).draw(true);
         });
+        $.each(res.relay.geo_gate, function (k, v) {
+            // console.log(v.polygon)
+            _lPolyGate.push({
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "Polygon",
+                    // "coordinates": [[
+                    //     [-104.05, 48.99],
+                    //     [-97.22,  48.98],
+                    //     [-96.58,  45.94],
+                    //     [-104.03, 45.94],
+                    //     [-104.05, 48.99]
+                    // ]]
+                    "coordinates": [v.polygon]
+                }
+            })
+            // console.log(_lPolyGate)
+        });
         if ( res.relay.data.length != 0) {
             pointing();
             pointLines();
             startReplay();
+            polyGates();
         }else{
             toastr.info('Vehicle tracking not found.', 'Information');
         }
@@ -248,6 +268,58 @@ function pointLines() {
     // console.log(layer_line_relay)
     // bounds_group.addLayer(layer_line_relay);
     map.addLayer(layer_line_relay);
+}
+
+function polyGates() {
+    var json_polyGates = {
+        type: "FeatureCollection",
+        name: "polyGates",
+        features: _lPolyGate
+        // features: [
+        //     {
+        //         type: "Feature",
+        //         properties: {},
+        //         geometry: {
+        //             type: "Polygon",
+        //             "coordinates": [[
+        //                 [-104.05, 48.99],
+        //                 [-97.22,  48.98],
+        //                 [-96.58,  45.94],
+        //                 [-104.03, 45.94],
+        //                 [-104.05, 48.99]
+        //             ]]
+        //             // coordinates: _lPolyGate,
+        //         },
+        //     },
+        // ]
+    }
+
+    function style_polyGates (feature) {
+        return {
+            pane: 'pane_polyGates',
+            opacity: 1,
+            color: '#8F43EE',
+            dashArray: '',
+            lineCap: 'square',
+            lineJoin: 'bevel',
+            weight: 2,
+            fillOpacity: 0,
+            interactive: true,
+        }
+    }
+
+    map.createPane('pane_polyGates');
+    map.getPane('pane_polyGates').style.zIndex = 401;
+    map.getPane('pane_polyGates').style['mix-blend-mode'] = 'normal';
+    layer_polyGates = new L.geoJson(json_polyGates, {
+        attribution: '',
+        interactive: true,
+        dataVar: 'json_polyGates',
+        layerName: 'layer_polyGates',
+        pane: 'pane_polyGates',
+        style: style_polyGates,
+    });
+    map.addLayer(layer_polyGates);
 }
 // End Of Line
 
