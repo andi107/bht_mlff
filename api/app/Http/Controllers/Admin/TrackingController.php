@@ -79,7 +79,7 @@ class TrackingController extends Controller {
         //     [-104.05, 48.99]
         // ]]
 
-        if (Auth::id() === env('RID')) {
+        // if (Auth::id() === env('RID')) {
             $routes = DB::table('debuging_routes')
             ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
             ->where('ftdevice_id','=',$did)
@@ -90,20 +90,20 @@ class TrackingController extends Controller {
             ->whereBetween('created_at', [$from, $to])
             ->orderBy('created_at','asc')
             ->get();
-        }else{
-            $routes = DB::table('debuging_routes')
-            ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
-            ->where('ftdevice_id','=',$did)
-            ->where('fttype','=', 'R1')
-            ->where('uuid_customer_id','=',Auth::id())
-            ->whereBetween('created_at', [$from, $to])
-            ->orWhere('ftdevice_id','=',$did)
-            ->where('fttype','=', '2F')
-            ->where('uuid_customer_id','=',Auth::id())
-            ->whereBetween('created_at', [$from, $to])
-            ->orderBy('created_at','asc')
-            ->get();
-        }
+        // }else{
+        //     $routes = DB::table('debuging_routes')
+        //     ->selectRaw("id,ftdevice_id,fflat,fflon,fngeo_id,fngeo_chkpoint,created_at,fttype,ffaccuracy_cep,ffdirection,ffspeed,ffbattery,ffaltitude")
+        //     ->where('ftdevice_id','=',$did)
+        //     ->where('fttype','=', 'R1')
+        //     ->where('uuid_customer_id','=',Auth::id())
+        //     ->whereBetween('created_at', [$from, $to])
+        //     ->orWhere('ftdevice_id','=',$did)
+        //     ->where('fttype','=', '2F')
+        //     ->where('uuid_customer_id','=',Auth::id())
+        //     ->whereBetween('created_at', [$from, $to])
+        //     ->orderBy('created_at','asc')
+        //     ->get();
+        // }
 
         $geoGate = DB::table('v_device_geo_mlff_declare')
         ->where('ftdevice_id','=',$did)
