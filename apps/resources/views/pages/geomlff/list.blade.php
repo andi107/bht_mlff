@@ -27,6 +27,7 @@
                             <th>ID</th>
                             <th>Gate Name</th>
                             <th>Toll Section</th>
+                            <th>Declaration</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -87,7 +88,7 @@
             console.log(res)
             $.each(res.data, function(k, v) {
                 tblgeofence.row.add([
-                    v.id,v.ftname, v.ftsection
+                    v.id,v.ftname, v.ftsection,v.ftdeclaration_type
                 ]).draw(true);
             });
         });
