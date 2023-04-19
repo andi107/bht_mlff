@@ -7,7 +7,7 @@ const url = location.protocol + '//' + window.location.host;
 window.burl = url;
 window.iconUrl = url + '/assets/images/leaflet/marker-icon.png';
 window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
-window.gateUrl = url + '/assets/images/leaflet/access_gt.png';
+window.gateUrl = url + '/assets/images/leaflet/toll_gate.png';
 window.c_marker_top = url + "/assets/images/leaflet/yellow-car-top.png";
 window.c_marker_top_cfg = [
     [20, 30], //iconsize

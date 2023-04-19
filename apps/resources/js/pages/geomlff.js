@@ -261,7 +261,7 @@ function _markerGate(gate_id) {
             icon : L.icon({
                 iconUrl: window.gateUrl,
                 iconSize:     [30, 30],
-                iconAnchor:   [16, 25],
+                iconAnchor:   [8, 25],
                 popupAnchor:  [0, -20]
             })
         },
@@ -279,9 +279,10 @@ function _markerGate(gate_id) {
 }
 
 $.get(url + `/geomlff/js/detail/${geoid}/point`, function(res) {
-    console.log(res.dataHead)
     var v = res.dataHead;
-    _markerGate(v.uuid_x_gate_point_id);
+    if (res.dataHead) {
+        _markerGate(v.uuid_x_gate_point_id);
+    }
     var _tmpPoint = [];
     $.each(res.dataPoint, function(k,v) {
         isEdit = 1;

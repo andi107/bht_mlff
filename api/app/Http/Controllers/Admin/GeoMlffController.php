@@ -43,7 +43,9 @@ class GeoMlffController extends Controller {
             ->first();
             $chkGateExist = DB::table('x_geo_mlff_declare')
             ->where('uuid_x_gate_point_id','=', $gate_id)
+            ->where('fntype','=', $geo_type)
             ->first();
+            
             if (!$chkGate) {
                 DB::rollback();
                 return response()->json([
@@ -52,7 +54,7 @@ class GeoMlffController extends Controller {
             }else if ($chkGateExist) {
                 DB::rollback();
                 return response()->json([
-                    'error' => 'Gate already exist.',
+                    'error' => 'Entry Gate already exist.',
                 ], 404);
             }
 
@@ -101,14 +103,14 @@ class GeoMlffController extends Controller {
             'id' => 'required',
             // 'geo_name' => 'required|max:100',
             // 'geo_address' => 'required|max:255',
-            'geo_type' => 'required|numeric',
+            // 'geo_type' => 'required|numeric',
             'status' => 'required|numeric',
             'polygon_point' => 'required'
         ]);
         $id = $request->input('id');
         // $geo_name = $request->input('geo_name');
         // $geo_address = $request->input('geo_address');
-        $geo_type = $request->input('geo_type');
+        // $geo_type = $request->input('geo_type');
         $status = $request->input('status');
         
         DB::beginTransaction();
@@ -120,7 +122,7 @@ class GeoMlffController extends Controller {
             ->update([
                 // 'ftgeo_name' => $geo_name,
                 // 'ftaddress' => $geo_address,
-                'fntype' => $geo_type,
+                // 'fntype' => $geo_type,
                 'fnstatus' => $status,
                 'updated_at' => $dtnow
             ]);

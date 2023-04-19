@@ -103,5 +103,12 @@ $router->group([
     ], function() use($router) {
         $router->get('list','Admin\ImeiController@list');
     });
+
+    $router->group([
+        'prefix' => 'gate',
+        // 'middleware' => ['root']
+    ], function() use($router) {
+        $router->post('create','Admin\GateController@create');
+    });
 });
 

@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mlff_history', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('ftdevice_id');
-            $table->timestamp('fddeclaration');
-            $table->boolean('fbdeclaration');
-            $table->uuid('uuid_x_geo_mlff_id');
+        Schema::table('mlff_history', function($table) {
             $table->timestamp('fddeclaration_exit')->nullable();
             $table->uuid('uuid_x_geo_mlff_id_exit')->nullable();
             $table->index([
-                'id','fddeclaration','fbdeclaration','uuid_x_geo_mlff_id',
                 'fddeclaration_exit','uuid_x_geo_mlff_id_exit'
             ]);
         });
@@ -31,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mlff_history');
+        //
     }
 };
