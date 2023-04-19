@@ -105,7 +105,7 @@ class GeoMlffController extends Controller
         return view('pages.geomlff.form', [
             'cfg' => [
                 'id' => Str::uuid(),
-                'title' => 'Add Gate Location'
+                'title' => 'Add Toll Gate'
             ],
         ]);
     }
