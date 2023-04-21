@@ -1,1 +1,0 @@
-const e=window.burl,n=$("input[name=_deviceid]").val();var d=$("#tblmlfflist").DataTable({lengthChange:!1,order:[[0,"desc"]]});$.get(e+`/tracking/detail/js/mlff/${n}`,function(a){$.each(a.mlffHistoryData.data,function(i,t){d.row.add([window.dtHumanParse(t.fddeclaration),t.gate_name,t.ftsection,t.ftdeclaration_type,"-"]).draw(!0)})});

@@ -87,17 +87,25 @@ select
 From x_geo_mlff_declare xgmd left join x_gate_point xgp
 	ON (xgmd.uuid_x_gate_point_id = xgp.id);
 --
-
 CREATE OR REPLACE VIEW public.v_device_geo_mlff_declare
  AS
 select
-	mh.id,mh.ftdevice_id,mh.fddeclaration,mh.fbdeclaration,mh.uuid_x_geo_mlff_id,
-	vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type,
-	vgmd.fflat as gate_lat,vgmd.fflon as gate_lon
-From mlff_history mh left join v_geo_mlff_declare vgmd
-	on (mh.uuid_x_geo_mlff_id = vgmd.id)
-
-
+	a.*, vgmda.ftname as gate_exit_name,vgmda.ftsection as gate_exit_ftsection,vgmda.fflat as gate_exit_fflat,
+	vgmda.fflon as gate_exit_fflon, vgmda.ftpayment_type as gate_exit_ftpayment_type
+from (
+	select
+		mh.id,mh.ftdevice_id,mh.fddeclaration,
+		case mh.fbdeclaration 
+			when True then 'Progress'
+			else 'Complete'
+		end as declaration_status,
+		mh.uuid_x_geo_mlff_id,mh.fddeclaration_exit,mh.uuid_x_geo_mlff_id_exit,
+		vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type,
+		vgmd.fflat as gate_lat,vgmd.fflon as gate_lon
+	From mlff_history mh left join v_geo_mlff_declare vgmd
+		on (mh.uuid_x_geo_mlff_id = vgmd.id)
+) a left join v_geo_mlff_declare vgmda
+	on (a.uuid_x_geo_mlff_id_exit = vgmda.id);
 --
 CREATE OR REPLACE VIEW public.v_geo_declare_det
  AS

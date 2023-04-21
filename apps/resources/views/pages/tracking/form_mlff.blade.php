@@ -57,11 +57,13 @@
                                     <table class="table table-hover dataTable table-striped w-full" id="tblmlfflist">
                                         <thead>
                                             <tr>
-                                                <th>Detection Time</th>
-                                                <th>Gate Detection</th>
-                                                <th>Toll Section</th>
-                                                <th>Declaration</th>
-                                                <th>Charging</th>
+                                                <th>Entry Time</th>
+                                                <th>Entry Gate</th>
+                                                <th>Toll Sec. Entry</th>
+                                                <th>Exit Time</th>
+                                                <th>Exit Gate</th>
+                                                <th>Toll Sec. Exit</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
