@@ -63,6 +63,7 @@
                                                 <th>Exit Time</th>
                                                 <th>Exit Gate</th>
                                                 <th>Toll Sec. Exit</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

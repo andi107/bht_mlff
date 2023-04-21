@@ -11,7 +11,7 @@ var tblmlfflist = $('#tblmlfflist').DataTable({
         {
             // <button class="btn btn-info waves-effect waves-classic" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover" data-toggle="popover" data-original-title="Hover to trigger" tabindex="0" title="" type="button">Hover to trigger</button>
             targets: -1, 
-            "defaultContent": '<button class="btnedit btn btn-pure btn-primary icon md-edit waves-effect waves-classic"></button>'
+            "defaultContent": '<button class="btnview btn btn-pure btn-primary icon md-view waves-effect waves-classic">Log</button>'
         },
     ]
 });
@@ -23,7 +23,7 @@ var tblmlfflist = $('#tblmlfflist').DataTable({
 {/* <th>Toll Sec. Exit</th> */}
 {/* <th>Action</th> */}
 
-$('#tblmlfflist tbody').on( 'click', 'button.btnedit', function () {
+$('#tblmlfflist tbody').on( 'click', 'button.btnview', function () {
     var data = tblmlfflist.row($(this).parents('tr')).data(), sURL;
     console.log(data)
     // sURL = `{{ route('geomlff_detail', ':id') }}`;
@@ -40,7 +40,7 @@ $.get(url + `/tracking/detail/js/mlff/${device_id}`, function(res) {
             _secExit = v.gate_exit_ftsection;
         }
         tblmlfflist.row.add([
-            window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,_declareExit,_nameExit,_secExit
+            window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,_declareExit,_nameExit,_secExit,v.declaration_status
         ]).draw(true);
     });
 });
