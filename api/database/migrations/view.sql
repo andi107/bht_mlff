@@ -92,9 +92,11 @@ CREATE OR REPLACE VIEW public.v_device_geo_mlff_declare
  AS
 select
 	mh.id,mh.ftdevice_id,mh.fddeclaration,mh.fbdeclaration,mh.uuid_x_geo_mlff_id,
-	vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type
+	vgmd.ftdeclaration_type,vgmd.ftname as gate_name,vgmd.ftsection,vgmd.ftpayment_type,
+	vgmd.fflat as gate_lat,vgmd.fflon as gate_lon
 From mlff_history mh left join v_geo_mlff_declare vgmd
 	on (mh.uuid_x_geo_mlff_id = vgmd.id)
+
 
 --
 CREATE OR REPLACE VIEW public.v_geo_declare_det

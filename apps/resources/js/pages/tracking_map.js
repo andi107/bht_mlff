@@ -102,7 +102,7 @@ $('#formMapTrack').submit(function (e) {
             // ]).draw(true);
         });
         $.each(res.relay.geo_gate, function (k, v) {
-            // console.log(v.polygon)
+            // console.log(v)
             _lPolyGate.push({
                 "type": "Feature",
                 "properties": {},
@@ -116,6 +116,14 @@ $('#formMapTrack').submit(function (e) {
                     //     [-104.05, 48.99]
                     // ]]
                     "coordinates": [v.polygon]
+                }
+            })
+            _lPolyGate.push({
+                "type": "Feature",
+                "properties": v,
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [v.gate_lon, v.gate_lat]
                 }
             })
             // console.log(_lPolyGate)
@@ -275,23 +283,6 @@ function polyGates() {
         type: "FeatureCollection",
         name: "polyGates",
         features: _lPolyGate
-        // features: [
-        //     {
-        //         type: "Feature",
-        //         properties: {},
-        //         geometry: {
-        //             type: "Polygon",
-        //             "coordinates": [[
-        //                 [-104.05, 48.99],
-        //                 [-97.22,  48.98],
-        //                 [-96.58,  45.94],
-        //                 [-104.03, 45.94],
-        //                 [-104.05, 48.99]
-        //             ]]
-        //             // coordinates: _lPolyGate,
-        //         },
-        //     },
-        // ]
     }
 
     function style_polyGates (feature) {
@@ -318,10 +309,27 @@ function polyGates() {
         layerName: 'layer_polyGates',
         pane: 'pane_polyGates',
         style: style_polyGates,
+        pointToLayer: function(v, latlng) {
+            console.log(v);
+            return window._newMarker(latlng, {
+                icon : L.icon({
+                    iconUrl: window.gateUrl,
+                    iconSize:     [30, 30],
+                    iconAnchor:   [8, 25],
+                    popupAnchor:  [0, -20]
+                })
+            },v.properties.gate_name,
+            `<h3 class="h6 text-center d-block text-uppercase font-weight-bold">INFO</h3><span class="bottom-line d-block mx-auto mt-3 mb-4"></span>` +
+            `<div class="row my-2 mx-auto"><div class="col text-right border-right border-dark">` +
+            `GATE NAME</div><div class="col-7 pl-4">${v.properties.gate_name}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">` +
+            `SECTION</div><div class="col-7 pl-4">${v.properties.ftsection}</div></div><div class="row my-2 mx-auto"><div class="col-5 text-right border-right border-dark">`+
+            `DECLARE</div><div class="col-7 pl-4">${v.properties.ftdeclaration_type}</div></div>`)
+        },
     });
     map.addLayer(layer_polyGates);
 }
 // End Of Line
+
 
 function between(x, min, max) {
     return x >= min && x <= max;
