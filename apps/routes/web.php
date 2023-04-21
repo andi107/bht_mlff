@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TollRouteController;
 use App\Http\Controllers\Admin\DevToolsController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Info\DataController;
+use App\Http\Controllers\Admin\GateSectionController;
 
 Route::get('/', function() {
     return Redirect::to(route('dashboard'));
@@ -141,6 +142,14 @@ Route::group(['middleware' => 'chk'], function () {
             Route::get('list','list')->name('customer_list');
             Route::get('add','create')->name('customer_create_index');
             Route::get('d/{uid}','detail')->name('customer_detail');
+        });
+    });
+    Route::controller(GateSectionController::class)->group(function () {
+        Route::group([
+            'prefix' => 'gate',
+        ], function() {
+            Route::post('add/js','create_update')->name('gate_cu');
+            Route::get('add','formindex')->name('gate_create');
         });
     });
 });

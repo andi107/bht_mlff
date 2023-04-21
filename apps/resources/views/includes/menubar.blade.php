@@ -97,7 +97,7 @@
                     </ul>
                 </li>
                 @if (Cookie::get('USRID') == '72252c8a-8947-4300-b933-90609c37a55d')
-                    @if (\Hlp::chkActive(route('geomlff_create_index')) || \Hlp::chkActive(route('geomlff_list')))
+                    @if (\Hlp::chkActive(route('geomlff_create_index')) || \Hlp::chkActive(route('geomlff_list')) || \Hlp::chkActive(route('gate_create')))
                         <li class="site-menu-item has-sub active open">
                     @else
                         <li class="site-menu-item has-sub">
@@ -113,13 +113,13 @@
                                     <span class="site-menu-title">Gate List</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
-                                <a class="animsition-link" href="{{ route('geomlff_create_index') }}">
+                            <li class="site-menu-item {{ \Hlp::chkActive(route('gate_create')) }}">
+                                <a class="animsition-link" href="{{ route('gate_create') }}">
                                     <span class="site-menu-title">Add Toll Gate</span>
                                 </a>
                             </li>
-                            <li class="site-menu-item">
-                                <a class="animsition-link" href="#">
+                            <li class="site-menu-item {{ \Hlp::chkActive(route('geomlff_create_index')) }}">
+                                <a class="animsition-link" href="{{ route('geomlff_create_index') }}">
                                     <span class="site-menu-title">Add Gate Declaration</span>
                                 </a>
                             </li>

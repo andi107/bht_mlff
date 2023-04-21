@@ -23,6 +23,7 @@ export default defineConfig({
                 'resources/js/pages/toll_map.js',
                 'resources/js/pages/tracking_mlff.js',
                 'resources/js/pages/customer.js',
+                'resources/js/pages/tollgate.js',
             ],
             refresh: true,
         }),

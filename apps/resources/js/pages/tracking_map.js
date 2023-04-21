@@ -310,7 +310,7 @@ function polyGates() {
         pane: 'pane_polyGates',
         style: style_polyGates,
         pointToLayer: function(v, latlng) {
-            console.log(v);
+            // console.log(v);
             return window._newMarker(latlng, {
                 icon : L.icon({
                     iconUrl: window.gateUrl,
