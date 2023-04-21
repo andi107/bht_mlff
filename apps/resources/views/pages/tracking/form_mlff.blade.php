@@ -57,6 +57,7 @@
                                     <table class="table table-hover dataTable table-striped w-full" id="tblmlfflist">
                                         <thead>
                                             <tr>
+                                                <th>#</th>
                                                 <th>Entry Time</th>
                                                 <th>Entry Gate</th>
                                                 <th>Toll Sec. Entry</th>

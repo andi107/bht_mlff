@@ -3,7 +3,7 @@ const device_id = $("input[name=_deviceid]").val();
 var tblmlfflist = $('#tblmlfflist').DataTable({
     "lengthChange": false,
     order: [
-        [0, 'desc']
+        [1, 'desc']
     ],
     scrollX: true,
     "columnDefs": [
@@ -40,7 +40,7 @@ $.get(url + `/tracking/detail/js/mlff/${device_id}`, function(res) {
             _secExit = v.gate_exit_ftsection;
         }
         tblmlfflist.row.add([
-            window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,_declareExit,_nameExit,_secExit,v.declaration_status
+            v.id,window.dtHumanParse(v.fddeclaration), v.gate_name ,v.ftsection,_declareExit,_nameExit,_secExit,v.declaration_status
         ]).draw(true);
     });
 });
