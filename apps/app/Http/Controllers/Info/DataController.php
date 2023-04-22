@@ -29,4 +29,11 @@ class DataController extends Controller
             'dataGeo' => $resGeo->data
         ], 200);
     }
+
+    public function gatezone_js() {
+        $resGeo = Hlp::apiGet('/info/gatezone');
+        return response()->json([
+            'data' => $resGeo->data,
+        ], 200);
+    }
 }

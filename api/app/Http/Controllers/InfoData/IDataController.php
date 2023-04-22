@@ -25,4 +25,31 @@ class IDataController extends Controller {
             'data' => $data
         ], 200);
     }
+
+    public function gate_polygon() {
+        $geoGate = DB::table('v_geo_mlff_declare')
+        ->get();
+        foreach ($geoGate as $a_value) {
+            $tmpPoint = [];
+            $tmpLastPoint = null;
+            $resDecM = DB::table('x_geo_mlff_declare_det')
+            ->where('x_geo_mlff_declare_id','=',$a_value->id)
+            ->orderBy('fnchkpoint','asc')
+            ->orderBy('fnindex','asc')
+            ->get();
+            foreach ($resDecM as $b_value) {
+                if ($b_value->fnindex == 0) {
+                    $tmpLastPoint = [$b_value->fflon,$b_value->fflat];
+                }
+                $tmpPoint[$b_value->fnindex] = [$b_value->fflon,$b_value->fflat];
+            }
+            if ($tmpLastPoint) {
+                $tmpPoint[count($tmpPoint) - 1] = $tmpLastPoint;
+            }
+            $a_value->polygon = $tmpPoint;
+        }
+        return response()->json([
+            'data' => $geoGate
+        ], 200);
+    }
 }

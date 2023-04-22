@@ -94,7 +94,7 @@ $router->group([
     ], function() use($router) {
         $router->get('geo/{geoid}', 'InfoData\IDataController@geo_information');
         $router->get('device/{deviceid}', 'InfoData\IDataController@device_information');
-        
+        $router->get('gatezone', 'InfoData\IDataController@gate_polygon');
     });
 
     $router->group([
