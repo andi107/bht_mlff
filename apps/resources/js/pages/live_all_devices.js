@@ -223,7 +223,7 @@ function polyGates(map) {
                 lineCap: 'square',
                 lineJoin: 'bevel',
                 weight: 2,
-                fillOpacity: 0,
+                fillOpacity: 1,
                 interactive: true,
             }
         }
