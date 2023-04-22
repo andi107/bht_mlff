@@ -171,4 +171,31 @@ class TrackingController extends Controller {
             'data' => $res,
         ], 200);
     }
+
+    public function tracking_mlff_declare_gate_log($mlff_history_id) {
+        $tmpPoint = [];
+        $tmpLastPoint = null;
+        $data = DB::table('v_device_geo_mlff_declare')
+        ->where('id','=',$mlff_history_id)
+        ->first();
+        if ($data) {
+            $routes = DB::table('debuging_routes')
+            ->where('ftmlff_history_id','=',$mlff_history_id)
+            ->get();
+            
+            foreach ($routes as $a_key => $a_value) {
+                // if ($a_key == 0) {
+                //     $tmpLastPoint = [$a_value->fflon,$a_value->fflat];
+                // }
+                $tmpPoint[$a_key] = [$a_value->fflon,$a_value->fflat];
+            }
+            // if ($tmpLastPoint) {
+            //     $tmpPoint[count($tmpPoint) - 1] = $tmpLastPoint;
+            // }
+        }
+        return response()->json([
+            'data' => $data,
+            'routes' => $tmpPoint
+        ], 200);
+    }
 }

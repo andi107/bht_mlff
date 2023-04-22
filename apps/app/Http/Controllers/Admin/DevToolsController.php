@@ -21,4 +21,8 @@ class DevToolsController extends Controller
     public function devices_live() {
         return view("pages.devtools.devices_live");
     }
+
+    public function tracking_map() {
+        return view("pages.devtools.tracking_map");
+    }
 }

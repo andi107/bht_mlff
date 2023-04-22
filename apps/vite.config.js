@@ -24,6 +24,7 @@ export default defineConfig({
                 'resources/js/pages/tracking_mlff.js',
                 'resources/js/pages/customer.js',
                 'resources/js/pages/tollgate.js',
+                'resources/js/pages/dev_tracking_map.js',
             ],
             refresh: true,
         }),

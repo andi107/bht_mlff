@@ -51,6 +51,7 @@ $router->group([
         $router->get('d/{device_id}/geo', 'Admin\TrackingController@tracking_geo');
         $router->get('d/map/relay', 'Admin\TrackingController@tracking_map');
         $router->get('d/mlff/log/{device_id}', 'Admin\TrackingController@tracking_mlff_declare_log');
+        $router->get('d/mlff/log/gate/{mlff_history_id}', 'Admin\TrackingController@tracking_mlff_declare_gate_log');
     });
 
     $router->group([

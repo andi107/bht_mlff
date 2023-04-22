@@ -42,6 +42,7 @@ Route::group(['middleware' => 'chk'], function () {
             Route::get('detail/js/map', 'detail_js_map')->name('tracking_map_js');
             Route::get('detail/js/geo/{device_id}', 'detail_js_geo')->name('tracking_geo_js');
             Route::get('detail/js/mlff/{device_id}', 'detail_mlff_history_js')->name('tracking_mlff_history_js');
+            Route::get('detail/js/mlff/log/{mlff_history_id}', 'detail_mlff_history_log_js')->name('tracking_mlff_history_log_js');
             
             Route::get('list', 'list')->name('tracking_list');
             Route::get('detail/{deviceid}/status', 'detail_status')->name('tracking_status');
@@ -120,6 +121,7 @@ Route::group(['middleware' => 'chk'], function () {
             
             Route::get('/','index')->name('dev_src_monitor');
             Route::get('monitor/devices','devices_live')->name('devices_live');
+            Route::get('tracking/map','tracking_map')->name('dev_tracking_map');
         });
     });
     Route::controller(DataController::class)->group(function () {

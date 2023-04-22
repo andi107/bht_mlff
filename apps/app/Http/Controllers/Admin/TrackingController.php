@@ -109,4 +109,11 @@ class TrackingController extends Controller
             'mlffHistoryData' => $resDvMLFFHistory
         ], 200);
     }
+
+    public function detail_mlff_history_log_js($mlff_history_id) {
+        $data = Hlp::apiGet('/tracking/d/mlff/log/gate/'.$mlff_history_id);
+        return response()->json([
+            'data' => $data
+        ], 200);
+    }
 }

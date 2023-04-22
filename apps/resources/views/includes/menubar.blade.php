@@ -140,6 +140,12 @@
                         <span class="site-menu-title">Live All Devices</span>
                     </a>
                 </li>
+                <li class="site-menu-item {{ \Hlp::chkActive(route('dev_tracking_map')) }}">
+                    <a class="animsition-link" href="{{ route('dev_tracking_map') }}">
+                        <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                        <span class="site-menu-title">Tracking Map</span>
+                    </a>
+                </li>
                 @endif
             </ul>
             {{-- <div class="site-menubar-section">

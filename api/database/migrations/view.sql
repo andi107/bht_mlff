@@ -91,7 +91,7 @@ CREATE OR REPLACE VIEW public.v_device_geo_mlff_declare
  AS
 select
 	a.*, vgmda.ftname as gate_exit_name,vgmda.ftsection as gate_exit_ftsection,vgmda.fflat as gate_exit_fflat,
-	vgmda.fflon as gate_exit_fflon, vgmda.ftpayment_type as gate_exit_ftpayment_type
+	vgmda.fflon as gate_exit_fflon, vgmda.ftpayment_type as gate_exit_ftpayment_type,vgmda.ftdeclaration_type as ftdeclaration_exit
 from (
 	select
 		mh.id,mh.ftdevice_id,mh.fddeclaration,
