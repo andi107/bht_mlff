@@ -53,10 +53,21 @@ class IDataController extends Controller {
         ], 200);
     }
 
-    public function toll_section_point() {
-        $data = DB::table('x_geo_toll_route_det')
-        ->selectRaw('fflon,fflat')
-        ->get();
+    public function toll_section_point(Request $request) {
+
+        $latlng = explode(',',$request->input('latlng'));
+        
+        $lat = (float)$latlng[0];
+        $lon = (float)$latlng[1];
+        $_tollSection = DB::select("select fflat,fflon from ( 
+        SELECT fflat,fflon, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( fflat ) ) * cos( radians( fflon ) - radians(".$lon.") ) + sin( radians(".$lat.") ) * sin( radians( fflat )))) 
+        AS distance FROM x_geo_toll_route_det) al where distance < 5 ORDER BY distance asc");
+        return response()->json([
+            'data' => $_tollSection
+        ],200);
+        // $data = DB::table('x_geo_toll_route_det')
+        // ->selectRaw('fflon,fflat')
+        // ->get();
         // $data = [];
         // foreach (DB::table('x_geo_toll_route_det')->get() as $a_key => $a_value) {
         //     // {
@@ -73,8 +84,6 @@ class IDataController extends Controller {
         //         ]
         //     ];
         // }
-        return response()->json([
-            'data' => $data
-        ],200);
+        
     }
 }

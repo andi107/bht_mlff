@@ -30,17 +30,5 @@ class DataController extends Controller
         ], 200);
     }
 
-    public function gatezone_js() {
-        $resGeo = Hlp::apiGet('/info/gatezone');
-        return response()->json([
-            'data' => $resGeo->data,
-        ], 200);
-    }
-
-    public function tollsectionpoint_js() {
-        $data = Hlp::apiGet('/info/tollsectionpoint');
-        return response()->json([
-            'data' => $data->data,
-        ], 200);
-    }
+    
 }

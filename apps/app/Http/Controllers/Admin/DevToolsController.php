@@ -13,6 +13,20 @@ class DevToolsController extends Controller
             'data' => $res,
         ]);
     }
+
+    public function gatezone_js() {
+        $resGeo = Hlp::apiGet('/info/gatezone');
+        return response()->json([
+            'data' => $resGeo->data,
+        ], 200);
+    }
+
+    public function tollsectionpoint_js(Request $request) {
+        $data = Hlp::apiGet('/info/tollsectionpoint?latlng=' . $request->input('latlng'));
+        return response()->json([
+            'data' => $data->data,
+        ], 200);
+    }
     
     public function index() {
         return view("pages.devtools.resource_monitor");

@@ -11,7 +11,7 @@ var map = L.map('devicesmap', {
     fullscreenControl: true,
 }).setView([
     0.33995192349439596, 120.3733680354565
-], 5), myFGMarker = new L.FeatureGroup(), markers = {},
+], 5), myFGMarker = new L.FeatureGroup(), markers = {},_lSection =[], lSection,
 myIcon = function (iUrl) {
     return L.icon({
         iconUrl: iUrl,
@@ -21,7 +21,7 @@ myIcon = function (iUrl) {
     })
 },randHexColor = function() {
     return Math.floor(Math.random()*16777215).toString(16);
-},_lGate = [],layer_polyGates,_lPolyGate = [],_lSection = [], lSection;
+},_lGate = [],layer_polyGates,_lPolyGate = [];
 
 var _tileLayer = L.tileLayer(window.mapLayer, {
     attribution: '',
@@ -105,7 +105,7 @@ function startRecord() {
     });
 }
 
-$.get(url + "/info/js/gate/zone", function (res) {
+$.get(url + "/devtools/js/gate/zone", function (res) {
     $.each(res.data, function (k, v) {
         _lGate.push({
             type: "Feature",
@@ -142,21 +142,32 @@ $.get(url + "/info/js/gate/zone", function (res) {
     }
 });
 
-$.get(`${url}/info/js/tollsectionpoint`, function (res) {
-    // console.log(res.data)
-    $.each(res.data, function (k,v) {
-        console.log(v.fflon,v.fflat)
-        _lSection.push({
-            type: "Feature",
-            properties: {},
-            geometry: { type: "Point", coordinates: [parseFloat(v.fflon), parseFloat(v.fflat)] },
-        });
-    })
-    // pointing_section(map,res.data)
-    if (res.data.length != 0) {
-        pointing_section(map);
+var circleScan;
+map.on('click',function(e){
+    _lSection = [];
+    var lat = e.latlng.lat,
+    lon = e.latlng.lng;
+    if (circleScan) {
+        map.removeLayer(circleScan);
     }
-});
+    // _tmpMarker = window._newMarker({lat: lat,lng: lon}).addTo(map);
+    circleScan = L.circle([lat,lon], 10000).addTo(map);
+    $.get(`${url}/devtools/js/tollsectionpoint?latlng=${lat},${lon}`, function (res) {
+        $.each(res.data, function (k,v) {
+            
+            _lSection.push({
+                type: "Feature",
+                properties: {},
+                geometry: { type: "Point", coordinates: [parseFloat(v.fflon), parseFloat(v.fflat)] },
+            });
+        })
+        
+        if (res.data.length != 0) {
+            
+            pointing_section(map);
+        }
+    });
+})
 
 function pointing(map) {
     var bounds_group = new L.featureGroup([]);
@@ -275,42 +286,26 @@ function polyGates(map) {
 }
 
 function pointing_section(map) {
-    // var bounds_group = new L.featureGroup([]);
     var jSection = {
         type: "FeatureCollection",
         name: "section",
-        // features: [
-        //     {
-        //         type: "Feature",
-        //         properties: {},
-        //         geometry: { type: "Point", coordinates: [110.534438333162598, -7.357956666866642] },
-        //     },{
-        //         type: "Feature",
-        //         properties: {},
-        //         geometry: { type: "Point", coordinates: [104.753213333728411, -3.060893333360582] },
-        //     },{
-        //         type: "Feature",
-        //         properties: {},
-        //         geometry: { type: "Point", coordinates: [104.722128333755677, -3.105534999840302] },
-        //     },
-        // ],
         features: _lSection
     };
     
     function style_Section() {
         return {
-            pane: 'pane_Relay',
+            pane: 'pane_Section',
             shape: 'circle',
-            radius: 4.0,
+            radius: 4,
             opacity: 1,
-            color: '#CF0A0A',
+            color: '#000000',
             dashArray: '',
             lineCap: 'butt',
             lineJoin: 'miter',
             weight: 1.0,
-            fill: true,
+            fill: false,
             fillOpacity: 1,
-            fillColor: '#FF0032',
+            fillColor: '#000000',
             interactive: true,
         }
     }
@@ -327,8 +322,14 @@ function pointing_section(map) {
         pane: 'pane_Section',
         // onEachFeature: pop_Section,
         pointToLayer: function (feature, latlng) {
-            
-            // console.log(feature,latlng)
+            // return window._newMarker(latlng, {
+            //     icon : L.icon({
+            //         iconUrl: window.gateUrl,
+            //         iconSize:     [30, 30],
+            //         iconAnchor:   [8, 25],
+            //         popupAnchor:  [0, -20]
+            //     })
+            // })
             return L.shapeMarker(latlng, style_Section());
         },
     });
