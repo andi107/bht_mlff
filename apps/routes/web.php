@@ -132,6 +132,7 @@ Route::group(['middleware' => 'chk'], function () {
             Route::get('js/device/{deviceid}','device_info_js')->name('device_info_js');
             Route::get('js/geonotif/{deviceid}/{geoid}','device_geonotif_js')->name('device_geonotif_js');
             Route::get('js/gate/zone','gatezone_js')->name('gatezone_js');
+            Route::get('js/tollsectionpoint','tollsectionpoint_js')->name('tollsectionpoint_js');
         });
     });
     Route::controller(CustomerController::class)->group(function () {

@@ -108,31 +108,6 @@ window.dtHumanParse = function (isDateTime) {
     return moment.utc(date.utc).zone(date.offset).format('YYYY-MM-DD HH:mm:ss');
 }
 
-var latitude = '-6.22609';
-var longitude = '106.833912';
-// isNaN(latitude[i])
-if (latitude < -127 || latitude > 75) {
-    console.log("Lat 1 not vaild.");
-}
-
-if (longitude < -127 || longitude > 75) {
-    console.log("Long 1 not vaild.");
-}
-
-var reg = new RegExp("^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$");
-
-
-if (reg.exec(latitude)) {
-    //do nothing
-} else {
-    console.log("LAt 2 not vaild.");
-}
-
-if (reg.exec(longitude)) {
-    //do nothing
-} else {
-    console.log("Long 2 not vaild.");
-}
 
 window._newMarker = function(latLng,customIcon = null,customToolTip = null, customPopUp = null) {
     var mkr;

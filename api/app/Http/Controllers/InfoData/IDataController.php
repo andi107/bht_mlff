@@ -52,4 +52,29 @@ class IDataController extends Controller {
             'data' => $geoGate
         ], 200);
     }
+
+    public function toll_section_point() {
+        $data = DB::table('x_geo_toll_route_det')
+        ->selectRaw('fflon,fflat')
+        ->get();
+        // $data = [];
+        // foreach (DB::table('x_geo_toll_route_det')->get() as $a_key => $a_value) {
+        //     // {
+        //     //     type: "Feature",
+        //     //     properties: {},
+        //     //     geometry: { type: "Point", coordinates: [110.534438333162598, -7.357956666866642] },
+        //     // }
+        //     $data[$a_key] = [
+        //         'type' => 'Feature',
+        //         // 'properties' => [],
+        //         'geometry' => [
+        //             'type' => 'Point',
+        //             'coordinates' => [(float)$a_value->fflon, (float)$a_value->fflat]
+        //         ]
+        //     ];
+        // }
+        return response()->json([
+            'data' => $data
+        ],200);
+    }
 }

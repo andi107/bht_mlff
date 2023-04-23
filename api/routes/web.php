@@ -96,6 +96,7 @@ $router->group([
         $router->get('geo/{geoid}', 'InfoData\IDataController@geo_information');
         $router->get('device/{deviceid}', 'InfoData\IDataController@device_information');
         $router->get('gatezone', 'InfoData\IDataController@gate_polygon');
+        $router->get('tollsectionpoint', 'InfoData\IDataController@toll_section_point');
     });
 
     $router->group([

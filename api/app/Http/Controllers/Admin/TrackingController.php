@@ -181,13 +181,14 @@ class TrackingController extends Controller {
         if ($data) {
             $routes = DB::table('debuging_routes')
             ->where('ftmlff_history_id','=',$mlff_history_id)
+            ->orderBy('created_at','asc')
             ->get();
             
             foreach ($routes as $a_key => $a_value) {
                 // if ($a_key == 0) {
                 //     $tmpLastPoint = [$a_value->fflon,$a_value->fflat];
                 // }
-                $tmpPoint[$a_key] = [$a_value->fflon,$a_value->fflat];
+                $tmpPoint[$a_key] = [(float)$a_value->fflon,(float)$a_value->fflat];
             }
             // if ($tmpLastPoint) {
             //     $tmpPoint[count($tmpPoint) - 1] = $tmpLastPoint;

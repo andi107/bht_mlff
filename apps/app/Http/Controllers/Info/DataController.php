@@ -36,4 +36,11 @@ class DataController extends Controller
             'data' => $resGeo->data,
         ], 200);
     }
+
+    public function tollsectionpoint_js() {
+        $data = Hlp::apiGet('/info/tollsectionpoint');
+        return response()->json([
+            'data' => $data->data,
+        ], 200);
+    }
 }

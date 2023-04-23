@@ -1,8 +1,8 @@
 import DriftMarker from "leaflet-drift-marker";
 import "leaflet-rotatedmarker";
+import 'leaflet-svg-shape-markers';
 const url = window.burl;
-// const iconUrl = "/assets/images/leaflet/yellow-car40px.png";
-// const iconTop = "/assets/images/leaflet/yellow-car-top.png";
+
 const sio = window.sio;
 const gateIcon = '/assets/images/leaflet/toll_gate.png';
 var map = L.map('devicesmap', {
@@ -21,7 +21,7 @@ myIcon = function (iUrl) {
     })
 },randHexColor = function() {
     return Math.floor(Math.random()*16777215).toString(16);
-},_lGate = [],layer_polyGates,_lPolyGate = [];
+},_lGate = [],layer_polyGates,_lPolyGate = [],_lSection = [], lSection;
 
 var _tileLayer = L.tileLayer(window.mapLayer, {
     attribution: '',
@@ -105,9 +105,7 @@ function startRecord() {
     });
 }
 
-
 $.get(url + "/info/js/gate/zone", function (res) {
-    console.log(res)
     $.each(res.data, function (k, v) {
         _lGate.push({
             type: "Feature",
@@ -132,14 +130,31 @@ $.get(url + "/info/js/gate/zone", function (res) {
                 "type": "Polygon",
                 "coordinates": [v.polygon]
             }
-        })
+        });
     });
     
     if ( res.data.length != 0) {
         pointing(map);
-        polyGates(map)
+        polyGates(map);
+        
     }else{
         console.log('No Data')
+    }
+});
+
+$.get(`${url}/info/js/tollsectionpoint`, function (res) {
+    // console.log(res.data)
+    $.each(res.data, function (k,v) {
+        console.log(v.fflon,v.fflat)
+        _lSection.push({
+            type: "Feature",
+            properties: {},
+            geometry: { type: "Point", coordinates: [parseFloat(v.fflon), parseFloat(v.fflat)] },
+        });
+    })
+    // pointing_section(map,res.data)
+    if (res.data.length != 0) {
+        pointing_section(map);
     }
 });
 
@@ -257,4 +272,65 @@ function polyGates(map) {
         },
     });
     map.addLayer(layer_polyGates);
+}
+
+function pointing_section(map) {
+    // var bounds_group = new L.featureGroup([]);
+    var jSection = {
+        type: "FeatureCollection",
+        name: "section",
+        // features: [
+        //     {
+        //         type: "Feature",
+        //         properties: {},
+        //         geometry: { type: "Point", coordinates: [110.534438333162598, -7.357956666866642] },
+        //     },{
+        //         type: "Feature",
+        //         properties: {},
+        //         geometry: { type: "Point", coordinates: [104.753213333728411, -3.060893333360582] },
+        //     },{
+        //         type: "Feature",
+        //         properties: {},
+        //         geometry: { type: "Point", coordinates: [104.722128333755677, -3.105534999840302] },
+        //     },
+        // ],
+        features: _lSection
+    };
+    
+    function style_Section() {
+        return {
+            pane: 'pane_Relay',
+            shape: 'circle',
+            radius: 4.0,
+            opacity: 1,
+            color: '#CF0A0A',
+            dashArray: '',
+            lineCap: 'butt',
+            lineJoin: 'miter',
+            weight: 1.0,
+            fill: true,
+            fillOpacity: 1,
+            fillColor: '#FF0032',
+            interactive: true,
+        }
+    }
+
+    
+    map.createPane('pane_Section');
+    map.getPane('pane_Section').style.zIndex = 402;
+    map.getPane('pane_Section').style['mix-blend-mode'] = 'normal';
+    lSection = new L.geoJson(jSection, {
+        attribution: '',
+        interactive: true,
+        dataVar: 'jSection',
+        layerName: 'lSection',
+        pane: 'pane_Section',
+        // onEachFeature: pop_Section,
+        pointToLayer: function (feature, latlng) {
+            
+            // console.log(feature,latlng)
+            return L.shapeMarker(latlng, style_Section());
+        },
+    });
+    map.addLayer(lSection);
 }
