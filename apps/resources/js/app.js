@@ -10,7 +10,7 @@ window.shadowUrl = url + '/assets/images/leaflet/marker-shadow.png';
 window.gateUrl = url + '/assets/images/leaflet/toll_gate.png';
 window.c_marker_top = url + "/assets/images/leaflet/yellow-car-top.png";
 window.c_marker_top_cfg = [
-    [20, 30], //iconsize
+    [16, 30], //iconsize
     [12,16], //iconancor
     [0, -25] //popancor
 ]

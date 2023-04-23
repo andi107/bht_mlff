@@ -73,7 +73,7 @@ $('#modallog').on('hidden.bs.modal', function () {
     map.removeLayer(layer_line_relay);
     if (_mkrEntry) { map.removeLayer(_mkrEntry)};
     if (_mkrExit) { map.removeLayer(_mkrExit) };
-    
+    map.removeLayer(bounds_group);
     _lRelay = [];
 });
 
