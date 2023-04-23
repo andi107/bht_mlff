@@ -45,7 +45,8 @@ $.get(url + `/tracking/detail/js/mlff/${device_id}`, function(res) {
         ]).draw(true);
     });
 });
-var map, layer_line_relay,lRelay, _lRelay = [], bounds_group = new L.featureGroup([]);
+var map, layer_line_relay,lRelay, _lRelay = [], bounds_group = new L.featureGroup([]),
+_mkrEntry,_mkrExit;
 
 
 $('#modallog').on('shown.bs.modal', function () {
@@ -70,6 +71,9 @@ $('#modallog').on('shown.bs.modal', function () {
 
 $('#modallog').on('hidden.bs.modal', function () {
     map.removeLayer(layer_line_relay);
+    if (_mkrEntry) { map.removeLayer(_mkrEntry)};
+    if (_mkrExit) { map.removeLayer(_mkrExit) };
+    
     _lRelay = [];
 });
 
@@ -88,11 +92,11 @@ function pointLines(v,_lRelayLine) {
             },
         ]
     }
-
+    
     function style_line_relay (feature) {
         var v = feature.properties;
         
-        window._newMarker(
+        _mkrEntry = window._newMarker(
             {
                 lat: parseFloat(v.gate_lat), 
                 lng: parseFloat(v.gate_lon)
@@ -114,7 +118,7 @@ function pointLines(v,_lRelayLine) {
         ).addTo(map);
 
         if (v.fddeclaration_exit) {
-            window._newMarker(
+            _mkrExit = window._newMarker(
                 {
                     lat: parseFloat(v.gate_exit_fflat), 
                     lng: parseFloat(v.gate_exit_fflon)
