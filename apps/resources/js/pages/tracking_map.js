@@ -7,45 +7,45 @@ import "leaflet-rotatedmarker";
 
 import 'leaflet-svg-shape-markers';
 
-var tbllogsdet = $('#tbllogsdet').DataTable({
-    dom: 'Bfrtip',
-    buttons: [
-        {
-            extend: 'copy',
-            // messageTop: function () {
-            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
-            // }
-        },
-        {
-            extend: 'pdf',
-            // messageTop: function () {
-            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
-            // }
-        },
-        {
-            extend: 'print',
-            // messageTop: function () {
-            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
-            // }
-        },
-        {
-            extend: 'excel',
-            // messageTop: function () {
-            //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
-            // }
-        },
-    ],
-    scrollX: true,
-    order: [[0, 'desc']],
-    // "columnDefs": [
-    //     {
-    //         target: 0,
-    //         visible: false,
-    //         searchable: false,
-    //     },
-    // ],
-});
-$("#tbllogsdet").width("100%");
+// var tbllogsdet = $('#tbllogsdet').DataTable({
+//     dom: 'Bfrtip',
+//     buttons: [
+//         {
+//             extend: 'copy',
+//             // messageTop: function () {
+//             //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+//             // }
+//         },
+//         {
+//             extend: 'pdf',
+//             // messageTop: function () {
+//             //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+//             // }
+//         },
+//         {
+//             extend: 'print',
+//             // messageTop: function () {
+//             //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+//             // }
+//         },
+//         {
+//             extend: 'excel',
+//             // messageTop: function () {
+//             //     return rowTblLogsData[1] + ' to ' + rowTblLogsData[2];
+//             // }
+//         },
+//     ],
+//     scrollX: true,
+//     order: [[0, 'desc']],
+//     // "columnDefs": [
+//     //     {
+//     //         target: 0,
+//     //         visible: false,
+//     //         searchable: false,
+//     //     },
+//     // ],
+// });
+// $("#tbllogsdet").width("100%");
 
 // /tracking/detail/js/map?did=860371050882459&from=2023-02-10%2016:50:04&to=2023-02-22%2005:52:21
 // https://github.com/ewoken/Leaflet.MovingMarker
@@ -76,7 +76,7 @@ $('#formMapTrack').submit(function (e) {
         clearInterval(runObj);
     }
     
-    tbllogsdet.clear().draw();
+    // tbllogsdet.clear().draw();
     $.get(url + `/tracking/detail/js/map?did=${device_id}&from=${_dtfrom}&to=${_dtto}&humanTz=${window.dtHumanName()}`, function (res) {
         $.each(res.relay.data, function (k, v) {
             _lRelay.push({
@@ -384,7 +384,7 @@ function startReplay() {
             clearInterval(runObj);
             startReplay();
         }
-    }, 1000);
+    }, 500);
 }
 // Load Datatable
 
