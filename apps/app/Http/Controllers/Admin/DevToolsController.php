@@ -27,6 +27,13 @@ class DevToolsController extends Controller
             'data' => $data->data,
         ], 200);
     }
+
+    public function device_select_js() {
+        $res = Hlp::apiGet('/devtools/device_select');
+        return response()->json([
+            'devices' => $res->data
+        ], 200);
+    }
     
     public function index() {
         return view("pages.devtools.resource_monitor");

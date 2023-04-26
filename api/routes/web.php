@@ -112,5 +112,11 @@ $router->group([
     ], function() use($router) {
         $router->post('create','Admin\GateController@create');
     });
-});
 
+    $router->group([
+        'prefix' => 'devtools',
+        'middleware' => ['root']
+    ], function() use($router) {
+        $router->get('device_select','Admin\DevToolsController@device_select');
+    });
+});

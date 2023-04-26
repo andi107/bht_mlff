@@ -226,7 +226,7 @@ function pointing() {
     map.addLayer(lRelay);
     map.fitBounds(bounds_group.getBounds());
 }
-// End Of Point
+// End Of Relay Point
 
 // Line Relay
 function pointLines() {
