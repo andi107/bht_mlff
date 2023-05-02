@@ -160,11 +160,16 @@ class DeviceController extends Controller {
         $status = $request->input('status');
         DB::beginTransaction();
         try {
-
-            $exData = DB::table('x_devices')
-            ->where('ftdevice_id','=',$device_id)
-            ->where('uuid_customer_id','=', Auth::id())
-            ->first();
+            if (Auth::id() === env('RID')) {
+                $exData = DB::table('x_devices')
+                ->where('ftdevice_id','=',$device_id)
+                ->first();
+            }else{
+                $exData = DB::table('x_devices')
+                ->where('ftdevice_id','=',$device_id)
+                ->where('uuid_customer_id','=', Auth::id())
+                ->first();
+            }
             $exAssetData = DB::table('x_devices')
             ->where('ftdevice_id','<>',$device_id)
             ->where('ftasset_id','=',$asset_id)
