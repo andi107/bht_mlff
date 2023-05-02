@@ -133,26 +133,23 @@ CREATE OR REPLACE FUNCTION f_mlff_declaration()
   	RETURNS TRIGGER 
   	LANGUAGE PLPGSQL AS
 $$
-	--declare _toll_route_id text = '';
+	declare _dvc_history_id text = '';
 	declare _dvc_mlff_hostory_id text = '';
 BEGIN
-	--_toll_route_id:= concat(_toll_route_id, (
-	--	select x_geo_toll_route_id from ( 
-	--	SELECT x_geo_toll_route_id, ( 3959 * acos( cos( radians(NEW.fflat) ) * 
-	--	cos( radians( fflat ) ) * cos( radians( fflon ) - 
-	--	radians(NEW.fflon) ) + sin( radians(NEW.fflat) ) * sin( radians( fflat )))) 
-	--	AS distance FROM x_geo_toll_route_det) al where distance < 1 group by x_geo_toll_route_id,distance ORDER BY distance asc limit 1
-	--)::text);
-	
-	--if _toll_route_id <> '' THEN
-		_dvc_mlff_hostory_id:= concat(_dvc_mlff_hostory_id, (
-			SELECT uuid_geo_mlff_id FROM x_devices where ftdevice_id = NEW.ftdevice_id LIMIT 1
-		)::text);
-		if _dvc_mlff_hostory_id <> '' and _dvc_mlff_hostory_id <> '00000000-0000-0000-0000-000000000000' THEN
-			UPDATE debuging_routes set ftmlff_history_id = _dvc_mlff_hostory_id::uuid where id = NEW.id;
-		END IF;
-	--END IF;
+	_dvc_history_id:= concat(_dvc_history_id, (
+		SELECT uuid_geo_id from x_devices where ftdevice_id = NEW.ftdevice_id LIMIT 1
+	)::text);
+	IF _dvc_history_id <> '' AND _dvc_history_id <> '00000000-0000-0000-0000-000000000000' THEN
+		UPDATE debuging_routes set fngeo_id = _dvc_history_id::uuid where id = NEW.id;
+	END IF;
 
+	_dvc_mlff_hostory_id:= concat(_dvc_mlff_hostory_id, (
+		SELECT uuid_geo_mlff_id FROM x_devices where ftdevice_id = NEW.ftdevice_id LIMIT 1
+	)::text);
+	if _dvc_mlff_hostory_id <> '' and _dvc_mlff_hostory_id <> '00000000-0000-0000-0000-000000000000' THEN
+		UPDATE debuging_routes set ftmlff_history_id = _dvc_mlff_hostory_id::uuid where id = NEW.id;
+	END IF;
+	
 	RETURN NEW;
 END;
 $$

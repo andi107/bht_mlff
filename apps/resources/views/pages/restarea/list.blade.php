@@ -5,9 +5,9 @@
     @endpush
 
     <div class="page-header page-header-bordered">
-        <h1 class="page-title">Geo Location Listed</h1>
+        <h1 class="page-title">Rest Area Listed</h1>
         <div class="page-header-actions">
-            <a href="{{ route('geo_create_index') }}" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
+            <a href="{{ route('restarea_create_index') }}" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
                 <span class="text hidden-sm-down">Add New</span>
                 <i class="icon md-chevron-right" aria-hidden="true"></i>
             </a>
@@ -25,8 +25,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Geo Location Name</th>
-                            <th>Geo Location Address</th>
+                            <th>Rest Area Name</th>
+                            <th>Rest Area Address</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -64,13 +64,13 @@
         $('#tblgeofence tbody').on( 'click', 'button.btnedit', function () {
             var data = tblgeofence.row($(this).parents('tr')).data(), sURL;
             console.log(data)
-            sURL = `{{ route('geo_detail', ':id') }}`;
+            sURL = `{{ route('restarea_detail', ':id') }}`;
             window.location.href = sURL.replace(":id", data[0]);
         });
         $('#tblgeofence tbody').on( 'click', 'button.btndel', function () {
             var data = tblgeofence.row($(this).parents('tr')).data(), sURL;
             console.log(data)
-            sURL = `{{ route('geo_detail', ':id') }}`;
+            sURL = `{{ route('restarea_detail', ':id') }}`;
             // window.location.href = sURL.replace(":id", data[0]);
         });
         
@@ -83,7 +83,8 @@
         // updated_at
 
 
-        $.get("{{ route('geo_list_js') }}", function(res) {
+        $.get("{{ route('restarea_list_js') }}", function(res) {
+            console.log(res)
             $.each(res.data, function(k, v) {
                 tblgeofence.row.add([
                     v.id,v.ftgeo_name, v.ftaddress

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TrackingController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\GeoController;
 use App\Http\Controllers\Admin\GeoMlffController;
+use App\Http\Controllers\Admin\RestAreaController;
 use App\Http\Controllers\Admin\TollRouteController;
 use App\Http\Controllers\Admin\DevToolsController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -77,6 +78,20 @@ Route::group(['middleware' => 'chk'], function () {
             Route::get('list','list')->name('geo_list');
             Route::get('add', 'formindex')->name('geo_create_index');
             Route::get('detail/{geoid}', 'detail')->name('geo_detail');
+        });
+    });
+
+    Route::controller(RestAreaController::class)->group(function () {
+        Route::group([
+            'prefix' => 'restarea',
+        ], function() {
+            Route::get('js','list_js')->name('restarea_list_js');
+            Route::post('js/add','create_update')->name('restarea_create_update_js');
+            Route::get('js/detail/{geoid}/point','detail_point')->name('restarea_detail_point_js');
+            
+            Route::get('list','list')->name('restarea_list');
+            Route::get('add', 'formindex')->name('restarea_create_index');
+            Route::get('detail/{geoid}', 'detail')->name('restarea_detail');
         });
     });
 

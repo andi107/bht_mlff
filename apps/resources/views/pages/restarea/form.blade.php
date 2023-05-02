@@ -15,8 +15,8 @@
             Expand the area with approximately 10 meter on all sides to ensure we capture your asset in or out of this geozone.
         </p>
         <div class="page-header-actions">
-            <a href="{{ route('geo_list') }}" type="button" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
-                <span class="text hidden-sm-down">Geo List</span>
+            <a href="{{ route('restarea_list') }}" type="button" class="btn btn-sm btn-outline btn-primary btn-round waves-effect waves-classic">
+                <span class="text hidden-sm-down">Rest Area List</span>
                 <i class="icon md-chevron-right" aria-hidden="true"></i>
             </a>
         </div>
@@ -24,7 +24,7 @@
     <form method="POST" id="formGeo" enctype="multipart/form-data" autocomplete="off">
         @csrf
         <input type="hidden" name="_id" value="{{ $cfg['id'] }}">
-        <input type="hidden" name="_backurl" value="{{ route('geo_list') }}">
+        <input type="hidden" name="_backurl" value="{{ route('restarea_list') }}">
         <div class="container-fluid">
             <div class="page-content">
                 <div class="panel">
@@ -46,7 +46,7 @@
                                             <div class="col">
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">
                                                     <input type="text" class="form-control" name="txtName" required value="{{ isset($d) ? $d->ftgeo_name : '' }}" />
-                                                    <label class="floating-label">Geo Location Name</label>
+                                                    <label class="floating-label">Rest Area Name</label>
                                                 </div>
                                                 <div class="form-group form-material floating" data-plugin="formMaterial">
                                                     <textarea class="form-control" name="txtAddress" rows="3" required>{{ isset($d) ? $d->ftaddress : '' }}</textarea>
@@ -119,7 +119,7 @@
     <script src="{{ asset('leaflet/fullscreen/Leaflet.fullscreen.min.js')}}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     @vite([
-    'resources/js/pages/geo.js',
+    'resources/js/pages/restarea.js',
     ])
     @endpush
 </x-default>

@@ -65,6 +65,17 @@ $router->group([
     });
 
     $router->group([
+        'prefix' => 'restarea',
+        'middleware' => ['root']
+    ], function() use($router) {
+        $router->get('/', 'Admin\RestAreaController@list');
+        $router->post('/', 'Admin\RestAreaController@create');
+        $router->put('/', 'Admin\RestAreaController@update');
+        $router->get('d/{geoid}', 'Admin\RestAreaController@detail');
+        $router->get('d/{geoid}/point', 'Admin\RestAreaController@detail_point');
+    });
+
+    $router->group([
         'prefix' => 'geomlff',
         'middleware' => ['root']
     ], function() use($router) {

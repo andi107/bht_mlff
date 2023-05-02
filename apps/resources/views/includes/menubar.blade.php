@@ -125,7 +125,31 @@
                             </li>
                         </ul>
                     </li>
+                    @if (\Hlp::chkActive(route('restarea_create_index')) || \Hlp::chkActive(route('restarea_list')))
+                        <li class="site-menu-item has-sub active open">
+                    @else
+                        <li class="site-menu-item has-sub">
+                    @endif
+                        <a href="javascript:void(0)">
+                            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                            <span class="site-menu-title">Rest Area</span>
+                            <span class="site-menu-arrow"></span>
+                        </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item {{ \Hlp::chkActive(route('restarea_list')) }}">
+                                <a class="animsition-link" href="{{ route('restarea_list') }}">
+                                    <span class="site-menu-title">Rest Area List</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{ \Hlp::chkActive(route('restarea_create_index')) }}">
+                                <a class="animsition-link" href="{{ route('restarea_create_index') }}">
+                                    <span class="site-menu-title">Add Rest Area</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
+
                 @if (Cookie::get('USRID') == '72252c8a-8947-4300-b933-90609c37a55d')
                 <li class="site-menu-category">Engineer Tools</li>
                 <li class="site-menu-item {{ \Hlp::chkActive(route('dev_src_monitor')) }}">
