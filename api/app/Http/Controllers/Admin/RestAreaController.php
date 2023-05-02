@@ -15,18 +15,10 @@ class RestAreaController extends Controller {
     }
 
     public function list() {
-        if (Auth::id() === env('RID')) {
-            $data = DB::table('x_geo_declare')
-            ->where('fntype','=',0)
-            ->orderBy('created_at','desc')
-            ->get();
-        }else{
-            $data = DB::table('x_geo_declare')
-            ->where('uuid_customer_id','=', Auth::id())
-            ->where('fntype','=',0)
-            ->orderBy('created_at','desc')
-            ->get();
-        }
+        $data = DB::table('x_geo_declare')
+        ->where('fntype','=',0)
+        ->orderBy('created_at','desc')
+        ->get();
 
         return response()->json([
             'data' => $data,
@@ -59,7 +51,6 @@ class RestAreaController extends Controller {
                 'fnstatus' => $status,
                 'created_at' => $dtnow,
                 'updated_at' => $dtnow,
-                'uuid_customer_id' => Auth::id()
             ]);
 
             $polygon_point = json_decode($request->input('polygon_point'));
@@ -118,7 +109,6 @@ class RestAreaController extends Controller {
             }else{
                 DB::table('x_geo_declare')
                 ->where('id','=',$id)
-                ->where('uuid_customer_id', '=', Auth::id())
                 ->update([
                     'ftgeo_name' => $geo_name,
                     'ftaddress' => $geo_address,
@@ -159,18 +149,10 @@ class RestAreaController extends Controller {
     }
 
     public function detail($geoid) {
-        if (Auth::id() === env('RID')) {
-            $data = DB::table('x_geo_declare')
-            ->where('fntype','=',0)
-            ->where('id','=', $geoid)
-            ->first();
-        }else{
-            $data = DB::table('x_geo_declare')
-            ->where('id','=', $geoid)
-            ->where('uuid_customer_id','=',Auth::id())
-            ->where('fntype','=',0)
-            ->first();
-        }
+        $data = DB::table('x_geo_declare')
+        ->where('fntype','=',0)
+        ->where('id','=', $geoid)
+        ->first();
         
         return response()->json([
             'data' => $data
